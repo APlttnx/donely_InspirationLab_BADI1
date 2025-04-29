@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:donely_Inspilab"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="Page">
+            <Setter Property="Background" Value="#BAF2BB" />
+        </Style>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
