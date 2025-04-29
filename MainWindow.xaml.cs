@@ -21,5 +21,6 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         MainFrame.Navigate(new RegisterPage());
+        //test
     }
 }
