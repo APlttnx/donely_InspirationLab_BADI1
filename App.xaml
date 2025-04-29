@@ -7,23 +7,37 @@
         <Style TargetType="Page">
             <Setter Property="Background" Value="#BAF2BB" />
         </Style>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="#BAF2BB" />
+        </Style>
+        
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="Width" Value="300"/>
+            <Setter Property="MinWidth" Value="300"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
-        <Style TargetType="Button">
+        <Style TargetType="PasswordBox">
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="MinWidth" Value="300"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10,10,10,10"/>
             <Setter Property="Width" Value="150"/>
+            <Setter Property="FontSize" Value="24"/>
         </Style>
     </Application.Resources>
 </Application>

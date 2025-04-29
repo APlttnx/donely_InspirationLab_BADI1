@@ -20,7 +20,8 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        MainFrame.Navigate(new RegisterPage());
+        App.MainFrame = MainFrame;
+        MainFrame.Navigate(new WelcomePage()); //startpagina als de app opent
         //test
     }
 }

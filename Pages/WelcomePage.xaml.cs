@@ -1,4 +1,5 @@
-﻿using System;
+﻿using donely_Inspilab.Pages.auth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,19 @@ namespace donely_Inspilab.Pages
     /// <summary>
     /// Interaction logic for Welcome.xaml
     /// </summary>
-    public partial class Welcome : Page
+    public partial class WelcomePage : Page
     {
-        public Welcome()
+        public WelcomePage()
         {
             InitializeComponent();
+        }
+        private void ToRegisterPage(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(new RegisterPage());
+        }
+        private void ToLoginPage(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(new LoginPage());
         }
     }
 }

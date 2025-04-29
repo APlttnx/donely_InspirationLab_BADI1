@@ -15,14 +15,21 @@ using System.Windows.Shapes;
 
 namespace donely_Inspilab.Pages.auth
 {
-    /// <summary>
-    /// Interaction logic for Page1.xaml
-    /// </summary>
-    public partial class Page1 : Page
+
+    public partial class LoginPage : Page
     {
-        public Page1()
+        public LoginPage()
         {
             InitializeComponent();
         }
+        private void ReturnToWelcome(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(new WelcomePage());
+        }
+        private void btnLogin_click(object sender, RoutedEventArgs e)
+        {
+            App.MainFrame.Navigate(new HomePage());
+        }
+
     }
 }

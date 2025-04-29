@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:donely_Inspilab"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Donely_Development" Height="450" Width="800">
+    <Grid Background="#BAF2BB">
         <Frame Grid.Row="1" Name="MainFrame" Content="" NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0"/>
     </Grid>
 </Window>

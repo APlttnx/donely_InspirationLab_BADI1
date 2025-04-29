@@ -1,4 +1,4 @@
-﻿<Page x:Class="donely_Inspilab.Pages.RegisterPage"
+﻿<Page x:Class="donely_Inspilab.Pages.auth.RegisterPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegisterPage"
-      Background="white">
+      >
 
     <Grid Margin="15">
         <Grid.RowDefinitions>
@@ -26,6 +26,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="300"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Label Content="Name: *" Name="lblName" Grid.Row="0" Grid.Column="0"/>
@@ -35,9 +36,13 @@
         <Label Content="Telephone number: *" Name="lblTelNr" Grid.Row="2" Grid.Column="0"/>
         <TextBox Name="txtTelnr" Grid.Row="2" Grid.Column="1"/>
         <Label Content="Password: *" Name="lblPassword" Grid.Row="3" Grid.Column="0"/>
-        <TextBox Name="txtPassword" Grid.Row="3" Grid.Column="1"/>
+        <PasswordBox Name="txtPassword" Grid.Row="3" Grid.Column="1"/>
         <Label Content="Confirm Password: *" Name="lblConfirmPassword" Grid.Row="4" Grid.Column="0"/>
-        <TextBox Name="txtConfirmPassword" Grid.Row="4" Grid.Column="1"/>
-        <Button Content="Register" Name="btnRegister" Click="btnRegister_Click" Grid.Column="1"  HorizontalAlignment="Left" Height="40" Margin="436,178,0,0" Grid.Row="5" VerticalAlignment="Top" Width="130"/>
+        <PasswordBox Name="txtConfirmPassword" Grid.Row="4" Grid.Column="1"/>
+        <StackPanel Grid.Row="5"  Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Content="Register" Name="btnRegister" Click="btnRegister_click"/>
+            <Button Content="Return" Name="btnReturn" Click="ReturnToWelcome"/>
+        </StackPanel>
+
     </Grid>
 </Page>

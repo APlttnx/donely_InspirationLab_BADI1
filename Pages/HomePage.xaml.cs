@@ -18,9 +18,9 @@ namespace donely_Inspilab.Pages
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class HomePage : Page
     {
-        public Home()
+        public HomePage()
         {
             InitializeComponent();
         }

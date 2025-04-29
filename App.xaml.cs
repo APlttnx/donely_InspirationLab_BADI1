@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace donely_Inspilab;
 
@@ -9,5 +10,7 @@ namespace donely_Inspilab;
 /// </summary>
 public partial class App : Application
 {
+    public static Frame MainFrame { get; set; }
 }
+
 
