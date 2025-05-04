@@ -39,7 +39,8 @@ namespace donely_Inspilab.Pages.auth
                 int affectedRows = database.InsertUser(newUser);
                 if (affectedRows == 1)
                 {
-                    MessageBox.Show(@"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
+                    MessageBox.Show($"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
+                    //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
                     App.MainFrame.Navigate(new LoginPage());
                 }
 
@@ -48,15 +49,6 @@ namespace donely_Inspilab.Pages.auth
             {
                 MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); //momenteel als MessageBox, kan later nog veranderen naar een label ofzo
             }
-
-
-
-            
-            
-
-            //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
-
-
         }
 
         private void ReturnToWelcome(object sender, RoutedEventArgs e)
