@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace donely_Inspilab.Classes
+namespace donely_Inspilab.Enum
 {
-    class DataAccess
+    class UserRole
     {
     }
 }

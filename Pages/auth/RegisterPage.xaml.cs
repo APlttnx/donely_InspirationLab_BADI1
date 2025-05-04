@@ -28,19 +28,34 @@ namespace donely_Inspilab.Pages.auth
         }
         private void btnRegister_click(object sender, RoutedEventArgs e)
         {
-            //check een van velden leeg
-            if (txtName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || txtTelnr.Text.Trim() == "" || txtPassword.Password.Trim() == "" || txtConfirmPassword.Password.Trim() == "")
+            try
             {
-                MessageBox.Show("Not all required fields are filled in", "Incomplete Registration", MessageBoxButton.OK);
-                return;
+                //check een van velden leeg
+                if (txtName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || txtTelnr.Text.Trim() == "" || txtPassword.Password.Trim() == "" || txtConfirmPassword.Password.Trim() == "")
+                    throw new ArgumentException("Not all fields are filled in");
+       
+                User newUser = User.Register(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Password, txtConfirmPassword.Password);
+                Database database = new();
+                int affectedRows = database.InsertUser(newUser);
+                if (affectedRows == 1)
+                {
+                    MessageBox.Show(@"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
+                    App.MainFrame.Navigate(new LoginPage());
+                }
+
+            }
+            catch ( ArgumentException argument)
+            {
+                MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); //momenteel als MessageBox, kan later nog veranderen naar een label ofzo
             }
 
-            //UserRegistration newUser = new(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Text, txtConfirmPassword.Text);
-            //newUser.ValidateFields();
-            //MessageBox.Show(newUser.Email);
+
+
+            
+            
 
             //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
-            App.MainFrame.Navigate(new LoginPage());
+
 
         }
 
