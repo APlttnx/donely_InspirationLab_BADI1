@@ -10,6 +10,7 @@
 
     <Grid>
         <Label Content="Home" Height="43" Margin="0,120,0,0" Width="68" HorizontalAlignment="Center"/>
+        <Button Content="Test" Margin="325,303,325,107"/>
 
     </Grid>
 </Page>
