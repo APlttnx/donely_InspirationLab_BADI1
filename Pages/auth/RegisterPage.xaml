@@ -40,8 +40,8 @@
         <Label Content="Confirm Password: *" Name="lblConfirmPassword" Grid.Row="4" Grid.Column="0"/>
         <PasswordBox Name="txtConfirmPassword" Grid.Row="4" Grid.Column="1"/>
         <StackPanel Grid.Row="5"  Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Content="Register" Name="btnRegister" Click="btnRegister_click"/>
-            <Button Content="Return" Name="btnReturn" Click="ReturnToWelcome"/>
+            <Button Content="Register" Style ="{StaticResource RedButton}" Name="btnRegister" Click="btnRegister_click"/>
+            <Button Content="Return" Style ="{StaticResource YellowButton}" Name="btnReturn" Click="ReturnToWelcome"/>
         </StackPanel>
 
     </Grid>

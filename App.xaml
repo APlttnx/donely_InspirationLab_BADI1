@@ -34,10 +34,21 @@
             <Setter Property="MinWidth" Value="300"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
-        <Style TargetType="Button">
+        <Style x:Key="BaseButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10,10,10,10"/>
             <Setter Property="Width" Value="150"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+        <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#F2BAC9"/>
+        </Style>
+        <Style x:Key="BlueButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#BAD7F2"/>
+        </Style>
+        <Style x:Key="YellowButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Background" Value="#F2E2BA"/>
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Application.Resources>
 </Application>
