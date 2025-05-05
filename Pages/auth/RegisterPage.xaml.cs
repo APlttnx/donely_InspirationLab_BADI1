@@ -49,6 +49,10 @@ namespace donely_Inspilab.Pages.auth
             {
                 MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); //momenteel als MessageBox, kan later nog veranderen naar een label ofzo
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong - "+ex.Message,"Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ReturnToWelcome(object sender, RoutedEventArgs e)
