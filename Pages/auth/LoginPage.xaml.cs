@@ -1,4 +1,5 @@
-﻿using System;
+﻿using donely_Inspilab.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,32 @@ namespace donely_Inspilab.Pages.auth
         }
         private void btnLogin_click(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new HomePage());
+            try { 
+                if(txtEmail.Text == "" || txtPassword.Password == "")
+                    throw new ArgumentException("Please fill in the required fields");
+            
+                User currentUser = UserService.Login(txtEmail.Text, txtPassword.Password);
+                if (currentUser != null)
+                {
+                    SessionManager.Login(currentUser);
+                    App.MainFrame.Navigate(new HomePage());
+                }
+                else
+                {
+                    throw new ArgumentException("Wrong password or email");
+                }
+
+                    
+
+            }
+            catch (ArgumentException ex)
+            {
+                lblError.Content = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong - " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
     }
