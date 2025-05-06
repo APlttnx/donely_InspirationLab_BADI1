@@ -18,7 +18,7 @@ namespace donely_Inspilab.Classes
             "DefaultConnection": "Server=localhost,3306;Database=donely_development;Uid=x;Pwd=x;" --> hier je eigen details invullen waar nodig
             } 
          */
-        // Tools -> NuGet packet manager -> deze commando's uitvoeren
+        // Tools -> NuGet packet manager -> deze commando"s uitvoeren
         /*  Install-Package Microsoft.Extensions.Configuration
             Install-Package Microsoft.Extensions.Configuration.Json
             Install-Package Microsoft.Extensions.Configuration.Binder
@@ -106,5 +106,49 @@ namespace donely_Inspilab.Classes
             return rowsAffected;
         }
 
+        public Credentials GetUserCredentialsByEmail(string email)
+        {
+            string qry = @"
+                SELECT up.* FROM user_passwords up
+                JOIN users u ON up.userID = u.userID
+                WHERE u.email = @mail;";
+            Dictionary<string, object> parameters = [];
+            parameters.Add("@mail", email);
+            Dictionary<string, object> result = ExecuteReader(qry, parameters)[0];
+            string hashedPassword = result["password"].ToString();
+            int userID = (int)result["userID"];
+            bool is2FA = (bool)result["has_mfa"];
+            return new Credentials(userID, hashedPassword, is2FA);
+        }
+        public User GetUserByID(object userID)
+        {
+            string qry = @"
+                SELECT * FROM users
+                WHERE userID = @userID;";
+            Dictionary<string, object> parameters = [];
+            parameters.Add("@userID", userID);
+            Dictionary<string, object> result = ExecuteReader(qry, parameters)[0];
+            string _name = result["name"].ToString();
+            string _email = result["email"].ToString();
+            string _tel = result["telephone_nr"].ToString();
+            bool _isAdmin = (bool)result["is_admin"];
+            string _profilePicture = result["profile_picture"].ToString();
+            DateTime _created = Convert.ToDateTime(result["created"]);
+            DateTime _lastLogin = Convert.ToDateTime(result["last_login"]);
+            int _id = (int)result["userID"];
+
+            return new User(_name, _email, _tel, _profilePicture, _id, _created, _lastLogin, _isAdmin);
+        }
+
+        public void UpdateLogin(int id)
+        {
+            string sql = "UPDATE users SET last_login = @lastLogin WHERE userID = @id";
+            Dictionary<string, object> parameters = [];
+            parameters.Add("@lastLogin", DateTime.Now);
+            parameters.Add("@id", id);
+            ExecuteNonQuery(sql, parameters, out _);
+        }
+
+            
     }
 }

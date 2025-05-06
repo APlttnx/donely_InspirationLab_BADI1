@@ -41,7 +41,7 @@
         <PasswordBox Name="txtConfirmPassword" Grid.Row="4" Grid.Column="1"/>
         <StackPanel Grid.Row="5"  Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Content="Register" Style ="{StaticResource RedButton}" Name="btnRegister" Click="btnRegister_click"/>
-            <Button Content="Return" Style ="{StaticResource YellowButton}" Name="btnReturn" Click="ReturnToWelcome"/>
+            <Button Content="Return" Style ="{StaticResource RedButton}" Name="btnReturn" Click="ReturnToWelcome"/>
         </StackPanel>
 
     </Grid>

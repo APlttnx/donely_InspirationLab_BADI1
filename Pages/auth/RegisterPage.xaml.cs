@@ -34,7 +34,7 @@ namespace donely_Inspilab.Pages.auth
                 if (txtName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || txtTelnr.Text.Trim() == "" || txtPassword.Password.Trim() == "" || txtConfirmPassword.Password.Trim() == "")
                     throw new ArgumentException("Not all fields are filled in");
        
-                User newUser = User.Register(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Password, txtConfirmPassword.Password);
+                User newUser = UserService.Register(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Password, txtConfirmPassword.Password);
                 Database database = new();
                 int affectedRows = database.InsertUser(newUser);
                 if (affectedRows == 1)

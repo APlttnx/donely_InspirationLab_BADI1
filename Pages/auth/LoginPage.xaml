@@ -14,6 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -25,9 +26,10 @@
         <Label Name="lblPassword" Content="Password: " Grid.Row="2" Grid.Column="0"/>
         <PasswordBox Name="txtPassword" Grid.Row="2" Grid.Column="1"/>
         <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
-            <Button Content="Login" x:Name="btnLogin" Click="btnLogin_click"/>
-            <Button Content="Return" x:Name="btnReturn" Click="ReturnToWelcome"/>
+            <Button Content="Login" x:Name="btnLogin" Style="{StaticResource RedButton}" Click="btnLogin_click"/>
+            <Button Content="Return" x:Name="btnReturn" Style="{StaticResource RedButton}" Click="ReturnToWelcome"/>
         </StackPanel>
+        <Label Name ="lblError" Grid.Column="1" Content="" Grid.Row="4" Foreground="red"/>
 
     </Grid>
 </Page>
