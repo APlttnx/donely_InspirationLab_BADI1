@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
 using System.ComponentModel.Design;
+using donely_Inspilab.Exceptions;
 
 namespace donely_Inspilab.Classes
 {
@@ -45,43 +46,39 @@ namespace donely_Inspilab.Classes
                 insertedId = (int)commandDb.LastInsertedId;
                 return affectedRows;
             }
-            catch (Exception ex)
+            catch (MySqlException ex) when (ex.Number == 1062)
             {
-                Console.WriteLine(ex.Message);
+                throw new DuplicateEmailException("Email already exists.", ex);
             }
-            return 0;
+            catch (MySqlException ex)
+            {
+                throw new DataAccessException("Database error occurred.", ex);
+            }
         }
 
         private List<Dictionary<string, object>> ExecuteReader(string qry, Dictionary<string, object> parameters = null) // SELECT (multiple)
         {
             List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
             using MySqlConnection connection = new MySqlConnection(connectionString);
-            try
+
+            connection.Open();
+            using var commandDb = new MySqlCommand(qry, connection);
+            if (parameters != null)
             {
-                connection.Open();
-                using var commandDb = new MySqlCommand(qry, connection);
-                if (parameters != null)
+                foreach (var param in parameters)
                 {
-                    foreach (var param in parameters)
-                    {
-                        commandDb.Parameters.AddWithValue(param.Key, param.Value);
-                    }
+                    commandDb.Parameters.AddWithValue(param.Key, param.Value);
                 }
-                using MySqlDataReader reader = commandDb.ExecuteReader();
-                while (reader.Read())
-                {
-                    var row = new Dictionary<string, object>();
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        row[reader.GetName(i)] = reader.GetValue(i);
-                    }
-                    results.Add(row);
-                }
-                return results;
             }
-            catch (Exception ex)
+            using MySqlDataReader reader = commandDb.ExecuteReader();
+            while (reader.Read())
             {
-                Console.WriteLine(ex.Message);
+                var row = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    row[reader.GetName(i)] = reader.GetValue(i);
+                }
+                results.Add(row);
             }
             return results;
         }
@@ -154,7 +151,7 @@ namespace donely_Inspilab.Classes
 
         public int DeleteUser(int id)
         {
-            string qry = "DELETE FROM users WHERE userID = @userID";
+            string qry = "DELETE  FROM users WHERE userID = @userID";
             Dictionary<string, object> parameters = [];
             parameters.Add("@userID", id);
             return ExecuteNonQuery(qry, parameters, out _);

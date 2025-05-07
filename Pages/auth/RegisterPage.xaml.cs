@@ -35,16 +35,16 @@ namespace donely_Inspilab.Pages.auth
                     throw new ArgumentException("Not all fields are filled in");
        
                 User newUser = UserService.Register(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Password, txtConfirmPassword.Password);
-                Database database = new();
-                int affectedRows = database.InsertUser(newUser);
-                if (affectedRows == 1)
-                {
-                    MessageBox.Show($"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
-                    //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
-                    NavService.ToHomePage();
-                }
+
+                //fail gaat een exception opleveren normaal gezien
+                MessageBox.Show($"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
+
+                //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
+                NavService.ToHomePage();
+                
 
             }
+            
             catch ( ArgumentException argument)
             {
                 MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); //momenteel als MessageBox, kan later nog veranderen naar een label ofzo
