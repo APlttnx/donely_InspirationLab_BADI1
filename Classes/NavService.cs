@@ -1,0 +1,55 @@
+﻿using donely_Inspilab.Pages;
+using donely_Inspilab.Pages.auth;
+using donely_Inspilab.Pages.Settings;
+//using donely_Inspilab.Pages.Group;
+//using donely_Inspilab.Pages.Task;
+//using donely_Inspilab.Pages.Admin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace donely_Inspilab.Classes
+{
+    public static class NavService
+    {
+        public static void ToHomePage()
+        {
+            if (SessionManager.IsLoggedIn)
+            {
+                // If HomePage is already cached, navigate to it
+                App.HomePage ??= new HomePage();
+
+                // Navigate to the cached HomePage
+                App.MainFrame.Navigate(App.HomePage);
+            }
+            else
+            {
+                // Navigate to a login or welcome page if the user is not logged in
+                App.MainFrame.Navigate(new LoginPage());
+            }
+        }
+
+        public static void ToWelcomePage()
+        {
+            App.MainFrame.Navigate(new WelcomePage());
+        }
+        public static void ToLoginPage()
+        {
+            App.MainFrame.Navigate(new LoginPage());
+        }
+        public static void ToRegisterPage()
+        {
+            App.MainFrame.Navigate(new RegisterPage());
+        }
+        public static void ToSettingsPage()
+        {
+            App.MainFrame.Navigate(new SettingsPage());
+        }
+
+
+        // Add other navigation methods as needed...
+    }
+
+}

@@ -41,7 +41,7 @@ namespace donely_Inspilab.Pages.auth
                 {
                     MessageBox.Show($"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
                     //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
-                    App.MainFrame.Navigate(new LoginPage());
+                    NavService.ToHomePage();
                 }
 
             }
@@ -57,7 +57,7 @@ namespace donely_Inspilab.Pages.auth
 
         private void ReturnToWelcome(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new WelcomePage());
+            NavService.ToWelcomePage();
         }
     }
 }
