@@ -1,4 +1,7 @@
-﻿using System;
+﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Pages.Settings;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace donely_Inspilab.Pages
 {
     /// <summary>
@@ -22,7 +26,13 @@ namespace donely_Inspilab.Pages
     {
         public HomePage()
         {
+            
             InitializeComponent();
+        }
+
+        private void GoToSettings(object sender, RoutedEventArgs e)
+        {
+            NavService.ToSettingsPage();
         }
     }
 }

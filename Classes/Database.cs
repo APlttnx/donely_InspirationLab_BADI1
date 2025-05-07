@@ -89,18 +89,21 @@ namespace donely_Inspilab.Classes
         public int InsertUser(User newUser)
         {
             Dictionary<string, object> parameters = [];
-            string qry = "INSERT INTO users (name, email, telephone_nr) VALUES (@name, @mail, @phone)";
+            string qry = "INSERT INTO users (name, email, telephone_nr, is_admin, profile_picture) VALUES (@name, @mail, @phone, @is_admin, @profile_picture)";
             parameters.Add("@name", newUser.Name);
             parameters.Add("@mail", newUser.Email);
             parameters.Add("@phone", newUser.TelephoneNumber);
+            parameters.Add("@is_admin", newUser.IsAdmin);
+            parameters.Add("@profile_picture", newUser.ProfilePicture);
             int rowsAffected = ExecuteNonQuery(qry, parameters, out int newUserID);
             if (rowsAffected == -1)
                 throw new ArgumentException("Something went wrong, new user wasn't added");
 
-            qry = "INSERT INTO user_passwords (userID, password) VALUES (@userID, @password)";
+            qry = "INSERT INTO user_passwords (userID, password, has_mfa) VALUES (@userID, @password, @mfa)";
             parameters.Clear();
             parameters.Add("@userID", newUserID);
             parameters.Add("@password", newUser.HashedPassword);
+            parameters.Add("@mfa", newUser.Is2FA);
             ExecuteNonQuery(qry, parameters, out _);
 
             return rowsAffected;
@@ -142,13 +145,20 @@ namespace donely_Inspilab.Classes
 
         public void UpdateLogin(int id)
         {
-            string sql = "UPDATE users SET last_login = @lastLogin WHERE userID = @id";
+            string sql = "UPDATE users SET last_login = @lastLogin WHERE userID = @userID";
             Dictionary<string, object> parameters = [];
             parameters.Add("@lastLogin", DateTime.Now);
-            parameters.Add("@id", id);
+            parameters.Add("@userID", id);
             ExecuteNonQuery(sql, parameters, out _);
         }
 
-            
+        public int DeleteUser(int id)
+        {
+            string qry = "DELETE FROM users WHERE userID = @userID";
+            Dictionary<string, object> parameters = [];
+            parameters.Add("@userID", id);
+            return ExecuteNonQuery(qry, parameters, out _);
+        }
+
     }
 }

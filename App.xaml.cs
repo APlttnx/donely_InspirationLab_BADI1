@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using donely_Inspilab.Pages;
+using donely_Inspilab.Classes;
 
 namespace donely_Inspilab;
 
@@ -29,6 +31,17 @@ public partial class App : Application
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
+    }
+
+    public static HomePage HomePage = null;
+
+    //when user not logged in
+    public static void LogoutAndReset()
+    {
+        App.HomePage = null;
+        SessionManager.Logout();
+        App.MainFrame.Navigate(new WelcomePage());
+
     }
 
 }

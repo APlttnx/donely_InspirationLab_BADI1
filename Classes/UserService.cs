@@ -55,5 +55,14 @@ namespace donely_Inspilab.Classes
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
+
+
+        public static bool DeleteUser(int id)
+        {
+            Database db = new();
+            if (id != 0)
+                return (db.DeleteUser(id) != 0);
+            return false;
+        }
     }
 }

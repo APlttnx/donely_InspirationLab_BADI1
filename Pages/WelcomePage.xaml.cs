@@ -1,4 +1,5 @@
 ﻿using donely_Inspilab.Pages.auth;
+using donely_Inspilab.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,11 @@ namespace donely_Inspilab.Pages
         }
         private void ToRegisterPage(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new RegisterPage());
+            NavService.ToRegisterPage();
         }
         private void ToLoginPage(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new LoginPage());
+            NavService.ToLoginPage();
         }
     }
 }
