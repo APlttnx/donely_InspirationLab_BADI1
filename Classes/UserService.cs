@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using donely_Inspilab.Exceptions;
 
 namespace donely_Inspilab.Classes
 {
@@ -12,16 +13,15 @@ namespace donely_Inspilab.Classes
         //Registreren nieuwe user
         public static User Register(string name, string email, string telephoneNumber, string password, string confirmPassword, string profilePicture = "", bool isF2A = false)
         {
-            if (!ValidateEmail(email))
-                throw new ArgumentException("Invalid email address.");
+            try
+            {
+                if (!ValidateEmail(email))
+                    throw new ArgumentException("Invalid email address.");
 
-            if (!PasswordsMatch(password, confirmPassword))
-                throw new ArgumentException("Passwords are not the same.");
-            string hashedPassword = HashPassword(password);
+                if (!PasswordsMatch(password, confirmPassword))
+                    throw new ArgumentException("Passwords are not the same.");
+                string hashedPassword = HashPassword(password);
 
-<<<<<<< Updated upstream
-            return new User(name, email, telephoneNumber, hashedPassword, profilePicture, isF2A);
-=======
                 User user = new(name, email, telephoneNumber, hashedPassword, profilePicture, isF2A);
 
                 try
@@ -37,12 +37,14 @@ namespace donely_Inspilab.Classes
                 }
 
                 return user;
+
             }
             catch (DuplicateEmailException)
             {
                 throw new ArgumentException("This email is already in use.");
             }
->>>>>>> Stashed changes
+
+
         }
 
         private static bool PasswordsMatch(string password, string confirmPassword)
@@ -77,6 +79,15 @@ namespace donely_Inspilab.Classes
         private static bool AuthenticatePassword(string password, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
+
+
+        public static bool DeleteUser(int id)
+        {
+            Database db = new();
+            if (id != 0)
+                return (db.DeleteUser(id) != 0);
+            return false;
         }
     }
 }
