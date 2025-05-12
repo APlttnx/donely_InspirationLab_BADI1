@@ -19,7 +19,30 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Passwords are not the same.");
             string hashedPassword = HashPassword(password);
 
+<<<<<<< Updated upstream
             return new User(name, email, telephoneNumber, hashedPassword, profilePicture, isF2A);
+=======
+                User user = new(name, email, telephoneNumber, hashedPassword, profilePicture, isF2A);
+
+                try
+                {
+                    Database db = new();
+                    int affected = db.InsertUser(user);
+                    if (affected != 1)
+                        throw new DataAccessException("Failed to insert user.");
+                }
+                catch (DuplicateEmailException)
+                {
+                    throw new ArgumentException("This email is already in use.");
+                }
+
+                return user;
+            }
+            catch (DuplicateEmailException)
+            {
+                throw new ArgumentException("This email is already in use.");
+            }
+>>>>>>> Stashed changes
         }
 
         private static bool PasswordsMatch(string password, string confirmPassword)
