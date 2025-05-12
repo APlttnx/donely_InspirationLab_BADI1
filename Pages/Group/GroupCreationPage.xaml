@@ -42,7 +42,7 @@
            Grid.Column="0"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <Image x:Name="UploadedImage" Width="300" Height="300" Margin="10"/>
+            <Image x:Name="UploadedImage" Width="250" Height="250" Margin="10"/>
             <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Right"/>
         </StackPanel>
 
@@ -50,18 +50,18 @@
            Grid.Row="3"
            Grid.Column="0"/>
         <StackPanel Grid.Row="3" Grid.Column="1">
-            <ListView  x:Name="lsvShopItems" Margin="24,10,10,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListView  x:Name="lsvShopItems" Margin="24,10,10,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="150">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Reward" Width="auto" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Price" Width="auto" DisplayMemberBinding="{Binding Price}" />
-                        <GridViewColumn Header="Limit" Width="auto" DisplayMemberBinding="{Binding Limit}" />
+                        <GridViewColumn Header="Reward" Width="180" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Price}" />
+                        <GridViewColumn Header="Limit" Width="50" DisplayMemberBinding="{Binding Limit}" />
                     </GridView>
                 </ListView.View>
             </ListView>
             <Button Content="Add Reward" Click="AddReward_Click" Style="{StaticResource BlueButton}"/>
         </StackPanel>
-
+        <Button Name="btnCreateGroup" Click="CreateNewGroup_Click" Content="Create Group" Style="{StaticResource YellowButton}" Grid.Column="1" Grid.Row="4"/>
 
 
     </Grid>
