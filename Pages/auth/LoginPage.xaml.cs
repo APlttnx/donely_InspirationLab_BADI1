@@ -25,27 +25,25 @@ namespace donely_Inspilab.Pages.auth
         }
         private void ReturnToWelcome(object sender, RoutedEventArgs e)
         {
-            App.MainFrame.Navigate(new WelcomePage());
+            NavService.ToWelcomePage();    
         }
         private void btnLogin_click(object sender, RoutedEventArgs e)
         {
-            try { 
-                if(txtEmail.Text == "" || txtPassword.Password == "")
+            try
+            {
+                if (txtEmail.Text == "" || txtPassword.Password == "")
                     throw new ArgumentException("Please fill in the required fields");
-            
+
                 User currentUser = UserService.Login(txtEmail.Text, txtPassword.Password);
                 if (currentUser != null)
                 {
                     SessionManager.Login(currentUser);
-                    App.MainFrame.Navigate(new HomePage());
+                    NavService.ToHomePage();
                 }
                 else
                 {
                     throw new ArgumentException("Wrong password or email");
                 }
-
-                    
-
             }
             catch (ArgumentException ex)
             {

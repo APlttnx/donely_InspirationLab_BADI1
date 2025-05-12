@@ -1,4 +1,5 @@
-﻿using donely_Inspilab.Pages;
+﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Pages;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,9 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         App.MainFrame = MainFrame;
-        MainFrame.Navigate(new WelcomePage()); //startpagina als de app opent
-        //test
+        if (SessionManager.IsLoggedIn)
+            MainFrame.Navigate(new HomePage());
+        else
+            MainFrame.Navigate(new WelcomePage()); //startpagina als de app opent
     }
 }
