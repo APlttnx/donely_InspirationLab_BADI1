@@ -34,5 +34,15 @@ namespace donely_Inspilab.Pages
         {
             NavService.ToSettingsPage();
         }
+
+        private void ToGroupCreation(object sender, RoutedEventArgs e)
+        {
+            NavService.ToGroupCreationPage();
+        }
+
+        private void ToJoinGroup(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

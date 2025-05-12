@@ -11,6 +11,7 @@
     <Grid>
         <Label Content="Home" Height="43" Margin="0,120,0,0" Width="68" HorizontalAlignment="Center"/>
         <Button Content="Settings" Name ="btnSettings"  HorizontalAlignment="Left"  Margin="743,10,0,0" VerticalAlignment="Top" Click="GoToSettings" />
-
+        <Button Content="Create Group" HorizontalAlignment="Left" Margin="264,284,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToGroupCreation"/>
+        <Button Content="Join Group" HorizontalAlignment="Left" Margin="437,284,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToJoinGroup"/>
     </Grid>
 </Page>
