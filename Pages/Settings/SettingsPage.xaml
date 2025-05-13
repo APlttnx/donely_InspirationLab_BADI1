@@ -26,16 +26,7 @@
                VerticalAlignment="Center"
                Grid.Column="0" />
 
-        <Button Content="X"
-            FontSize="22"
-            FontWeight="Bold"
-            Background="Transparent"
-            BorderBrush="Transparent"
-            Cursor="Hand"
-            Width="30"
-            Height="30"
-            Grid.Column="1" 
-            Click="GoBackToHome" Margin="0,1,0,0" VerticalAlignment="Top"/>
+        <Button Style="{StaticResource CloseButton}" Click="GoBackToHome"/>
 
 
         <!-- Button Stack -->

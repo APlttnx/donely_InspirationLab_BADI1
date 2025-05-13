@@ -61,5 +61,6 @@ namespace donely_Inspilab.Pages.Settings
         {
             NavService.ToHomePage();
         }
+
     }
 }

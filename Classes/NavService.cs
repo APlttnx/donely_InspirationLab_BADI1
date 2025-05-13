@@ -1,7 +1,7 @@
 ﻿using donely_Inspilab.Pages;
 using donely_Inspilab.Pages.auth;
 using donely_Inspilab.Pages.Settings;
-//using donely_Inspilab.Pages.Group;
+using donely_Inspilab.Pages.Group;
 //using donely_Inspilab.Pages.Task;
 //using donely_Inspilab.Pages.Admin;
 using System;
@@ -46,6 +46,15 @@ namespace donely_Inspilab.Classes
         public static void ToSettingsPage()
         {
             App.MainFrame.Navigate(new SettingsPage());
+        }
+        //GROUPS
+        public static void ToGroupPage()
+        {
+            App.MainFrame.Navigate(new GroupDashboardPage());
+        }
+        public static void ToGroupCreationPage()
+        {
+            App.MainFrame.Navigate(new GroupCreationPage());
         }
 
 

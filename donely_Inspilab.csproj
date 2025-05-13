@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Group\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Settings\" />
