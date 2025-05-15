@@ -16,14 +16,13 @@ using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages
 {
-    /// <summary>
-    /// Interaction logic for Taskbar.xaml
-    /// </summary>
-    public partial class Taskbar : UserControl
+
+    public partial class TaskbarControl : UserControl
     {
-        public Taskbar()
+        public TaskbarControl()
         {
             InitializeComponent();
+            SessionManager.LoginStatusChanged += (_, __) => UpdateUI(); //Subscription voor event uitloggen => knoppen wisselen
             UpdateUI();
         }
 
@@ -35,19 +34,19 @@ namespace donely_Inspilab.Pages
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-
+            NavService.ToRegisterPage();
         }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-
+            NavService.ToLoginPage();
         }
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-
+            NavService.ToSettingsPage();
         }
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-
+            SessionManager.Logout();
         }
     }
 }

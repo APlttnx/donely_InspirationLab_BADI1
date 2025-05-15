@@ -4,9 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:donely_Inspilab"
+        xmlns:pages="clr-namespace:donely_Inspilab.Pages"
         mc:Ignorable="d"
         Title="Donely_Development" SizeToContent="WidthAndHeight">
     <Grid Background="#BAF2BB">
-        <Frame Name="MainFrame" Content="" NavigationUIVisibility="Hidden" Margin="0,0,10,0"/>
+        <DockPanel>
+            <Border Background="White" DockPanel.Dock="Top" Height="125">
+                <pages:TaskbarControl />
+            </Border>
+            <Frame Name="MainFrame" Content="" NavigationUIVisibility="Hidden" Margin="0,0,10,0"/>
+        </DockPanel>
+        
     </Grid>
 </Window>

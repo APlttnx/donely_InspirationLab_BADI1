@@ -24,6 +24,7 @@ namespace donely_Inspilab.Classes
         {
             CurrentUser = null;
             LoginStatusChanged?.Invoke(null, EventArgs.Empty);
+            NavService.ToWelcomePage();
         }
     }
 }

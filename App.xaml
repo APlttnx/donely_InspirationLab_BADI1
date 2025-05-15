@@ -39,6 +39,7 @@
             <Setter Property="Width" Value="150"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -53,16 +54,49 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="lightGray" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+
         </Style>
         <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#F2BAC9"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#e77e9a" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#d62957" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="BlueButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#BAD7F2"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7eb4e7" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#3d8fdb" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="YellowButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#F2E2BA"/>
             <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#ebd294" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#dfb753" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="CloseButton" TargetType="Button">
             <Setter Property="Content" Value="X" />

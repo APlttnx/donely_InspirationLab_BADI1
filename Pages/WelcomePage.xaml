@@ -6,26 +6,16 @@
       xmlns:local="clr-namespace:donely_Inspilab.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Width="1600" Height="750"
       Title="WelcomePage">
 
-    <Grid Margin="0,0,0,160">
-        <!-- Pink curved section -->
-        <Path Fill="#F7C0CD" Stretch="Fill" Margin="0,0,0,-38">
-            <Path.Data>
-                <PathGeometry Figures="M0,0 L1000,0 L1000,500 A500,100,0,0,1,0,500 L0,0"/>
-            </Path.Data>
-        </Path>
-
-        <Rectangle HorizontalAlignment="Center" Height="117" Margin="0,-1,0,0" Fill="White" VerticalAlignment="Top" Width="802"/>
-        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="-37,-42,513,287"/>
-        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="-73,35,549,210"/>
-
-        <Button x:Name ="btnLogin" Content="Login" HorizontalAlignment="Left" Height="45" Margin="493,35,0,0" VerticalAlignment="Top" Width="117" Click="ToLoginPage"/>
-        <Button x:Name ="btnRegister" Content="Register" HorizontalAlignment="Left" Height="45" Margin="631,35,0,0" VerticalAlignment="Top" Width="117" Click="ToRegisterPage"/>
-
-
-
-        <!-- Pink curved section -->
-
+    <Grid Margin="0,0,0,160" >
+        <Viewbox Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Path Fill="#F7C0CD" Margin="0,0,0,-34">
+                <Path.Data>
+                    <PathGeometry Figures="M0,0 L1000,0 L1000,500 A500,100,0,0,1,0,500 L0,0"/>
+                </Path.Data>
+            </Path>
+        </Viewbox>
     </Grid>
 </Page>
