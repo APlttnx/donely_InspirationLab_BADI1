@@ -18,7 +18,7 @@
 
         <Rectangle HorizontalAlignment="Center" Height="117" Margin="0,-1,0,0" Fill="White" VerticalAlignment="Top" Width="802"/>
         <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="-37,-42,513,287"/>
-        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="247,150,229,95"/>
+        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="-73,35,549,210"/>
 
         <Button x:Name ="btnLogin" Content="Login" HorizontalAlignment="Left" Height="45" Margin="493,35,0,0" VerticalAlignment="Top" Width="117" Click="ToLoginPage"/>
         <Button x:Name ="btnRegister" Content="Register" HorizontalAlignment="Left" Height="45" Margin="631,35,0,0" VerticalAlignment="Top" Width="117" Click="ToRegisterPage"/>
