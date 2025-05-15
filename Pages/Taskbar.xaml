@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="donely_Inspilab.Pages.Taskbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="50" Background="White">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+            <!-- Not Logged In -->
+            <StackPanel x:Name="GuestButtons" Orientation="Horizontal" Visibility="Collapsed">
+                <Button Content="Register" Margin="5,0" Click="Register_Click"/>
+                <Button Content="Login" Margin="5,0" Click="Login_Click"/>
+            </StackPanel>
+
+            <!-- Logged In -->
+            <StackPanel x:Name="UserButtons" Orientation="Horizontal" Visibility="Collapsed">
+                <Button Content="Settings" Margin="5,0" Click="Settings_Click"/>
+                <Button Content="Log out" Margin="5,0" Click="Logout_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

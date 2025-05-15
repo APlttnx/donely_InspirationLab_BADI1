@@ -8,13 +8,24 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WelcomePage">
 
-    <Grid>
+    <Grid Margin="0,0,0,160">
+        <!-- Pink curved section -->
+        <Path Fill="#F7C0CD" Stretch="Fill" Margin="0,0,0,-38">
+            <Path.Data>
+                <PathGeometry Figures="M0,0 L1000,0 L1000,500 A500,100,0,0,1,0,500 L0,0"/>
+            </Path.Data>
+        </Path>
 
-        <Rectangle HorizontalAlignment="Center" Height="123" Margin="0,-1,0,0" Fill="White" VerticalAlignment="Top" Width="802"/>
-        <Button Name ="btnLogin" Content="Login" HorizontalAlignment="Left" Height="45" Margin="493,35,0,0" VerticalAlignment="Top" Width="117" Click="ToLoginPage"/>
-        <Button Name ="btnRegister" Content="Register" HorizontalAlignment="Left" Height="45" Margin="631,35,0,0" VerticalAlignment="Top" Width="117" Click="ToRegisterPage"/>
-        <Image Source="..\Assets\Images\Donely_Logo_Transparant.png" Height="100" Width="100"/>
+        <Rectangle HorizontalAlignment="Center" Height="117" Margin="0,-1,0,0" Fill="White" VerticalAlignment="Top" Width="802"/>
+        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="-37,-42,513,287"/>
+        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="247,150,229,95"/>
 
+        <Button x:Name ="btnLogin" Content="Login" HorizontalAlignment="Left" Height="45" Margin="493,35,0,0" VerticalAlignment="Top" Width="117" Click="ToLoginPage"/>
+        <Button x:Name ="btnRegister" Content="Register" HorizontalAlignment="Left" Height="45" Margin="631,35,0,0" VerticalAlignment="Top" Width="117" Click="ToRegisterPage"/>
+
+
+
+        <!-- Pink curved section -->
 
     </Grid>
 </Page>

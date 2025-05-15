@@ -58,5 +58,10 @@ namespace donely_Inspilab.Pages.Group
         {
 
         }
+
+        private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

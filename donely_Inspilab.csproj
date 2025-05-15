@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Donely_Logo_Transparant.png" />
+    <None Remove="Assets\Images\Logo_Icon_Transparant.png" />
+    <None Remove="Assets\Images\profilePicture.jpg" />
     <None Remove="donely_db_developmentScript.sql" />
   </ItemGroup>
 
@@ -24,6 +27,12 @@
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\Donely_Logo_Transparant.png" />
+    <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
+    <Resource Include="Assets\Images\profilePicture.jpg" />
   </ItemGroup>
 
   <ItemGroup>

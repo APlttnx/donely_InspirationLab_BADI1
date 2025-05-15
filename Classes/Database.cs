@@ -83,6 +83,8 @@ namespace donely_Inspilab.Classes
             return results;
         }
 
+
+        //USER QUERIES
         public int InsertUser(User newUser)
         {
             Dictionary<string, object> parameters = [];
@@ -157,5 +159,7 @@ namespace donely_Inspilab.Classes
             return ExecuteNonQuery(qry, parameters, out _);
         }
 
+
+        // GROUP QUERIES
     }
 }
