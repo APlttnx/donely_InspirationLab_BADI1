@@ -1,18 +1,18 @@
 CREATE TABLE Users (
     userID INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     telephone_nr VARCHAR(50),
     is_admin BOOLEAN,
     profile_picture VARCHAR(255),
     created DATETIME DEFAULT CURRENT_TIMESTAMP,
     last_login DATETIME DEFAULT CURRENT_TIMESTAMP,
-    has_mfa BOOLEAN
 );
 
 CREATE TABLE User_Passwords (
     userID INT PRIMARY KEY,
     password VARCHAR(255),
+    has_mfa BOOLEAN
     FOREIGN KEY (userID) REFERENCES Users(userID)
 );
 
