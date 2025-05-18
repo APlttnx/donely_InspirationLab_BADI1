@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages.Group
@@ -56,6 +57,12 @@ namespace donely_Inspilab.Pages.Group
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
 
         }
     }
