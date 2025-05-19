@@ -48,7 +48,7 @@ namespace donely_Inspilab.Classes
             }
             catch (MySqlException ex) when (ex.Number == 1062)
             {
-                throw new DuplicateEmailException("Email already exists.", ex);
+                throw new DuplicateEmailException("Email already exists.", ex); //nog aanpassen voor andere unieke velden, zal nu altijd email exception geven
             }
             catch (MySqlException ex)
             {
@@ -83,6 +83,8 @@ namespace donely_Inspilab.Classes
             return results;
         }
 
+
+        #region USERS
         public int InsertUser(User newUser)
         {
             Dictionary<string, object> parameters = [];
@@ -156,6 +158,45 @@ namespace donely_Inspilab.Classes
             parameters.Add("@userID", id);
             return ExecuteNonQuery(qry, parameters, out _);
         }
+        #endregion
 
+        #region GROUPS
+        public int InsertGroup(Group newGroup)
+        {
+            Dictionary<string, object> parameters = [];
+            string qry = "INSERT INTO groups_ (name, owner, image) VALUES (@name, @owner, @image)";
+            parameters.Add("@name", newGroup.Name);
+            parameters.Add("@owner", newGroup.Owner.Id);
+            parameters.Add("@image", newGroup.ImageLink);
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int newGroupID);
+            if (rowsAffected == -1)
+                throw new ArgumentException("Something went wrong, new group wasn't added");
+            return newGroupID;
+        }
+
+        #endregion
+        #region SHOP
+        public bool InsertShopItems(List<ShopItem> shopItems, int groupID)
+        {
+            Dictionary<string, object> parameters = [];
+
+            List<string> sets = [];
+            for (int i = 0; i < shopItems.Count; i++){
+                sets.Add($"(@groupID{i}, @name{i}, @description{i}, @price{i}, @limit{i})");
+                parameters.Add($"@groupID{i}", groupID);
+                parameters.Add($"@name{i}", shopItems[i].Name);
+                parameters.Add($"@description{i}", shopItems[i].Description);
+                parameters.Add($"@price{i}", shopItems[i].Price);
+                parameters.Add($"@limit{i}", shopItems[i].Limit);
+            }
+            string qry = $"INSERT INTO shop_items (groupID, name, description, cost, `limit`) VALUES {string.Join(", ",sets)}";
+
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int _);
+            if (rowsAffected == -1)
+                throw new ArgumentException("Something went wrong, new item wasn't added");
+            return true;
+        }
+
+        #endregion
     }
 }

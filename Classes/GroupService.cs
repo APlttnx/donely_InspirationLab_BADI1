@@ -10,10 +10,9 @@ namespace donely_Inspilab.Classes
 {
     class GroupService
     {
-        private readonly Database db = new();
-
-        public Group CreateGroup(string name, string imageLink, List<ShopItem> shopItems)
+        public static Group CreateGroup(string name, string imageLink, List<ShopItem> shopItems)
         {
+            Database db = new();
             if (SessionManager.IsLoggedIn == false) 
                 throw new InvalidOperationException("User must be logged in to create a group.");
             if (string.IsNullOrWhiteSpace(name)) 
@@ -22,9 +21,8 @@ namespace donely_Inspilab.Classes
             Group newGroup = new Group(name, SessionManager.CurrentUser, imageLink);
             if (shopItems != null) 
                 newGroup.ShopItems = shopItems;
-            return null;
-
-
+            newGroup.Id = db.InsertGroup(newGroup);
+            return newGroup;
         }
 
 

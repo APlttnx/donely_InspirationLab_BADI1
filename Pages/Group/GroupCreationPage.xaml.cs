@@ -62,7 +62,21 @@ namespace donely_Inspilab.Pages.Group
 
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
+                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, null, ShopList.ToList());
+                ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
 
         }
     }
