@@ -18,8 +18,8 @@ namespace donely_Inspilab.Classes
         public ShopItem(string _name, string _description, int _price, int _limit = 0)
         {
             if (string.IsNullOrWhiteSpace(_name)) throw new ArgumentException("Name is required.");
-            if (_price < 0) throw new ArgumentException("Price must be greater than 1.");
-            if (_limit <= 0) throw new ArgumentException("Limit can't be negative");
+            if (_price <= 0) throw new ArgumentException("Price must be greater than 1.");
+            if (_limit < 0) throw new ArgumentException("Limit can't be negative");
 
             Name = _name;
             Description = _description;

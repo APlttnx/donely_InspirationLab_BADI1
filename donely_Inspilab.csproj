@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\GroupImages\default.png" />
     <None Remove="donely_db_developmentScript.sql" />
   </ItemGroup>
 
@@ -24,6 +25,12 @@
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\GroupImages\default.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

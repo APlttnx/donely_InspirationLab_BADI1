@@ -21,18 +21,18 @@ namespace donely_Inspilab.Classes
         public DateTime? LastLogin { get; private set; }
         public bool IsAdmin { get; private set; } = false;
 
-        public User(string _name, string _email, string _telephoneNumber, string _profilePicture, int _id, DateTime _accountCreated, DateTime _lastLogin, bool _isAdmin)//full constructor - wachtwoord
+        public User(string _name, string _email, string _telephoneNumber, string _profilePicture, int _id, DateTime _accountCreated, DateTime _lastLogin, bool _isAdmin)//full constructor min wachtwoord
         {
             Name = _name;
             Email = _email;
             TelephoneNumber = _telephoneNumber;
-            ProfilePicture = _profilePicture ?? "default";
+            ProfilePicture = _profilePicture;
             Id = _id;
             AccountCreated = _accountCreated;
             LastLogin = _lastLogin;
             IsAdmin = _isAdmin;
         }
-        public User(string _name, string _email, string _telephoneNumber, string _hashedPassword, string _profilePicture = "", bool is2FA = false) //partial constructor register/new user
+        public User(string _name, string _email, string _telephoneNumber, string _hashedPassword, string _profilePicture = "Default", bool is2FA = false) //partial constructor register/new user
         {
             Name = _name;
             Email = _email;
