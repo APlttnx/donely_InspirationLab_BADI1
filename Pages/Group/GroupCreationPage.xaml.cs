@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages.Group
@@ -62,6 +63,26 @@ namespace donely_Inspilab.Pages.Group
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
 
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
+                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, null, ShopList.ToList());
+                bool result = ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
+                if (result)
+                {
+                    MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
+                    NavService.ToGroupPage();
+                }
+                
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unexpected error "+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }
