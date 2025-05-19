@@ -41,8 +41,6 @@ namespace donely_Inspilab.Pages.auth
 
                 //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
                 NavService.ToHomePage();
-                
-
             }
             
             catch ( ArgumentException argument)

@@ -18,11 +18,14 @@ namespace donely_Inspilab.Classes
         {
             if (SessionManager.IsLoggedIn)
             {
+                /* Optie om homepagina te cachen en zo niet alles elke keer te herladen. Vond zelf achteraf dat dit misschien niet nodig was op deze schaal.
                 // If HomePage is already cached, navigate to it
-                App.HomePage ??= new HomePage();
+                //App.HomePage ??= new HomePage();
 
                 // Navigate to the cached HomePage
-                App.MainFrame.Navigate(App.HomePage);
+                //App.MainFrame.Navigate(App.HomePage);
+                */
+                App.MainFrame.Navigate(new HomePage());
             }
             else
             {
@@ -56,6 +59,11 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
+        public static void ToGroupOwnerPage()
+        {
+            App.MainFrame.Navigate(new GroupOwnerPage());
+        }
+
 
 
         // Add other navigation methods as needed...

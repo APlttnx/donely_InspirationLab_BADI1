@@ -106,8 +106,6 @@ namespace donely_Inspilab.Pages.Group
                 }
                 MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
                 NavService.ToGroupPage();
-               
-
 
             }
             catch (ArgumentException ex)

@@ -116,7 +116,11 @@ namespace donely_Inspilab.Classes
                 WHERE u.email = @mail;";
             Dictionary<string, object> parameters = [];
             parameters.Add("@mail", email);
-            Dictionary<string, object> result = ExecuteReader(qry, parameters)[0];
+            var res = ExecuteReader(qry, parameters);
+            if (res.Count ==0) throw new ArgumentException("Wrong password or email"); //Eerst in var (of list maar wil dat niet uittypen) om dan in dict te steken. Anders error als onbekend emailadres bij login
+
+
+            Dictionary<string, object> result = res[0];
             string hashedPassword = result["password"].ToString();
             int userID = (int)result["userID"];
             bool is2FA = (bool)result["has_mfa"];

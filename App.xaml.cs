@@ -33,12 +33,12 @@ public partial class App : Application
             .Build();
     }
 
-    public static HomePage HomePage = null;
+    //public static HomePage HomePage = null;
 
     //when user not logged in
     public static void LogoutAndReset()
     {
-        App.HomePage = null;
+        //App.HomePage = null;
         SessionManager.Logout();
         App.MainFrame.Navigate(new WelcomePage());
 
