@@ -66,7 +66,13 @@ namespace donely_Inspilab.Pages.Group
             {
                 if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
                 Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, null, ShopList.ToList());
-                ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
+                bool result = ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
+                if (result)
+                {
+                    MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
+                    NavService.ToGroupPage();
+                }
+                
             }
             catch (ArgumentException ex)
             {
@@ -74,7 +80,7 @@ namespace donely_Inspilab.Pages.Group
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Unexpected error "+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
 

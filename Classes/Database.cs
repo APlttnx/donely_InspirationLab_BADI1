@@ -176,7 +176,7 @@ namespace donely_Inspilab.Classes
 
         #endregion
         #region SHOP
-        public bool InsertShopItems(List<ShopItem> shopItems, int groupID)
+        public int InsertShopItems(List<ShopItem> shopItems, int groupID)
         {
             Dictionary<string, object> parameters = [];
 
@@ -194,7 +194,7 @@ namespace donely_Inspilab.Classes
             int rowsAffected = ExecuteNonQuery(qry, parameters, out int _);
             if (rowsAffected == -1)
                 throw new ArgumentException("Something went wrong, new item wasn't added");
-            return true;
+            return rowsAffected;
         }
 
         #endregion

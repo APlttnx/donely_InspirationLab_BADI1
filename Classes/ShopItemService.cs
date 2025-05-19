@@ -9,12 +9,13 @@ namespace donely_Inspilab.Classes
 {
     public class ShopItemService
     {
-        public static void InsertShopItems(List<ShopItem> shopItems, int groupID)
+        public static bool InsertShopItems(List<ShopItem> shopItems, int groupID)
         {
             Database db = new();
-            bool result = db.InsertShopItems(shopItems, groupID);
-            if (!result)
+            int result = db.InsertShopItems(shopItems, groupID);
+            if (result == shopItems.Count)
                 throw new ArgumentException("Something went wrong adding shop items");
+            return true;
         }
     }
 }
