@@ -82,8 +82,7 @@ namespace donely_Inspilab.Classes
             }
             return results;
         }
-
-
+      
         #region USERS
         public int InsertUser(User newUser)
         {
@@ -196,7 +195,6 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong, new item wasn't added");
             return rowsAffected;
         }
-
         #endregion
     }
 }

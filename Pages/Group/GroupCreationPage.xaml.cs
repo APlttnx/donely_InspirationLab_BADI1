@@ -62,6 +62,7 @@ namespace donely_Inspilab.Pages.Group
 
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
                 if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
@@ -82,8 +83,6 @@ namespace donely_Inspilab.Pages.Group
             {
                 MessageBox.Show("Unexpected error "+ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-
-
         }
     }
 }
