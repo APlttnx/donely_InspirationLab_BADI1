@@ -23,6 +23,7 @@ namespace donely_Inspilab.Pages.Group
         public GroupDashboardPage()
         {
             InitializeComponent();
+
         }
     }
 }

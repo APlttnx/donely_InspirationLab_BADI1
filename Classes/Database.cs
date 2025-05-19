@@ -48,7 +48,7 @@ namespace donely_Inspilab.Classes
             }
             catch (MySqlException ex) when (ex.Number == 1062)
             {
-                throw new DuplicateEmailException("Email already exists.", ex); //nog aanpassen voor andere unieke velden, zal nu altijd email exception geven
+                throw new DuplicateException("Duplicate value", ex); //nog aanpassen voor andere unieke velden, zal nu altijd email exception geven
             }
             catch (MySqlException ex)
             {
@@ -164,14 +164,22 @@ namespace donely_Inspilab.Classes
         public int InsertGroup(Group newGroup)
         {
             Dictionary<string, object> parameters = [];
-            string qry = "INSERT INTO groups_ (name, owner, image) VALUES (@name, @owner, @image)";
+            string qry = "INSERT INTO groups_ (name, owner, image, invite_code) VALUES (@name, @owner, @image, @invite_code)";
             parameters.Add("@name", newGroup.Name);
             parameters.Add("@owner", newGroup.Owner.Id);
             parameters.Add("@image", newGroup.ImageLink);
+            parameters.Add("@invite_code", newGroup.InviteCode);
             int rowsAffected = ExecuteNonQuery(qry, parameters, out int newGroupID);
             if (rowsAffected == -1)
                 throw new ArgumentException("Something went wrong, new group wasn't added");
             return newGroupID;
+        }
+
+        public bool CheckInviteCode(string code)
+        {
+            string qry = "SELECT invite_code FROM Groups_ WHERE invite_code = @code";
+            Dictionary<string, object> parameters = new Dictionary<string, object>{ ["@code"] = code };
+            return (ExecuteNonQuery(qry, parameters, out _)!=1);
         }
 
         #endregion

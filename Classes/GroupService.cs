@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using donely_Inspilab.Classes;
 using donely_Inspilab.Pages;
+using donely_Inspilab.Methods;
 
 namespace donely_Inspilab.Classes
 {
@@ -19,9 +20,19 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Group name is required.");
 
             Group newGroup = new Group(name, SessionManager.CurrentUser, imageLink);
+            
             if (shopItems != null) 
                 newGroup.ShopItems = shopItems;
+            int i = 0;
+            do
+            {
+                newGroup.InviteCode = CodeGenerator.Generate();
+                i++;
+            }while (!db.CheckInviteCode(newGroup.InviteCode) && i < 25 /*Exit fallback*/);;
+            if (i == 100)
+                throw new ArgumentException("Failed to create unique invite code");
             newGroup.Id = db.InsertGroup(newGroup);
+            
             return newGroup;
         }
 

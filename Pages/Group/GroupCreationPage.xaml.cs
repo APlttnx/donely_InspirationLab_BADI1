@@ -1,6 +1,8 @@
-﻿using System;
+﻿using donely_Inspilab.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -26,11 +27,12 @@ namespace donely_Inspilab.Pages.Group
     public partial class GroupCreationPage : Page
     {
         private ObservableCollection<ShopItem> ShopList { get; set; } = new(); //dient voor dynamische upload ListView
-
+        private string _fileName = "default.png";
         public GroupCreationPage()
         {
             InitializeComponent();
             PrepareShopList();
+            UploadedImage.Source = new BitmapImage(new Uri("Assets/Images/placeholder.jpg", UriKind.Relative));
         }
 
 
@@ -57,22 +59,56 @@ namespace donely_Inspilab.Pages.Group
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
 
+            if (dialog.ShowDialog() == true)
+            {
+                string sourcePath = dialog.FileName;
+                string fileName = System.IO.Path.GetFileName(sourcePath);
+
+                // Navigate back to project root
+                string projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+                string assetsFolder = System.IO.Path.Combine(projectRoot, "Assets", "GroupImages");
+
+                if (!Directory.Exists(assetsFolder))
+                    Directory.CreateDirectory(assetsFolder);
+
+                string destinationPath = System.IO.Path.Combine(assetsFolder, fileName);
+
+                // Copy image to project folder
+                File.Copy(sourcePath, destinationPath, overwrite: true);
+
+                // Display the image
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(destinationPath, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                UploadedImage.Source = bitmap;
+
+                _fileName = fileName;
+            }
         }
+
+        
 
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
-                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, null, ShopList.ToList());
-                bool result = ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
-                if (result)
+                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, _fileName, ShopList.ToList());
+                if (ShopList.Count != 0)
                 {
-                    MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
-                    NavService.ToGroupPage();
+                    ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
                 }
-                
+                MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
+                NavService.ToGroupPage();
+               
+
+
             }
             catch (ArgumentException ex)
             {
