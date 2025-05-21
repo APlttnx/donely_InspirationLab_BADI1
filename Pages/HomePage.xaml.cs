@@ -1,4 +1,5 @@
 ﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Pages.Group;
 using donely_Inspilab.Pages.Settings;
 
 using System;
@@ -42,7 +43,8 @@ namespace donely_Inspilab.Pages
 
         private void ToJoinGroup(object sender, RoutedEventArgs e)
         {
-
+            JoinGroupWindow joinGroupWindow = new();
+            var dialogResult = joinGroupWindow.ShowDialog();
         }
     }
 }

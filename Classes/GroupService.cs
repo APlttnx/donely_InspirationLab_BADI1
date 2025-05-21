@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using donely_Inspilab.Classes;
 using donely_Inspilab.Pages;
 using donely_Inspilab.Methods;
+using System.Windows;
 
 namespace donely_Inspilab.Classes
 {
@@ -35,6 +36,15 @@ namespace donely_Inspilab.Classes
             
             return newGroup;
         }
+
+        //public static bool JoinGroupViaCode(string code)
+        //{
+        //    Database db = new();
+        //    var (groupID, groupName) = db.GetGroupIdByInviteCode(code);
+        //    var result = MessageBox.Show($"Are you sure you want to join group {groupName}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        //    if (result == MessageBoxResult.No) return false;
+
+        //}
 
 
     }

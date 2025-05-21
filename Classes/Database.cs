@@ -26,7 +26,7 @@ namespace donely_Inspilab.Classes
          */
         private string connectionString = App.Configuration.GetConnectionString("DefaultConnection");
 
-
+        #region EXECUTORS
         private int ExecuteNonQuery(string qry, Dictionary<string, object> parameters, out int insertedId) // INSERT, DELETE, UPDATE
         {
             insertedId = -1;
@@ -82,7 +82,7 @@ namespace donely_Inspilab.Classes
             }
             return results;
         }
-
+        #endregion
 
         #region USERS
         public int InsertUser(User newUser)
@@ -183,8 +183,30 @@ namespace donely_Inspilab.Classes
         {
             string qry = "SELECT invite_code FROM Groups_ WHERE invite_code = @code";
             Dictionary<string, object> parameters = new Dictionary<string, object>{ ["@code"] = code };
-            return (ExecuteNonQuery(qry, parameters, out _)!=1);
+            return (ExecuteReader(qry, parameters).Count!=1);
         }
+
+        public (int groupID, string name) GetGroupIdByInviteCode(string code)
+        {
+            string qry = "SELECT groupID, name FROM Groups_ WHERE invite_code = @code";
+            Dictionary<string, object> parameters = new Dictionary<string, object> { ["@code"] = code };
+            var res = ExecuteReader(qry, parameters);
+            if (res.Count == 0) throw new ArgumentException("Code not found");
+            int groupID = Convert.ToInt32(res[0]["groupID"]);
+            string groupName = res[0]["name"].ToString();
+            return (groupID, groupName);
+        }
+
+        //public bool InsertNewGroupMember()
+        //{
+        //    //string qry = "SELECT groupID, name FROM Groups_ WHERE invite_code = @code";
+        //    //Dictionary<string, object> parameters = new Dictionary<string, object> { ["@code"] = code };
+        //    //var res = ExecuteReader(qry, parameters);
+        //    //if (res.Count == 0) throw new ArgumentException("Code not found");
+        //    //int groupID = Convert.ToInt32(res[0]["groupID"]);
+        //    //string groupName = res[0]["name"].ToString();
+        //    //return (groupID, groupName);
+        //}
 
         #endregion
         #region SHOP
