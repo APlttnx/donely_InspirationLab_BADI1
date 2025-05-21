@@ -51,18 +51,19 @@ namespace donely_Inspilab.Classes
             App.MainFrame.Navigate(new SettingsPage());
         }
         //GROUPS
-        public static void ToGroupPage()
+        public static void ToGroupPage(Group group)
         {
-            App.MainFrame.Navigate(new GroupDashboardPage());
+            App.MainFrame.Navigate(new GroupDashboardPage(group));
+        }
+        public static void ToGroupOwnerPage(Group group)
+        {
+            App.MainFrame.Navigate(new GroupOwnerPage(group));
         }
         public static void ToGroupCreationPage()
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
-        public static void ToGroupOwnerPage()
-        {
-            App.MainFrame.Navigate(new GroupOwnerPage());
-        }
+        
 
 
 

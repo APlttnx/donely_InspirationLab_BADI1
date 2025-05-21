@@ -66,5 +66,27 @@ namespace donely_Inspilab.Pages
             }
         }
 
+        private void ToGroupMemberDashboard(object sender, RoutedEventArgs e)
+        {
+            if (lsvGroupOverview.SelectedItems.Count != 1)
+            {
+                MessageBox.Show("Please select a group", "No group selected", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            Classes.Group selectedGroup = lsvGroupOverview.SelectedItem as Classes.Group;
+            NavService.ToGroupPage(selectedGroup);
+
+        }
+
+        private void ToGroupOwnerDashboard(object sender, RoutedEventArgs e)
+        {
+            if (lsvOwnedGroupsOverview.SelectedItems.Count != 1)
+            {
+                MessageBox.Show("Please select a group", "No group selected", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            Classes.Group selectedGroup = lsvOwnedGroupsOverview.SelectedItem as Classes.Group;
+            NavService.ToGroupPage(selectedGroup);
+        }
     }
 }

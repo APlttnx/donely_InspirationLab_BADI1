@@ -9,6 +9,7 @@
       Title="GroupDashboardPage">
 
     <Grid>
-        
+        <Label Name ="lblTest" Content="Label" Margin="364,167,0,0"/>
+
     </Grid>
 </Page>

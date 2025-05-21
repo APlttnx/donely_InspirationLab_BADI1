@@ -111,7 +111,7 @@ namespace donely_Inspilab.Pages.Group
                     ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
                 }
                 MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
-                NavService.ToGroupPage();
+                NavService.ToGroupPage(newGroup);
 
             }
             catch (ArgumentException ex)

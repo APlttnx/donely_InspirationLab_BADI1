@@ -16,7 +16,7 @@
         <ListView  x:Name="lsvGroupOverview" MinHeight="150" Margin="155,120,454,180" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Icon" Width="50">
+                    <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding ImageSource}"
@@ -32,7 +32,7 @@
         <ListView  x:Name="lsvOwnedGroupsOverview" MinHeight="150" Margin="496,120,90,180" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Icon" Width="50">
+                    <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding ImageSource}"
@@ -45,6 +45,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="176,285,0,0" VerticalAlignment="Top" Click="ToGroupMemberDashboard"/>
+        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="528,285,0,0" VerticalAlignment="Top" Click="ToGroupOwnerDashboard"/>
+
     </Grid>
 
 
