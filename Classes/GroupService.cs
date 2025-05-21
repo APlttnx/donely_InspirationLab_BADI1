@@ -52,6 +52,18 @@ namespace donely_Inspilab.Classes
             return groupMemberID;
         }
 
+        public static List<Group> GetOverviewGroups(int userID)
+        {
+            Database db = new();
+            return(db.GetGroupOverview(userID));
+
+        }
+        public static List<Group> GetOverviewOwnGroups(User user)
+        {
+            Database db = new();
+            return(db.GetOwnGroups(user));
+        }
+
 
     }
 }

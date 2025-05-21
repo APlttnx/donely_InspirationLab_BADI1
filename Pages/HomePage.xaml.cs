@@ -27,8 +27,21 @@ namespace donely_Inspilab.Pages
     {
         public HomePage()
         {
-            
             InitializeComponent();
+            LoadGroups();
+        }
+
+        private void LoadGroups()
+        {
+            try
+            {
+                GroupService.GetOverviewGroups((int)SessionManager.GetCurrentUserID());
+                GroupService.GetOverviewOwnGroups(SessionManager.CurrentUser);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Something went wrong with the database", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ToGroupCreation(object sender, RoutedEventArgs e)

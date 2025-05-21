@@ -58,7 +58,7 @@ namespace donely_Inspilab.Classes
 
         private List<Dictionary<string, object>> ExecuteReader(string qry, Dictionary<string, object> parameters = null) // SELECT (multiple)
         {
-            List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
+            List<Dictionary<string, object>> results = new();
             using MySqlConnection connection = new MySqlConnection(connectionString);
 
             connection.Open();
@@ -208,10 +208,7 @@ namespace donely_Inspilab.Classes
                 ["@userID"] = userID
             };
             return (ExecuteReader(qry, parameters).Count != 0);
-
-
         }
-
 
         public int InsertNewGroupMember(GroupMember member)
         {
@@ -228,7 +225,75 @@ namespace donely_Inspilab.Classes
             };
             ExecuteNonQuery(qry, parameters, out int groupUserId);
             return groupUserId;
-            
+        }
+
+        public List<Group> GetGroupOverview(int userId)
+        {
+            string qry = @"
+                        SELECT     
+                            g.groupID, g.name AS group_name, g.owner AS group_owner,
+                            g.creation_date, g.image AS group_image, g.invite_code,
+                            u.userID AS user_id, u.name AS user_name, u.email, 
+                            u.telephone_nr, u.is_admin, u.profile_picture, 
+                            u.created, u.last_login
+                        FROM groups_ g
+                        JOIN group_users gu ON g.groupID = gu.groupID
+                        JOIN users u ON g.owner = u.userId
+                        WHERE gu.userId = @userID
+            ";
+            Dictionary<string, object> parameters = new() { ["@userID"] = userId };
+            var results = ExecuteReader(qry, parameters);
+            List<Group> groups = new List<Group>();
+            foreach (var record in results)
+            {
+                User owner = new User(
+                    _name: record["user_name"].ToString(),
+                    _email: record["email"].ToString(),
+                    _telephoneNumber: record["telephone_nr"].ToString(),
+                    _profilePicture: record["profile_picture"].ToString(),
+                    _id: Convert.ToInt32(record["user_id"]),
+                    _accountCreated: Convert.ToDateTime(record["created"]),
+                    _lastLogin: Convert.ToDateTime(record["last_login"]),
+                    _isAdmin: Convert.ToBoolean(record["is_admin"])
+                );
+
+                Group group = new Group(
+                    _id: Convert.ToInt32(record["groupID"]),
+                    _name: record["group_name"].ToString(),
+                    _owner: owner,
+                    _creationDate: Convert.ToDateTime(record["creation_date"]),
+                    _imageLink: record["group_image"].ToString()
+                );
+
+                groups.Add(group);
+            }
+            return groups;
+        }
+
+        public List<Group> GetOwnGroups(User currentUser)
+        {
+            string qry = @"
+                        SELECT g.*
+                        FROM groups_ g
+                        JOIN group_users gu ON g.groupID = gu.groupID
+                        JOIN users u ON g.owner = u.userId
+                        WHERE gu.userId = @userID
+            ";
+            Dictionary<string, object> parameters = new() { ["@userID"] = currentUser.Id };
+            var results = ExecuteReader(qry, parameters);
+            List<Group> ownedGroups = new List<Group>();
+            foreach (var record in results)
+            {
+                Group group = new Group(
+                    _id: Convert.ToInt32(record["groupID"]),
+                    _name: record["name"].ToString(),
+                    _owner: currentUser, // already known
+                    _creationDate: Convert.ToDateTime(record["creation_date"]),
+                    _imageLink: record["image"].ToString()
+                );
+                ownedGroups.Add(group);
+            }
+            return ownedGroups;
         }
 
         #endregion
