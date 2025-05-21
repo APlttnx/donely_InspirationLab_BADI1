@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Donely_Logo_Transparant.png" />
+    <None Remove="Assets\Images\Logo_Icon_Transparant.png" />
+    <None Remove="Assets\Images\profilePicture.jpg" />
     <None Remove="Assets\GroupImages\default.png" />
     <None Remove="donely_db_developmentScript.sql" />
   </ItemGroup>
@@ -29,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\Donely_Logo_Transparant.png" />
+    <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
+    <Resource Include="Assets\Images\profilePicture.jpg" />
     <Resource Include="Assets\GroupImages\default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -39,5 +45,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

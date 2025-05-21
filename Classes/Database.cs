@@ -82,6 +82,7 @@ namespace donely_Inspilab.Classes
             }
             return results;
         }
+
         #endregion
 
         #region USERS
@@ -252,7 +253,6 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong, new item wasn't added");
             return rowsAffected;
         }
-
         #endregion
     }
 }

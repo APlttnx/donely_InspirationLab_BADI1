@@ -31,11 +31,6 @@ namespace donely_Inspilab.Pages
             InitializeComponent();
         }
 
-        private void GoToSettings(object sender, RoutedEventArgs e)
-        {
-            NavService.ToSettingsPage();
-        }
-
         private void ToGroupCreation(object sender, RoutedEventArgs e)
         {
             NavService.ToGroupCreationPage();
