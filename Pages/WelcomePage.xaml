@@ -5,17 +5,79 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Width="1600" Height="750"
+      d:DesignHeight="1950" d:DesignWidth="1600"
       Title="WelcomePage">
 
-    <Grid Margin="0,0,0,160" >
-        <Viewbox Stretch="Fill" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Path Fill="#F7C0CD" Margin="0,0,0,-34">
-                <Path.Data>
-                    <PathGeometry Figures="M0,0 L1000,0 L1000,500 A500,100,0,0,1,0,500 L0,0"/>
-                </Path.Data>
-            </Path>
-        </Viewbox>
-    </Grid>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Background="#BAD7F2" Width="1600" Height="1950">
+
+            <!-- Hero sectie -->
+            <Grid Margin="0,60,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="450" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Roze gebogen achtergrond -->
+                <Grid Background="#F2BAC9" Margin="0,-60,0,24">
+                    <Grid.Clip>
+                        <PathGeometry>
+                            <PathFigure StartPoint="0,0">
+                                <LineSegment Point="1600,0" />
+                                <LineSegment Point="1600,350" />
+                                <BezierSegment Point1="1200,500" Point2="400,500" Point3="0,350" />
+                                <LineSegment Point="0,0" />
+                            </PathFigure>
+                        </PathGeometry>
+                    </Grid.Clip>
+
+                    <Grid Margin="100,50,100,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Hero afbeelding -->
+                        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Height="226" Width="596" Grid.ColumnSpan="2" Margin="504,-29,300,239"/>
+
+                        <!-- Rechts Tekst -->
+                        <TextBlock Text="Your day, done right." FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Grid.Column="1" Margin="3,137,-3,-137"/>
+                        <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="19" FontFamily="QuickSand"
+                                   Text="Donely helps families, teams, and individuals stay organized and motivated. With rewards, clear overviews, and a playful design, getting things done becomes fun and satisfying — every single day." Grid.Column="1" Margin="3,197,273,79" />
+                        <Image Source="/Assets/Images/Calendar.jpg" Height="290" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="359,40,0,0" Grid.ColumnSpan="2" Width="486"/>
+                    </Grid>
+                </Grid>
+                <Image Source="/Assets/Images/Calendar.jpg" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,48,0,0" Width="324" Grid.Row="1"/>
+                <Image Source="/Assets/Images/Calendar.jpg" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,299,0,0" Width="324" Grid.Row="1"/>
+                <Image Source="/Assets/Images/Calendar.jpg" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,532,0,0" Width="324" Grid.Row="1"/>
+
+                <!-- USP sectie -->
+
+            </Grid>
+            <TextBlock Text="Collaborative Task Management" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="614,559,286,1313"/>
+            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
+                                Margin="614,637,367,1088" ><Run Text="•   Create shared groups for families, teams, or projects&#xA;•   Assign tasks with custom deadlines and recurrence&#xA;•   Track everyone's progress from a central dashboard"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Join as many groups as you like"/></TextBlock>
+            <TextBlock Text="Motivation Through Rewards" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="412,811,488,1069"/>
+            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
+                    Margin="410,886,571,838" ><Run Text="•   Earn coins or one-time rewards for completed tasks&#xA;•   Add gamification to daily routines or chores&#xA;•   Set personal or group goals with incentives"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Spend coins in a customizable group reward shop"/></TextBlock>
+            <TextBlock FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="614,1045,286,831"><Run Text="Effortless to Use, "/><Run Text="Fun "/><Run Language="fr-fr" Text="T"/><Run Text="o D"/><Run Text="o"/></TextBlock>
+            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
+                    Margin="614,1124,367,600" ><Run Text="•   No complicated setup — get started in minutes&#xA;•   Designed for all ages and skill levels&#xA;•   Bright, playful visuals that make daily tasks less boring"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Works solo or in groups — adapt it to your style"/></TextBlock>
+            <Button Content="Sign Up"
+                        Width="200"
+                        Height="60"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Click="ToRegisterPage"
+                        Style="{StaticResource RedButton}"
+                        HorizontalAlignment="Left"
+                        Margin="720,1350,0,540"/>
+
+            <local:FooterControl Margin="0,1850,0,0" />
+        </Grid>
+
+
+
+    </ScrollViewer>
 </Page>

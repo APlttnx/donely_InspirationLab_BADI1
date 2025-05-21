@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Height="125" Background="White">
     <DockPanel LastChildFill="True">
-        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="10,-20,0,-20" DockPanel.Dock="Left" Height="166" Width="173"/>
+        <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Margin="20,-20,0,-20" DockPanel.Dock="Left" Height="166" Width="173"/>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40,0">
             <!-- Not Logged In -->
             <StackPanel x:Name="GuestButtons" Orientation="Horizontal" Visibility="Visible">
                 <Button Content="Login" Click="Login_Click" Style="{StaticResource BaseButtonStyle}" Height="55"/>
