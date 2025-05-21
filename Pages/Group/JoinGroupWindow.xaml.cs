@@ -33,8 +33,9 @@ namespace donely_Inspilab.Pages.Group
             {
                 Code = txtGroupCode.Text;
                 if (Code.Length != 8) throw new ArgumentException("Invalid input");
-
-
+                if (GroupService.JoinGroupViaCode(Code, SessionManager.GetCurrentUserID()) == -1)
+                    throw new Exception();
+                NavService.ToHomePage();
                 this.DialogResult = true;
                 this.Close();
             }

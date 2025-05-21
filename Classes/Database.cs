@@ -197,16 +197,19 @@ namespace donely_Inspilab.Classes
             return (groupID, groupName);
         }
 
-        //public bool InsertNewGroupMember()
-        //{
-        //    //string qry = "SELECT groupID, name FROM Groups_ WHERE invite_code = @code";
-        //    //Dictionary<string, object> parameters = new Dictionary<string, object> { ["@code"] = code };
-        //    //var res = ExecuteReader(qry, parameters);
-        //    //if (res.Count == 0) throw new ArgumentException("Code not found");
-        //    //int groupID = Convert.ToInt32(res[0]["groupID"]);
-        //    //string groupName = res[0]["name"].ToString();
-        //    //return (groupID, groupName);
-        //}
+        public int InsertNewGroupMember(int groupID, int userID, int currency = 0, string role = "member")
+        {
+            string qry = "INSERT INTO group_users (userID, groupID, currency, ) VALUES (@userID, @groupID, @currency, @role)";
+            Dictionary<string, object> parameters = new Dictionary<string, object> {
+                ["@userID"] = userID,
+                ["@groupID"] = groupID,
+                ["@currency"] = currency,
+                ["@role"] = role,
+            };
+            ExecuteNonQuery(qry, parameters, out int groupUserId);
+            return groupUserId;
+            
+        }
 
         #endregion
         #region SHOP

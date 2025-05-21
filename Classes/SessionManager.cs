@@ -18,5 +18,19 @@ namespace donely_Inspilab.Classes
         {
             CurrentUser = null;
         }
+        
+        public static int GetCurrentUserID()
+        {
+            if (IsLoggedIn)
+            {
+                return (int)CurrentUser.Id;
+            }
+            else
+            {
+                NavService.ToLoginPage();
+                return 0;
+            }
+            
+        }
     }
 }

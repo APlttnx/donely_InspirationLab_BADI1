@@ -37,14 +37,15 @@ namespace donely_Inspilab.Classes
             return newGroup;
         }
 
-        //public static bool JoinGroupViaCode(string code)
-        //{
-        //    Database db = new();
-        //    var (groupID, groupName) = db.GetGroupIdByInviteCode(code);
-        //    var result = MessageBox.Show($"Are you sure you want to join group {groupName}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        //    if (result == MessageBoxResult.No) return false;
-
-        //}
+        public static int JoinGroupViaCode(string code, int userID)
+        {
+            Database db = new();
+            var (groupID, groupName) = db.GetGroupIdByInviteCode(code);
+            var result = MessageBox.Show($"Are you sure you want to join group {groupName}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No) return -1;
+            int groupMemberID = db.InsertNewGroupMember(groupID, userID, 0, "member");
+            return groupMemberID;
+        }
 
 
     }
