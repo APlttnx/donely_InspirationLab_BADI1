@@ -34,5 +34,6 @@ namespace donely_Inspilab.Pages
         {
             NavService.ToLoginPage();
         }
+
     }
 }
