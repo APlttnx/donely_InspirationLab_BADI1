@@ -273,11 +273,9 @@ namespace donely_Inspilab.Classes
         public List<Group> GetOwnGroups(User currentUser)
         {
             string qry = @"
-                        SELECT g.*
-                        FROM groups_ g
-                        JOIN group_users gu ON g.groupID = gu.groupID
-                        JOIN users u ON g.owner = u.userId
-                        WHERE gu.userId = @userID
+                        SELECT *
+                        FROM groups_ 
+                        WHERE owner = @userID
             ";
             Dictionary<string, object> parameters = new() { ["@userID"] = currentUser.Id };
             var results = ExecuteReader(qry, parameters);

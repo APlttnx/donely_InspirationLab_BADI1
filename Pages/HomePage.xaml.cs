@@ -4,6 +4,7 @@ using donely_Inspilab.Pages.Settings;
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,18 +26,24 @@ namespace donely_Inspilab.Pages
     /// </summary>
     public partial class HomePage : Page
     {
+        private List<Classes.Group> GroupList { get; set; } = new(); //dient voor dynamische upload ListView
+        private List<Classes.Group> OwnedGroupList { get; set; } = new(); //dient voor dynamische upload ListView
         public HomePage()
         {
             InitializeComponent();
-            LoadGroups();
+            LoadGroups(); //Inladen groepen via database en in listviews plaatsen
         }
 
         private void LoadGroups()
         {
             try
             {
-                GroupService.GetOverviewGroups((int)SessionManager.GetCurrentUserID());
-                GroupService.GetOverviewOwnGroups(SessionManager.CurrentUser);
+                GroupList.Clear();
+                GroupList = GroupService.GetOverviewGroups((int)SessionManager.GetCurrentUserID());
+                lsvGroupOverview.ItemsSource = GroupList;
+                OwnedGroupList.Clear();
+                OwnedGroupList = GroupService.GetOverviewOwnGroups(SessionManager.CurrentUser);
+                lsvOwnedGroupsOverview.ItemsSource = OwnedGroupList;
             }
             catch (Exception ex)
             {
@@ -44,6 +51,7 @@ namespace donely_Inspilab.Pages
             }
         }
 
+        
         private void ToGroupCreation(object sender, RoutedEventArgs e)
         {
             NavService.ToGroupCreationPage();
@@ -57,5 +65,6 @@ namespace donely_Inspilab.Pages
                 MessageBox.Show("Group successfully joined!", "Join Success", MessageBoxButton.OK);
             }
         }
+
     }
 }

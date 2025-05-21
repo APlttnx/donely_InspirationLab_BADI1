@@ -65,34 +65,39 @@ namespace donely_Inspilab.Pages.Group
             if (dialog.ShowDialog() == true)
             {
                 string sourcePath = dialog.FileName;
-                string fileName = System.IO.Path.GetFileName(sourcePath);
+                string fileName = System.IO.Path.GetFileName(sourcePath); //System.IO specifiëren, anders error door name conflict met shapes
 
-                // Navigate back to project root
-                string projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-                string assetsFolder = System.IO.Path.Combine(projectRoot, "Assets", "GroupImages");
+                string imagesFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets/GroupImages");
 
-                if (!Directory.Exists(assetsFolder))
-                    Directory.CreateDirectory(assetsFolder);
+                try
+                {
+                    if (!Directory.Exists(imagesFolder))
+                        Directory.CreateDirectory(imagesFolder);
 
-                string destinationPath = System.IO.Path.Combine(assetsFolder, fileName);
+                    string destinationPath = System.IO.Path.Combine(imagesFolder, fileName);
 
-                // Copy image to project folder
-                File.Copy(sourcePath, destinationPath, overwrite: true);
+                    File.Copy(sourcePath, destinationPath, overwrite: true);
 
-                // Display the image
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(destinationPath, UriKind.Absolute);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(destinationPath, UriKind.Absolute);
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
 
-                UploadedImage.Source = bitmap;
+                    UploadedImage.Source = bitmap;
 
-                _fileName = fileName;
+                    _fileName = fileName;
+                    // Save _fileName somewhere persistent here if needed
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to upload image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        
+
+
 
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
