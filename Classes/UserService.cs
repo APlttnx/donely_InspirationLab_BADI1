@@ -31,7 +31,7 @@ namespace donely_Inspilab.Classes
                     if (affected != 1)
                         throw new DataAccessException("Failed to insert user.");
                 }
-                catch (DuplicateEmailException)
+                catch (DuplicateException)
                 {
                     throw new ArgumentException("This email is already in use.");
                 }

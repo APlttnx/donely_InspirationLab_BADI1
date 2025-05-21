@@ -16,14 +16,13 @@ using System.Windows.Shapes;
 namespace donely_Inspilab.Pages.Group
 {
     /// <summary>
-    /// Interaction logic for GroupDashboardPage.xaml
+    /// Interaction logic for GroupOwnerPage.xaml
     /// </summary>
-    public partial class GroupDashboardPage : Page
+    public partial class GroupOwnerPage : Page
     {
-        public GroupDashboardPage()
+        public GroupOwnerPage()
         {
             InitializeComponent();
-
         }
     }
 }

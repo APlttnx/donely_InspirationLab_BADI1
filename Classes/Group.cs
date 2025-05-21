@@ -14,7 +14,7 @@ namespace donely_Inspilab.Classes
         public string ImageLink { get; set; }
         public User Owner { get; set; }
         public DateTime CreationDate { get; set; }
-        
+        public string InviteCode { get; set; }
         public List<ShopItem> ShopItems { get; set; } = new();
         public bool ShopActive => ShopItems.Count > 0;
         //public List<User> Members { get; set; } = new(); // via GroupUsers join table
