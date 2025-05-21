@@ -13,7 +13,7 @@
         <Label Content="Dashboard" Height="43" Margin="10,10,0,0" FontWeight="Bold" FontSize="32"/>
         <Button Content="Create Group" HorizontalAlignment="Left" Margin="238,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToGroupCreation" Width="162"/>
         <Button Content="Join Group" HorizontalAlignment="Left" Margin="421,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToJoinGroup"/>
-        <ListView  x:Name="lsvGroupOverview" MinHeight="150" Margin="155,120,454,180" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView  x:Name="lsvGroupOverview" MinHeight="150" Margin="155,120,454,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupMemberDashboard">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50">
@@ -29,7 +29,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView  x:Name="lsvOwnedGroupsOverview" MinHeight="150" Margin="496,120,90,180" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView  x:Name="lsvOwnedGroupsOverview" MinHeight="150" Margin="496,120,90,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupOwnerDashboard">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50">

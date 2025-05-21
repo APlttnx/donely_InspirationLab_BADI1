@@ -88,5 +88,6 @@ namespace donely_Inspilab.Pages
             Classes.Group selectedGroup = lsvOwnedGroupsOverview.SelectedItem as Classes.Group;
             NavService.ToGroupPage(selectedGroup);
         }
+
     }
 }
