@@ -45,6 +45,9 @@ namespace donely_Inspilab.Pages
         {
             JoinGroupWindow joinGroupWindow = new();
             var dialogResult = joinGroupWindow.ShowDialog();
+            if (dialogResult == true){
+                MessageBox.Show("Group successfully joined!", "Join Success", MessageBoxButton.OK);
+            }
         }
     }
 }

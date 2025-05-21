@@ -1,11 +1,12 @@
-﻿using System;
+﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Exceptions;
+using donely_Inspilab.Methods;
+using donely_Inspilab.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using donely_Inspilab.Classes;
-using donely_Inspilab.Pages;
-using donely_Inspilab.Methods;
 using System.Windows;
 
 namespace donely_Inspilab.Classes
@@ -40,10 +41,14 @@ namespace donely_Inspilab.Classes
         public static int JoinGroupViaCode(string code, int userID)
         {
             Database db = new();
-            var (groupID, groupName) = db.GetGroupIdByInviteCode(code);
+            var (groupID, groupName, ownerID) = db.GetGroupIdByInviteCode(code);
+            if (db.MemberPresentInGroup(groupID, userID))
+                throw new DuplicateException("You are already part of this group!");
             var result = MessageBox.Show($"Are you sure you want to join group {groupName}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No) return -1;
-            int groupMemberID = db.InsertNewGroupMember(groupID, userID, 0, "member");
+            string role = ownerID == userID ? "owner" : "member";
+            GroupMember newMember = new GroupMember(groupID, userID, 0, role);
+            int groupMemberID = db.InsertNewGroupMember(newMember);
             return groupMemberID;
         }
 

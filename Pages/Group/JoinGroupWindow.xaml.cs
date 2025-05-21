@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using donely_Inspilab.Exceptions;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -43,6 +44,12 @@ namespace donely_Inspilab.Pages.Group
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid input", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DuplicateException ex)
+            {
+                MessageBox.Show(ex.Message, "User already exists", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = false;
+                this.Close();
             }
             catch (Exception ex)
             {

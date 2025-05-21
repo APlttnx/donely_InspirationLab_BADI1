@@ -9,6 +9,7 @@ namespace donely_Inspilab.Classes
     //Association class
     public class GroupMember
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
 
@@ -17,11 +18,14 @@ namespace donely_Inspilab.Classes
 
         public int Currency { get; set; }
 
+        public string Role { get; set; }
+
         public List<ShopItem> BoughtItems { get; set; } = new();
         public DateTime Joined { get; set; }
 
-        public GroupMember(User _user, Group _group, int _currency, List<ShopItem> _boughtItems, DateTime _joined)
+        public GroupMember(int _id, User _user, Group _group, int _currency, List<ShopItem> _boughtItems, DateTime _joined)
         {
+            Id = _id;
             UserId = (int)_user.Id;
             User = _user;
             GroupId = _group.Id;
@@ -30,13 +34,12 @@ namespace donely_Inspilab.Classes
             BoughtItems = _boughtItems;
             Joined = _joined;
         }
-        public GroupMember(User user, Group group, int initialCurrency = 0) //Initial constructor voor nieuwe member aan groep toe te voegen
+        public GroupMember(int _groupID, int _userID, int _initialCurrency = 0, string _role = "member") //Initial constructor voor nieuwe member aan groep toe te voegen
         {
-            User = user ?? throw new ArgumentNullException(nameof(user));
-            Group = group ?? throw new ArgumentNullException(nameof(group));
-            UserId = (int)user.Id;
-            GroupId = group.Id;
-            Currency = initialCurrency;
+            UserId = _userID;
+            GroupId = _groupID;
+            Currency = _initialCurrency;
+            Role = _role;
         }
 
     }

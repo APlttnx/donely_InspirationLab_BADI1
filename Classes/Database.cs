@@ -186,25 +186,44 @@ namespace donely_Inspilab.Classes
             return (ExecuteReader(qry, parameters).Count!=1);
         }
 
-        public (int groupID, string name) GetGroupIdByInviteCode(string code)
+        public (int groupID, string name, int ownerID) GetGroupIdByInviteCode(string code)
         {
-            string qry = "SELECT groupID, name FROM Groups_ WHERE invite_code = @code";
+            string qry = "SELECT groupID, name, owner FROM Groups_ WHERE invite_code = @code";
             Dictionary<string, object> parameters = new Dictionary<string, object> { ["@code"] = code };
             var res = ExecuteReader(qry, parameters);
             if (res.Count == 0) throw new ArgumentException("Code not found");
             int groupID = Convert.ToInt32(res[0]["groupID"]);
             string groupName = res[0]["name"].ToString();
-            return (groupID, groupName);
+            int ownerID = Convert.ToInt32(res[0]["owner"]);
+            return (groupID, groupName, ownerID);
         }
 
-        public int InsertNewGroupMember(int groupID, int userID, int currency = 0, string role = "member")
+        public bool MemberPresentInGroup(int groupID, int userID)
         {
-            string qry = "INSERT INTO group_users (userID, groupID, currency, ) VALUES (@userID, @groupID, @currency, @role)";
-            Dictionary<string, object> parameters = new Dictionary<string, object> {
-                ["@userID"] = userID,
+            string qry = "SELECT groupID, userID FROM group_users WHERE groupID = @groupID AND userID = @userID";
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
                 ["@groupID"] = groupID,
-                ["@currency"] = currency,
-                ["@role"] = role,
+                ["@userID"] = userID
+            };
+            return (ExecuteReader(qry, parameters).Count != 0);
+
+
+        }
+
+
+        public int InsertNewGroupMember(GroupMember member)
+        {
+            if (MemberPresentInGroup(member.GroupId, member.UserId))
+            {
+                throw new DuplicateException("This user is already in this group");
+            }
+            string qry = "INSERT INTO group_users (userID, groupID, currency, role) VALUES (@userID, @groupID, @currency, @role)";
+            Dictionary<string, object> parameters = new Dictionary<string, object> {
+                ["@userID"] = member.UserId,
+                ["@groupID"] = member.GroupId,
+                ["@currency"] = member.Currency,
+                ["@role"] = member.Role,
             };
             ExecuteNonQuery(qry, parameters, out int groupUserId);
             return groupUserId;
