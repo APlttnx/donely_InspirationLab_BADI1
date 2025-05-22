@@ -18,10 +18,12 @@ namespace donely_Inspilab.Classes
         public User Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public string InviteCode { get; set; }
+
+        //Lists worden manueel gevuld via aparte methodes in de service wanneer ze nodig zijn (zoals op Group Owner dashboard of Member dashboard)
         public List<ShopItem> ShopItems { get; set; } = new();
         public bool ShopActive => ShopItems.Count > 0;
 
-        //public List<User> Members { get; set; } = new(); // via GroupUsers join table
+        public List<GroupMember> Members { get; set; } = new(); 
         //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
         //public List<TaskInstance> ActiveTasks { get; set; } = new();
 

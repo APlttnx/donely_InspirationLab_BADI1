@@ -74,7 +74,8 @@ namespace donely_Inspilab.Pages
                 return;
             }
             Classes.Group selectedGroup = lsvGroupOverview.SelectedItem as Classes.Group;
-            NavService.ToGroupPage(selectedGroup);
+            GroupState.LoadGroup(selectedGroup);
+            NavService.ToGroupPage();
 
         }
 
@@ -86,7 +87,8 @@ namespace donely_Inspilab.Pages
                 return;
             }
             Classes.Group selectedGroup = lsvOwnedGroupsOverview.SelectedItem as Classes.Group;
-            NavService.ToGroupPage(selectedGroup);
+            GroupState.LoadGroup(selectedGroup);
+            NavService.ToGroupOwnerPage();
         }
 
     }
