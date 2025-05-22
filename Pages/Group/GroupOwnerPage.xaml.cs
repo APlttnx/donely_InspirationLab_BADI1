@@ -20,7 +20,7 @@ namespace donely_Inspilab.Pages.Group
     /// </summary>
     public partial class GroupOwnerPage : Page
     {
-        public GroupOwnerPage()
+        public GroupOwnerPage(Classes.Group group)
         {
             InitializeComponent();
         }

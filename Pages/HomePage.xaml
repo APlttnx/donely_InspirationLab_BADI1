@@ -10,8 +10,46 @@
 
     <Grid>
 
-        <Label Content="Home" Height="43" Margin="0,120,0,0" Width="68" HorizontalAlignment="Center"/>
-        <Button Content="Create Group" HorizontalAlignment="Left" Margin="252,284,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToGroupCreation" Width="162"/>
-        <Button Content="Join Group" HorizontalAlignment="Left" Margin="437,284,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToJoinGroup"/>
+        <Label Content="Dashboard" Height="43" Margin="10,10,0,0" FontWeight="Bold" FontSize="32"/>
+        <Button Content="Create Group" HorizontalAlignment="Left" Margin="238,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToGroupCreation" Width="162"/>
+        <Button Content="Join Group" HorizontalAlignment="Left" Margin="421,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToJoinGroup"/>
+        <ListView  x:Name="lsvGroupOverview" MinHeight="150" Margin="155,120,454,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupMemberDashboard">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageSource}"
+                                   Width="32" Height="32"
+                                   Stretch="Uniform"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView  x:Name="lsvOwnedGroupsOverview" MinHeight="150" Margin="496,120,90,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupOwnerDashboard">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageSource}"
+                                   Width="32" Height="32"
+                                   Stretch="Uniform"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="176,285,0,0" VerticalAlignment="Top" Click="ToGroupMemberDashboard"/>
+        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="528,285,0,0" VerticalAlignment="Top" Click="ToGroupOwnerDashboard"/>
+
     </Grid>
+
+
+
 </Page>
