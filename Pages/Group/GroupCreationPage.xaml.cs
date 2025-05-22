@@ -1,4 +1,5 @@
 ﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Methods;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,7 +33,7 @@ namespace donely_Inspilab.Pages.Group
         {
             InitializeComponent();
             PrepareShopList();
-            UploadedImage.Source = new BitmapImage(new Uri("Assets/Images/placeholder.jpg", UriKind.Relative));
+            UploadedImage.Source = new BitmapImage(new Uri($"/Assets/GroupImages/{_fileName}", UriKind.Relative));
         }
 
 
@@ -59,40 +60,19 @@ namespace donely_Inspilab.Pages.Group
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.Filter = "Image files (*.jpg, *.jpeg, *.png)|*.jpg;*.jpeg;*.png";
-
-            if (dialog.ShowDialog() == true)
+            try
             {
-                string sourcePath = dialog.FileName;
-                string fileName = System.IO.Path.GetFileName(sourcePath); //System.IO specifiëren, anders error door name conflict met shapes
-
-                string imagesFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets/GroupImages");
-
-                try
+                var result = ImageUploader.UploadImage("Assets/GroupImages");
+                if (result != null)
                 {
-                    if (!Directory.Exists(imagesFolder))
-                        Directory.CreateDirectory(imagesFolder);
-
-                    string destinationPath = System.IO.Path.Combine(imagesFolder, fileName);
-
-                    File.Copy(sourcePath, destinationPath, overwrite: true);
-
-                    var bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(destinationPath, UriKind.Absolute);
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
-
-                    UploadedImage.Source = bitmap;
-
-                    _fileName = fileName;
-                    // Save _fileName somewhere persistent here if needed
+                    UploadedImage.Source = result.Value.image;
+                    _fileName = result.Value.fileName;
+                    // Save _fileName if needed
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Failed to upload image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to upload image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

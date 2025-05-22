@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -23,6 +24,27 @@ namespace donely_Inspilab.Pages.Group
         public GroupOwnerPage()
         {
             InitializeComponent();
+        }
+
+        private void ToEditGroupWindow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToInviteCodeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            ShowInviteCodeWindow codeWindow = new();
+                codeWindow.Show();
+        }
+
+        private void ToMemberDetailPage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToHomePage_Click(object sender, RoutedEventArgs e)
+        {
+            NavService.ToHomePage();
         }
     }
 }

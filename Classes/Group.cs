@@ -66,13 +66,14 @@ namespace donely_Inspilab.Classes
         }
 
         // Full constructor (lists are separate methods)
-        public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink)
+        public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink, string _inviteCode)
         {
             Id = _id;
             Name = _name;
             Owner = _owner ?? throw new ArgumentNullException(nameof(_owner));
             CreationDate = _creationDate;
             ImageLink = _imageLink;
+            InviteCode = _inviteCode;
         }
 
 

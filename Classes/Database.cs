@@ -262,7 +262,8 @@ namespace donely_Inspilab.Classes
                     _name: record["group_name"].ToString(),
                     _owner: owner,
                     _creationDate: Convert.ToDateTime(record["creation_date"]),
-                    _imageLink: record["group_image"].ToString()
+                    _imageLink: record["group_image"].ToString(),
+                    _inviteCode: record["invite_code"].ToString()
                 );
 
                 groups.Add(group);
@@ -287,7 +288,8 @@ namespace donely_Inspilab.Classes
                     _name: record["name"].ToString(),
                     _owner: currentUser, // already known
                     _creationDate: Convert.ToDateTime(record["creation_date"]),
-                    _imageLink: record["image"].ToString()
+                    _imageLink: record["image"].ToString(),
+                    _inviteCode: record["invite_code"].ToString()
                 );
                 ownedGroups.Add(group);
             }
