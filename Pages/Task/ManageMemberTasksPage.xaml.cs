@@ -24,6 +24,7 @@ namespace donely_Inspilab.Pages.Task
         public ManageMemberTasksPage(GroupMember member)
         {
             InitializeComponent();
+            lblMemberName.Content = $"Tasks of {member.User.Name}";
         }
 
         private void GoBack_click(object sender, RoutedEventArgs e)

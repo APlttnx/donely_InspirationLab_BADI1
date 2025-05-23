@@ -36,8 +36,7 @@ namespace donely_Inspilab.Pages.Group
                 NavService.ToHomePage();
                 return;
             }
-            List<GroupMember> listMembers = GroupState.LoadedGroup.Members;
-            lsvMembersOverview.ItemsSource = listMembers;
+            lsvMembersOverview.ItemsSource = GroupState.LoadedGroup.Members;
         }
 
         private void ToEditGroupWindow_Click(object sender, RoutedEventArgs e)
@@ -65,7 +64,7 @@ namespace donely_Inspilab.Pages.Group
 
         private void KickMember_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: kick member --> Delete from user_group table
+            //TODO: kick member --> Delete from user_group table (MessageBox "You Sure?" -> GroupMemberService -> db.Delete (zeker zijn dat dit ook gebruiker verwijdert in relevante tabellen
         }
 
         
