@@ -24,27 +24,62 @@ namespace donely_Inspilab.Pages.Group
         public GroupOwnerPage()
         {
             InitializeComponent();
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            if (!GroupState.IsGroupLoaded)
+            {
+                //failsafe
+                MessageBox.Show("No group selected");
+                NavService.ToHomePage();
+                return;
+            }
+            List<GroupMember> listMembers = GroupState.LoadedGroup.Members;
+            lsvMembersOverview.ItemsSource = listMembers;
         }
 
         private void ToEditGroupWindow_Click(object sender, RoutedEventArgs e)
         {
+            EditGroupWindow editGroupWindow = new();
+            bool result = (bool)editGroupWindow.ShowDialog();
 
         }
 
         private void ToInviteCodeWindow_Click(object sender, RoutedEventArgs e)
         {
             ShowInviteCodeWindow codeWindow = new();
-                codeWindow.Show();
+            codeWindow.Show();
         }
 
-        private void ToMemberDetailPage_Click(object sender, RoutedEventArgs e)
+        private void ToCreatedTaskOverviewPage_Click(object sender, RoutedEventArgs e)
         {
-
+            NavService.ToManageTasksPage();
         }
 
         private void ToHomePage_Click(object sender, RoutedEventArgs e)
         {
             NavService.ToHomePage();
+        }
+
+        private void KickMember_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: kick member --> Delete from user_group table
+        }
+
+        
+        private void ManageTasksButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null) return;
+
+            // The DataContext of the Button is the Member bound in the DataTemplate
+            GroupMember member = button.DataContext as GroupMember;
+            if (member == null) return;
+
+            // Navigate or do whatever you need with this member
+            NavService.ToManageMemberTasksPage(member);
         }
     }
 }

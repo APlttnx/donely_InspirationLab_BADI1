@@ -44,7 +44,29 @@ namespace donely_Inspilab.Pages.Group
 
         private void EditGroup_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Group Edit via database
+            try
+            {
+                
+                if (string.IsNullOrWhiteSpace(txtName.Text))
+                    throw new ArgumentException("Group has to have a name!");
+                //Niets aangepast
+                if (txtName.Text == GroupState.LoadedGroup.Name && _fileName == GroupState.LoadedGroup.ImageLink)
+                {
+                    this.DialogResult = false; 
+                    this.Close();
+                }
+                else
+                {
+                    //TODO: Group Edit via database
+                    this.DialogResult = true;
+                }
+            }
+
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Invalid edit", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            
         }
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
@@ -56,7 +78,6 @@ namespace donely_Inspilab.Pages.Group
                 {
                     UploadedImage.Source = result.Value.image;
                     _fileName = result.Value.fileName;
-                    // Save _fileName if needed
                 }
             }
             catch (Exception ex)

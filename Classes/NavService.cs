@@ -2,7 +2,7 @@
 using donely_Inspilab.Pages.auth;
 using donely_Inspilab.Pages.Settings;
 using donely_Inspilab.Pages.Group;
-//using donely_Inspilab.Pages.Task;
+using donely_Inspilab.Pages.Task;
 //using donely_Inspilab.Pages.Admin;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace donely_Inspilab.Classes
             else
             {
                 // Naar login navigeren als niet ingelogd
-                App.MainFrame.Navigate(new LoginPage());
+                ToLoginPage();
             }
         }
 
@@ -68,9 +68,14 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
-        
-
-
+        public static void ToManageTasksPage()
+        {
+            App.MainFrame.Navigate(new ManageTasksPage());
+        }
+        public static void ToManageMemberTasksPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new ManageMemberTasksPage(member));
+        }
 
         // Add other navigation methods as needed...
     }
