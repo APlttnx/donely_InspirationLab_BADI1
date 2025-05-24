@@ -1,4 +1,5 @@
-﻿using donely_Inspilab.Exceptions;
+﻿using donely_Inspilab.Enum;
+using donely_Inspilab.Exceptions;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using System;
@@ -381,7 +382,51 @@ namespace donely_Inspilab.Classes
             if (rowsAffected != 1) //checken of werkelijk toegevoegd
                 throw new ArgumentException("Something went wrong with the database");
             return taskId;
-        }   
+        }
+
+        public int InsertTaskInstance(TaskInstance task)
+        {
+            string qry = @"INSERT INTO tasks_definition(taskID, groupUserID, status, deadline) 
+                        VALUES(@taskID, @groupUserID, @status, @deadline) ";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@taskID"] = task.TaskId,
+                ["@groupUserID"] = task.MemberId, 
+                ["@status"] = task.Status,            
+                ["@deadline"] = task.Deadline         
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
+            if (rowsAffected != 1) //checken of werkelijk toegevoegd
+                throw new ArgumentException("Something went wrong with the database");
+            return taskId;
+        }
+
+        //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage
+        public List<Task> GetGroupTaskDefinitions(int groupId)
+        {
+            string qry = " SELECT * FROM tasks_definition WHERE groupID = @groupID;";
+            Dictionary<string, object> parameters = new() { ["groupID"] = groupId };
+            var results = ExecuteReader(qry, parameters);
+
+            List<Task> taskDefinitions = new();
+
+            foreach (var row in results)
+            {
+                Task task = new Task(
+                    _id: Convert.ToInt32(row["taskID"]),
+                    _name: row["name"].ToString(),
+                    _description: row["details"].ToString(),
+                    _reward: Convert.ToInt32(row["reward_currency"]),
+                    _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                    _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                    _IsActive: Convert.ToBoolean(row["is_active"]),
+                    _groupId: Convert.ToInt32(row["groupID"])
+                );
+                taskDefinitions.Add(task);
+            }
+            return taskDefinitions;
+
+        }
         #endregion
     }
 }
