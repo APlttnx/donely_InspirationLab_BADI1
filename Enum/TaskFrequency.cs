@@ -8,7 +8,7 @@ namespace donely_Inspilab.Enum
 {
     public enum TaskFrequency
     {
-        None,
+        Once,
         Daily,
         Weekly,
         Monthly

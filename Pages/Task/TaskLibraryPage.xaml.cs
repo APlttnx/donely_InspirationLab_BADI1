@@ -28,7 +28,7 @@ namespace donely_Inspilab.Pages.Task
             LoadLibrary();
             //lsvTaskLibrary.ItemsSource = GroupState.LoadedGroup.Tasks;
         }
-        List<Classes.Task> taskList = [];
+        private List<Classes.Task> taskList = []; //public zodat window items kan toevoegen zonder telkens hele tabel te herladen
         private void LoadLibrary()
         {
             try
@@ -47,11 +47,31 @@ namespace donely_Inspilab.Pages.Task
         {
             CreateNewTaskWindow newTaskWindow = new CreateNewTaskWindow();
             var result = newTaskWindow.ShowDialog();
+            if (result==true && newTaskWindow.NewTask != null)
+            {
+                taskList.Add(newTaskWindow.NewTask);
+                lsvTaskLibrary.Items.Refresh();
+            }
         }
 
         private void EditTask_Click(object sender, RoutedEventArgs e)
         {
+            if (lsvTaskLibrary.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a task to edit.", "Edit Task", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            Classes.Task selectedTask = (Classes.Task)lsvTaskLibrary.SelectedItem;
+            EditTaskWindow editWindow = new EditTaskWindow(selectedTask);
+            var result = editWindow.ShowDialog();
+
+            if (result == true && editWindow.EditedTask != null)
+            {
+                int index = taskList.IndexOf(selectedTask);
+                taskList[index] = editWindow.EditedTask;
+                lsvTaskLibrary.Items.Refresh();
+            }
         }
 
         private void ToggleTask_Click(object sender, RoutedEventArgs e)

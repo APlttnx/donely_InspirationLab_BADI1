@@ -11,15 +11,20 @@ namespace donely_Inspilab.Classes
     public class Task
     //Deze dient voor de definitie van een task, wat het juist is
     {
+        // Core props
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Reward {  get; set; }
-        //public DateOnly Deadline { get; set; } // Gekozen om deadline bij Task Instance te plaatsen!
         public TaskFrequency Frequency { get; set; }
         public bool RequiresValidation { get; set; }
         public bool IsActive { get; set; }
         public int GroupId { get; private set; }
+
+        
+        public string NameDisplay => Frequency != TaskFrequency.Once ? $"[{Frequency.ToString().ToUpper()}] {Name}" : Name; //Dient voor Task Listviews --> [DAILY] [WEEKLY] [MONTHLY]
+        public string ActiveDisplay => Frequency == TaskFrequency.Once ? "" : (IsActive ? "Active" : "Inactive"); //Dient voor formatting in kolom TaskLibrary --> onetime tasks hebben geen (in)active nodig
+        
 
 
         //Creation Constructor (zonder id)
@@ -28,7 +33,6 @@ namespace donely_Inspilab.Classes
             Name = _name;
             Description = _description;
             Reward = _reward;
-            //Deadline = _deadline;
             Frequency = _frequency;
             RequiresValidation = _requiresValidation;
             IsActive = _IsActive;
@@ -49,9 +53,6 @@ namespace donely_Inspilab.Classes
         {
             this.IsActive = false;
         }
-        public string GetDisplayTitle()
-        {
-            return $"[{Frequency.ToString().ToUpper()}] {Name}";
-        }
+        
     }
 }

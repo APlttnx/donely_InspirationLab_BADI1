@@ -383,6 +383,48 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong with the database");
             return taskId;
         }
+        public Task GetTaskById(int taskId)
+        {
+            string qry = "SELECT * FROM tasks_definition WHERE taskID = @taskId;";
+            Dictionary<string, object> parameters = new() { ["@taskId"] = taskId };
+            var result = ExecuteReader(qry, parameters)[0];
+            Task task = new Task(
+                   _id: Convert.ToInt32(result["taskID"]),
+                   _name: result["name"].ToString(),
+                   _description: result["details"].ToString(),
+                   _reward: Convert.ToInt32(result["reward_currency"]),
+                   _frequency: (TaskFrequency)Convert.ToInt32(result["frequency"]),
+                   _requiresValidation: Convert.ToBoolean(result["validation_required"]),
+                   _IsActive: Convert.ToBoolean(result["is_active"]),
+                   _groupId: Convert.ToInt32(result["groupID"])
+               );
+            return task;
+        }
+        public int UpdateTaskDefinition(Task task)
+        {
+            string qry = @"UPDATE tasks_definition
+                   SET name = @name,
+                       details = @details,
+                       reward_currency = @reward_currency,
+                       frequency = @frequency,
+                       validation_required = @validation_required,
+                       is_active = @is_active
+                   WHERE taskID = @taskID";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@name"] = task.Name,
+                ["@details"] = task.Description,
+                ["@reward_currency"] = task.Reward,
+                ["@frequency"] = task.Frequency,
+                ["@validation_required"] = task.RequiresValidation,
+                ["@is_active"] = task.IsActive,
+                ["@taskID"] = task.Id
+            };
+
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            return rowsAffected;
+        }
 
         public int InsertTaskInstance(TaskInstance task)
         {

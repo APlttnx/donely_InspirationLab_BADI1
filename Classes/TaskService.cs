@@ -18,14 +18,27 @@ namespace donely_Inspilab.Classes
 
             Task newTask = new(name, description, reward, frequency, validationRequired, groupId, true);
             Database db = new();
-            newTask.Id = db.InsertTaskDefinition(newTask);
-            return newTask;
+            int id = db.InsertTaskDefinition(newTask);
+            return db.GetTaskById(id); //onmiddelijk geüpdatete taak uit database halen --> zeker hetzelfde
+        }
+
+        public static Task UpdateTask(int id, string name, string description, int reward, TaskFrequency frequency, bool validationRequired)
+        {
+            if (reward < 0)
+                throw new ArgumentException("Reward cannot be a negative number.");
+
+            Database db = new();
+            int rowsAffected = db.UpdateTaskDefinition(new Task(id, name, description, reward, frequency, validationRequired, true, 0));
+
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update task in database.");
+
+            return db.GetTaskById(id);
         }
 
         public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, GroupMember member)
         {
-            if (task.Frequency == TaskFrequency.None && deadline == DateTime.MinValue) throw new ArgumentException("Deadline wasn't specified for a one-day exercise");
-            if (deadline < DateTime.Now) throw new ArgumentException("Deadline can't be before today");
+            if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future");
             TaskInstance newInstance = new(task, member.UserId, deadline);
             Database db = new();
             newInstance.Id = db.InsertTaskInstance(newInstance);

@@ -30,8 +30,8 @@
                     <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding Description}" />
                     <GridViewColumn Header="Frequency" Width="80" DisplayMemberBinding="{Binding Frequency}" />
                     <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Reward}" />
-                    <GridViewColumn Header="Validation" Width="70" DisplayMemberBinding="{Binding ValidationRequired}" />
-                    <GridViewColumn Header="Active" Width="60" DisplayMemberBinding="{Binding IsActive}" />
+                    <GridViewColumn Header="Validation" Width="70" DisplayMemberBinding="{Binding RequiresValidation}" />
+                    <GridViewColumn Header="Active" Width="60" DisplayMemberBinding="{Binding ActiveDisplay}" />
                 </GridView>
             </ListView.View>
         </ListView>
