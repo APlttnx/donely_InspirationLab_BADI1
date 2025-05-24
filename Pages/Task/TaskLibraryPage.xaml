@@ -21,7 +21,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        <Button Style="{StaticResource CloseButton}" Click="Close_Click" Grid.Column="2" HorizontalAlignment="Left" Margin="75,1,0,0" RenderTransformOrigin="0.5,0.5"/>
         <Label Content="Task Library" Grid.Row="1" Grid.Column="1" FontWeight="Bold" />
         <ListView  x:Name="lsvTaskLibrary" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" SelectionChanged="lsvTaskLibrary_SelectionChanged">
             <ListView.View>

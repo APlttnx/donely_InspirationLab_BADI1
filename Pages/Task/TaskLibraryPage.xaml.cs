@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 namespace donely_Inspilab.Pages.Task
 {
     /// <summary>
-    /// Interaction logic for ManageTasksPage.xaml
+    /// Interaction logic for TaskLibraryPage.xaml
     /// </summary>
     public partial class TaskLibraryPage : Page
     {
@@ -96,14 +96,21 @@ namespace donely_Inspilab.Pages.Task
 
         private void DeleteTask_Click(object sender, RoutedEventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this task, this is a permanent decision!", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show("Are you sure you want to delete this task?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.No) 
                 return;
-
-            Classes.Task selectedTask = (Classes.Task)lsvTaskLibrary.SelectedItem;
-
-            if (selectedTask.Frequency != 0 && selectedTask.IsActive)
-                throw new ArgumentException("This recurring task is still active, please deactivate this task before deleting");
+            try
+            {
+                Classes.Task selectedTask = (Classes.Task)lsvTaskLibrary.SelectedItem;
+                TaskService.ToggleTaskIsActive(selectedTask.Id, false); //ervoor zorgen dat recurring niet verder herhaald voor verwijderde taken
+                TaskService.SoftDeleteTask(selectedTask.Id);
+                taskList.Remove(selectedTask);
+                lsvTaskLibrary.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }//TODO als Task Instances op punt staat --> Check doen of er een actieve instance is (dus != fail/success) -> zo ja, dan kan deze nog niet verwijderd worden. Voor recurring ook check Active/Not Active
 
@@ -124,6 +131,11 @@ namespace donely_Inspilab.Pages.Task
                 btnToggle.IsEnabled = false;
                 btnToggle.Content = "Activate";
             }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            NavService.ToGroupOwnerPage();
         }
     }
 }
