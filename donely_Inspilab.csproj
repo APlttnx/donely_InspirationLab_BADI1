@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enum\" />
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Settings\" />
   </ItemGroup>

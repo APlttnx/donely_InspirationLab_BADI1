@@ -31,5 +31,30 @@ namespace donely_Inspilab.Pages.Task
         {
             NavService.ToGroupOwnerPage();
         }
+
+        private void GiveTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SucceedTask_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null) return;
+
+            //// The DataContext of the Button is the Member bound in the DataTemplate
+            //GroupMember member = button.DataContext as GroupMember;
+            //if (member == null) return;
+
+        }
+        private void FailTask_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null) return;
+
+            //// The DataContext of the Button is the Member bound in the DataTemplate
+            //GroupMember member = button.DataContext as GroupMember;
+            //if (member == null) return;
+
+        }
     }
 }

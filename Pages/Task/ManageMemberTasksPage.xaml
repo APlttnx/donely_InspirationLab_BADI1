@@ -25,9 +25,9 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Style="{StaticResource CloseButton}" Grid.Column="4" Click="GoBack_click" HorizontalAlignment="Left" Margin="43,1,0,0" />
+        <Button Style="{StaticResource CloseButton}" Grid.Column="4" Click="GoBack_click" HorizontalAlignment="Left" />
 
-        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center"/>
+        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
 
         <Label Content="Active" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1"/>
 
@@ -60,7 +60,7 @@
                                         BorderThickness="0"
                                         Background="white"
                                         Foreground="Green"
-                                        Click="ManageTasksButton_Click" />
+                                        Click="SucceedTask_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -75,7 +75,7 @@
                                         BorderThickness="0"
                                         Background="white"
                                         Foreground="OrangeRed"
-                                        Click="ManageTasksButton_Click" />
+                                        Click="FailTask_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -97,5 +97,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom">
+            <Button Content="Give Task" Style="{StaticResource BlueButton}"  HorizontalAlignment="Right" Click="GiveTask_Click"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

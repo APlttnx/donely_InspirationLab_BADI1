@@ -1,12 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using donely_Inspilab.Exceptions;
+using Microsoft.Extensions.Configuration;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MySqlConnector;
-using System.ComponentModel.Design;
-using donely_Inspilab.Exceptions;
 
 namespace donely_Inspilab.Classes
 {
@@ -359,6 +361,27 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong, new item wasn't added");
             return rowsAffected;
         }
+        #endregion
+
+        #region TASKS
+        public int InsertTaskDefinition(Task task)
+        {
+            string qry = @"INSERT INTO tasks_definition(groupID, name, details, reward_currency, frequency, is_active, validation_required) 
+                        VALUES(@groupID, @name, @details, @reward_currency, @frequency, @is_active, @validation_required)";
+                Dictionary<string, object> parameters = new() {
+                    ["@groupID"] = task.GroupId,
+                    ["@name"] = task.Name,
+                    ["@details"] = task.Description,
+                    ["@reward_currency"] = task.Reward,
+                    ["@frequency"] = task.Frequency,
+                    ["@is_active"] = task.IsActive,
+                    ["@validation_required"] = task.RequiresValidation,
+                };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
+            if (rowsAffected != 1) //checken of werkelijk toegevoegd
+                throw new ArgumentException("Something went wrong with the database");
+            return taskId;
+        }   
         #endregion
     }
 }

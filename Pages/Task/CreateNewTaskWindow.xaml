@@ -1,0 +1,78 @@
+﻿<Window x:Class="donely_Inspilab.Pages.Task.CreateNewTaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:donely_Inspilab.Pages.Task"
+        mc:Ignorable="d"
+        Title="CreateNewTaskWindow" Height="650" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Create New Task" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
+            <!-- Name -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Task:*" Width="150"/>
+                <TextBox Name="txtTaskName"/>
+            </StackPanel>
+
+            <!-- Description -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Description:" Width="150" VerticalAlignment="Top"/>
+                <TextBox Name="txtDescription"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 Height="80"
+                 Width="200"/>
+            </StackPanel>
+
+            <!-- Frequency -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Frequency:" Width="150"/>
+                <ComboBox x:Name="cmbFrequency"
+                          Width="200"
+                          SelectedItem="{Binding SelectedFrequency, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!-- Deadline -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Deadline:" Width="150"/>
+                <DatePicker Name="txtDeadline" Width="200"/>
+            </StackPanel>
+
+            <!-- Reward -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Reward*:" Width="150"/>
+                <TextBox Name="txtReward" Text="0" Width="200"
+                         PreviewTextInput="NumberOnly_PreviewTextInput"
+                         DataObject.Pasting="NumberOnly_Pasting"/>
+            </StackPanel>
+
+
+            <!-- Validation Required -->
+            <StackPanel Orientation="Horizontal" Margin="0,2">
+                <Label Content="Validation Required:" Width="210"/>
+                <CheckBox Name="cbValidation" Height="15" Width="15">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
+            </StackPanel>
+
+        </StackPanel>
+        <Button Style="{StaticResource YellowButton}" Content="Create Task" Grid.Column="1" Grid.Row="2" Click="CreateTask_Click"/>
+
+
+    </Grid>
+</Window>
