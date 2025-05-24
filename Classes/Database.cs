@@ -183,6 +183,7 @@ namespace donely_Inspilab.Classes
             return newGroupID;
         }
 
+
         public bool CheckInviteCode(string code)
         {
             string qry = "SELECT invite_code FROM Groups_ WHERE invite_code = @code";
@@ -200,6 +201,21 @@ namespace donely_Inspilab.Classes
             string groupName = res[0]["name"].ToString();
             int ownerID = Convert.ToInt32(res[0]["owner"]);
             return (groupID, groupName, ownerID);
+        }
+
+        public void UpdateGroup(Group group)
+        {
+            string qry = "UPDATE groups_ SET name = @name, image = @image WHERE groupid = @id";
+            Dictionary<string, object> parameters = new()
+            {
+                { "@id", group.Id },
+                { "@name", group.Name },
+                { "@image", group.ImageLink }
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+
+            if (rowsAffected != 1)
+                throw new ArgumentException("Something went wrong, group wasn't updated.");
         }
 
         public bool MemberPresentInGroup(int groupID, int userID)

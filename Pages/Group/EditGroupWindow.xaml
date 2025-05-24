@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:donely_Inspilab.Pages.Group"
         mc:Ignorable="d"
-        Title="EditGroupWindow" Height="auto" Width="auto">
+        Title="EditGroupWindow" Height="450" Width="550">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,7 +24,7 @@
            Grid.Row="0"
            Grid.Column="0" FontWeight="Bold"
             />
-        <Button Style="{StaticResource CloseButton}" Grid.Column="2" Click="Cancel_click" HorizontalAlignment="Stretch" Margin="0,1,0,0"/>
+        
 
         <Label Content="Name: "
            Grid.Row="1"
@@ -41,7 +41,7 @@
 
         <StackPanel Grid.Row="2" Grid.Column="1">
             <Image x:Name="UploadedImage" Width="150" Height="150" Margin="10"/>
-            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Right"/>
+            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Center" Width="176"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1"/>
         <Button Name="btnEditGroup" Click="EditGroup_Click" Content="Edit Group" Style="{StaticResource YellowButton}" Grid.Column="1" Grid.Row="4"/>

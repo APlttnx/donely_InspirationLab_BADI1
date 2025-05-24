@@ -27,36 +27,6 @@ namespace donely_Inspilab.Classes
         //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
         //public List<TaskInstance> ActiveTasks { get; set; } = new();
 
-        public ImageSource ImageSource
-        {
-            get
-            {
-                string? fullPath = !string.IsNullOrWhiteSpace(ImageLink) 
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "GroupImages", ImageLink) 
-                    : null;
-
-                if (string.IsNullOrEmpty(fullPath) || !File.Exists(fullPath))
-                {
-                    // Return a default embedded resource or local image to indicate "no image"
-                    // For example, "Assets/default_profile.png"
-                    string defaultPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "default.png");
-                    if (File.Exists(defaultPath))
-                        return new BitmapImage(new Uri(defaultPath, UriKind.Absolute));
-
-                    return null;
-                }
-
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(fullPath, UriKind.Absolute);
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.EndInit();
-
-                return image;
-            }
-        }
-
-
         //Create new group Constructor
         public Group(string _name, User _owner, string _imageLink = "groupImages/default.png")
         {
@@ -65,7 +35,7 @@ namespace donely_Inspilab.Classes
             ImageLink = _imageLink;
         }
 
-        // Full constructor (lists are separate methods)
+        // Full constructor
         public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink, string _inviteCode)
         {
             Id = _id;
