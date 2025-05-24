@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:donely_Inspilab.Pages.Task"
         mc:Ignorable="d"
-        Title="CreateNewTaskWindow" Height="650" Width="600">
+        Title="CreateNewTaskWindow" Height="550" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -22,7 +22,7 @@
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
             <!-- Name -->
             <StackPanel Orientation="Horizontal" Margin="0,2">
-                <Label Content="Task:*" Width="150"/>
+                <Label Content="Task: *" Width="150"/>
                 <TextBox Name="txtTaskName"/>
             </StackPanel>
 
@@ -45,15 +45,9 @@
                           SelectedItem="{Binding SelectedFrequency, Mode=TwoWay}"/>
             </StackPanel>
 
-            <!-- Deadline -->
-            <StackPanel Orientation="Horizontal" Margin="0,2">
-                <Label Content="Deadline:" Width="150"/>
-                <DatePicker Name="txtDeadline" Width="200"/>
-            </StackPanel>
-
             <!-- Reward -->
             <StackPanel Orientation="Horizontal" Margin="0,2">
-                <Label Content="Reward*:" Width="150"/>
+                <Label Content="Reward:" Width="150"/>
                 <TextBox Name="txtReward" Text="0" Width="200"
                          PreviewTextInput="NumberOnly_PreviewTextInput"
                          DataObject.Pasting="NumberOnly_Pasting"/>

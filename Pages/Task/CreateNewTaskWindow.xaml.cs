@@ -27,7 +27,7 @@ namespace donely_Inspilab.Pages.Task
             InitializeComponent();
             //Zetten van frequency, standaard None
             cmbFrequency.ItemsSource = System.Enum.GetValues(typeof(TaskFrequency));
-            cmbFrequency.SelectedIndex = 0; // Optional default
+            cmbFrequency.SelectedIndex = 0; // default
         }
 
         private void CreateTask_Click(object sender, RoutedEventArgs e)
@@ -37,12 +37,13 @@ namespace donely_Inspilab.Pages.Task
                 //input validation -> Empty fields
                 if (string.IsNullOrEmpty(txtTaskName.Text))
                     throw new ArgumentException("Not all required fields are filled in.");
-                if (cmbFrequency.SelectedIndex == 0 && string.IsNullOrEmpty(txtDeadline.Text))
-                    throw new ArgumentException("Please specify a deadline for a non-recurring task.");
-                
-
-
-
+                Classes.Task newTask = TaskService.CreateTask(txtTaskName.Text, txtDescription.Text, Convert.ToInt32(txtReward.Text), (TaskFrequency)cmbFrequency.SelectedItem, (bool)cbValidation.IsChecked, GroupState.LoadedGroup.Id);
+                if (newTask != null)
+                {
+                    MessageBox.Show("Task successfully created", "Success", MessageBoxButton.OK);
+                    this.DialogResult = true;
+                    this.Close();
+                }
             }
             catch (ArgumentException ex) //Voor als iets niet in orde met velden
             {
@@ -54,7 +55,7 @@ namespace donely_Inspilab.Pages.Task
             }
             catch (FormatException)
             {
-                MessageBox.Show("Please fill in a number for reward", "Overflow error", MessageBoxButton.OK, MessageBoxImage.Warning); // zou normaal gezien niet mogen voorvallen
+                MessageBox.Show("Please fill in a whole number for reward", "Overflow error", MessageBoxButton.OK, MessageBoxImage.Warning); // zou normaal gezien niet mogen voorvallen
             }
             catch (Exception ex) //Voor als iets niet in orde met velden
             {
@@ -62,7 +63,7 @@ namespace donely_Inspilab.Pages.Task
             }
 
         }
-
+        
 
         private static readonly Regex _regex = new Regex("^[0-9]+$");
 
