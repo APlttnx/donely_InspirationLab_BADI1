@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace donely_Inspilab.Enum
 {
-    public enum TaskProgress
+    public enum TaskProgress //Oorspronkelijk TaskStatus, maar conflicteerde met System.Threading.Tasks.TaskStatus
     {
         Active,
         Pending,
