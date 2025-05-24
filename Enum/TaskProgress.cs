@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace donely_Inspilab.Enum
 {
-    public enum TaskStatus
+    public enum TaskProgress
     {
         Active,
         Pending,
