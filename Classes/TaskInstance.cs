@@ -16,7 +16,7 @@ namespace donely_Inspilab.Classes
         public DateTime Deadline { get; set; }
         public TaskProgress Status { get; set; }
         public DateTime IssueDate { get; set; }
-        public DateTime CompletionDate { get; set; }
+        public DateTime? CompletionDate { get; set; }
 
         //Constructor Creating new instance
         public TaskInstance(Task _task, int _memberId, DateTime _deadline)
@@ -25,11 +25,21 @@ namespace donely_Inspilab.Classes
             TaskId = _task.Id;
             MemberId = _memberId;
             Deadline = _deadline;
-            Status = TaskProgress.Active;
+            Status = TaskProgress.Active; // bij creatie is TaskProgress altijd actief. 
             // IssueDate is set by DB, do not assign it here
         }
+        //Full Constructor
+        public TaskInstance(int _id, Task _task, int _memberId, DateTime _deadline, TaskProgress _status, DateTime _issueDate, DateTime? _completionDate)
+            : this(_task, _memberId, _deadline)
+        {
+            Id = _id;
+            Status = _status; //Override original status if necessary
+            IssueDate = _issueDate;
+            CompletionDate = _completionDate;
+        }
 
-        //Full Constructor Creating new instance
+
+
 
     }
 }
