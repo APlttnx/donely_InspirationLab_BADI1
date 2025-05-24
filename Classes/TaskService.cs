@@ -36,6 +36,18 @@ namespace donely_Inspilab.Classes
             return db.GetTaskById(id);
         }
 
+        public static void ToggleTaskIsActive(int taskId, bool isActive)
+        {
+            Database db = new();
+            db.UpdateTaskIsActive(taskId, isActive);
+        }
+
+        public static void SoftDeleteTask(int taskId)
+        {
+            Database db = new();
+            db.SoftDeleteTask(taskId);
+        }
+
         public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, GroupMember member)
         {
             if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future");

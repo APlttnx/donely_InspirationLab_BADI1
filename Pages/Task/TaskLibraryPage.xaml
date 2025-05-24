@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Task Library" Grid.Row="1" Grid.Column="1" FontWeight="Bold" />
-        <ListView  x:Name="lsvTaskLibrary" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+        <ListView  x:Name="lsvTaskLibrary" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" SelectionChanged="lsvTaskLibrary_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding Name}" />
@@ -38,7 +38,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3">
             <Button Content="Add Task" Style="{StaticResource BlueButton}" Click="AddTask_Click"/>
             <Button Content="Edit Task" Style="{StaticResource BlueButton}" Click="EditTask_Click"/>
-            <Button Content="Activate/Deactivate" Style="{StaticResource YellowButton}" Click = "ToggleTask_Click"/>
+            <Button Content="Activate" Style="{StaticResource YellowButton}" Click = "ToggleTask_Click" Name="btnToggle" IsEnabled="False"/>
             <Button Content="Delete" Style="{StaticResource RedButton}" Click= "DeleteTask_Click"/>
         </StackPanel>
     </Grid>

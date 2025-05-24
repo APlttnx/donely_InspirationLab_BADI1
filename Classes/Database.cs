@@ -425,28 +425,22 @@ namespace donely_Inspilab.Classes
             int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
             return rowsAffected;
         }
-
-        public int InsertTaskInstance(TaskInstance task)
+        public void UpdateTaskIsActive(int taskId, bool isActive)
         {
-            string qry = @"INSERT INTO tasks_definition(taskID, groupUserID, status, deadline) 
-                        VALUES(@taskID, @groupUserID, @status, @deadline) ";
+            string qry = "UPDATE tasks_definition SET is_active = @is_active WHERE taskID = @taskID";
             Dictionary<string, object> parameters = new()
             {
-                ["@taskID"] = task.TaskId,
-                ["@groupUserID"] = task.MemberId, 
-                ["@status"] = task.Status,            
-                ["@deadline"] = task.Deadline         
+                ["@is_active"] = isActive,
+                ["@taskID"] = taskId
             };
-            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
-            if (rowsAffected != 1) //checken of werkelijk toegevoegd
-                throw new ArgumentException("Something went wrong with the database");
-            return taskId;
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update task status.");
         }
-
         //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage
         public List<Task> GetGroupTaskDefinitions(int groupId)
         {
-            string qry = " SELECT * FROM tasks_definition WHERE groupID = @groupID;";
+            string qry = "SELECT * FROM tasks_definition WHERE groupID = @groupID AND is_deleted = 0;";
             Dictionary<string, object> parameters = new() { ["groupID"] = groupId };
             var results = ExecuteReader(qry, parameters);
 
@@ -467,8 +461,38 @@ namespace donely_Inspilab.Classes
                 taskDefinitions.Add(task);
             }
             return taskDefinitions;
-
         }
+
+        //Sets is_deleted variable to 1 so it's "deleted" (won't show in library). No full delete since task_instances keep history too, and that needs the Task Definition to still exist.
+        //This way the task can't be given again by the owner, but can still be fetched for still running and completed tasks.
+        //Also: This means an admin can go into the database and restore the task... so that's nice
+        public void SoftDeleteTask(int taskId)
+        {
+            string qry = "UPDATE tasks_definition SET is_deleted = 1 WHERE taskID = @taskID";
+            Dictionary<string, object> parameters = new() { ["@taskID"] = taskId };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to delete task.");
+        }
+
+        public int InsertTaskInstance(TaskInstance task)
+        {
+            string qry = @"INSERT INTO tasks_definition(taskID, groupUserID, status, deadline) 
+                        VALUES(@taskID, @groupUserID, @status, @deadline) ";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@taskID"] = task.TaskId,
+                ["@groupUserID"] = task.MemberId, 
+                ["@status"] = task.Status,            
+                ["@deadline"] = task.Deadline         
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
+            if (rowsAffected != 1) //checken of werkelijk toegevoegd
+                throw new ArgumentException("Something went wrong with the database");
+            return taskId;
+        }
+
+       
         #endregion
     }
 }

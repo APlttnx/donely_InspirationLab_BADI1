@@ -19,10 +19,7 @@ namespace donely_Inspilab.Pages.Task {
             cmbFrequency.ItemsSource = System.Enum.GetValues(typeof(TaskFrequency));
             TaskToEdit = task;
             LoadItems();
-
-            
         }
-
         private void LoadItems()
         {
             if (TaskToEdit == null) return;
