@@ -15,7 +15,7 @@ namespace donely_Inspilab.Classes
         public string Name { get; set; }
         public string Description { get; set; }
         public int Reward {  get; set; }
-        public DateOnly Deadline { get; set; }
+        //public DateOnly Deadline { get; set; } // Gekozen om deadline bij Task Instance te plaatsen!
         public TaskFrequency Frequency { get; set; }
         public bool RequiresValidation { get; set; }
         public bool IsActive { get; set; }
@@ -23,20 +23,20 @@ namespace donely_Inspilab.Classes
 
 
         //Creation Constructor (zonder id)
-        public Task(string _name, string _description, int _reward, DateOnly _deadline, TaskFrequency _frequency, bool _requiresValidation, int _groupId, bool _IsActive = true)
+        public Task(string _name, string _description, int _reward, TaskFrequency _frequency, bool _requiresValidation, int _groupId, bool _IsActive = true)
         {
             Name = _name;
             Description = _description;
             Reward = _reward;
-            Deadline = _deadline;
+            //Deadline = _deadline;
             Frequency = _frequency;
             RequiresValidation = _requiresValidation;
             IsActive = _IsActive;
             GroupId = _groupId;
         }
         // Full Constructor
-        public Task(int _id, string _name, string _description, int _reward, DateOnly _deadline, TaskFrequency _frequency, bool _requiresValidation, bool _IsActive, int _groupId)
-        : this(_name, _description, _reward, _deadline, _frequency, _requiresValidation, _groupId, _IsActive)
+        public Task(int _id, string _name, string _description, int _reward, TaskFrequency _frequency, bool _requiresValidation, bool _IsActive, int _groupId)
+        : this(_name, _description, _reward, _frequency, _requiresValidation, _groupId, _IsActive)
         {
             Id = _id;
         }
@@ -48,6 +48,10 @@ namespace donely_Inspilab.Classes
         public void DeactivateTask()
         {
             this.IsActive = false;
+        }
+        public string GetDisplayTitle()
+        {
+            return $"[{Frequency.ToString().ToUpper()}] {Name}";
         }
     }
 }
