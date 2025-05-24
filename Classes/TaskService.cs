@@ -13,7 +13,7 @@ namespace donely_Inspilab.Classes
         public static Task CreateTask(string name, string description, int reward, TaskFrequency frequency, bool validationRequired, int groupId)
         {
             //Validations 
-            if (reward > 0 ) throw new ArgumentException("Reward cannot be a negative number.");
+            if (reward < 0 ) throw new ArgumentException("Reward cannot be a negative number.");
             
 
             Task newTask = new(name, description, reward, frequency, validationRequired, groupId, true);
@@ -30,6 +30,12 @@ namespace donely_Inspilab.Classes
             Database db = new();
             newInstance.Id = db.InsertTaskInstance(newInstance);
             return newInstance;
+        }
+
+        public static List<Task> GetGroupDefinitions(int groupId)
+        {
+            Database db = new();
+            return(db.GetGroupTaskDefinitions(groupId));
         }
         //TODO
         //public static TaskInstance CreateNextRecurringInstance(TaskInstance previousTask, GroupMember member, DateTime lastDeadline)
@@ -60,8 +66,7 @@ namespace donely_Inspilab.Classes
         //            break;
         //        default: return DateTime.MinValue;
         //    }
-        //     return deadline;
-            
-        }
+        //     return deadline;            
+        //}
     }
 }
