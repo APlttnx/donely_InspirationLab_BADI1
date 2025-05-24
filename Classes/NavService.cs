@@ -68,9 +68,9 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
-        public static void ToManageTasksPage()
+        public static void ToTaskLibraryPage()
         {
-            App.MainFrame.Navigate(new ManageTasksPage());
+            App.MainFrame.Navigate(new TaskLibraryPage());
         }
         public static void ToManageMemberTasksPage(GroupMember member)
         {

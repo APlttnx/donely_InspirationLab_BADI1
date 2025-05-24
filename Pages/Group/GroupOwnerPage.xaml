@@ -51,7 +51,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Margin="16,0" HorizontalAlignment="Center">
             <Button Content="Edit Group" Style="{StaticResource YellowButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToEditGroupWindow_Click"/>
             <Button Content="Invite Code" Style="{StaticResource YellowButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToInviteCodeWindow_Click"/>
-            <Button Content="Manage Tasks" Style="{StaticResource BlueButton}" Width="170" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToCreatedTaskOverviewPage_Click"/>
+            <Button Content="Task Library" Style="{StaticResource BlueButton}" Width="170" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToCreatedTaskOverviewPage_Click"/>
             <Button Content="Kick" Style="{StaticResource RedButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="KickMember_Click"/>
         </StackPanel>
     </Grid>

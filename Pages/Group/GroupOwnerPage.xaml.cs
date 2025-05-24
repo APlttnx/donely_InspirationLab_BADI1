@@ -54,7 +54,7 @@ namespace donely_Inspilab.Pages.Group
 
         private void ToCreatedTaskOverviewPage_Click(object sender, RoutedEventArgs e)
         {
-            NavService.ToManageTasksPage();
+            NavService.ToTaskLibraryPage();
         }
 
         private void ToHomePage_Click(object sender, RoutedEventArgs e)
