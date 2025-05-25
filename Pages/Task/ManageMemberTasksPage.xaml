@@ -34,7 +34,7 @@
         <ListView  x:Name="lsvActiveTasks" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding NameDisplay}" />
                     <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Reward}" />
                     <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding Deadline}" />
                     <GridViewColumn Header="Issued On" Width="80" DisplayMemberBinding="{Binding Issued}" />
@@ -45,7 +45,7 @@
         <ListView  x:Name="lsvPendingTasks" MinHeight="150"  Grid.Row="2" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding User.Name}" />
+                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding NameDisplay}" />
                     <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Reward}" />
                     <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding Deadline}" />
                     <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding Issued}" />
@@ -89,7 +89,7 @@
         <ListView  x:Name="lsvCompletedTasks" MinHeight="150"  Grid.Row="2" Grid.Column="3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding User.Name}" />
+                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding NameDisplay}" />
                     <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Reward}" />
                     <GridViewColumn Header="Issued" Width="80" DisplayMemberBinding="{Binding Deadline}" />
                     <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding Issued}" />

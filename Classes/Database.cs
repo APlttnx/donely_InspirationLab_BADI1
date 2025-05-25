@@ -327,46 +327,73 @@ namespace donely_Inspilab.Classes
 
         public List<GroupMember> GetGroupMembers(int groupID)
         {
-            string qry = @"SELECT GU.group_userID, GU.currency, GU.joined, GU.role, u.* 
-                    FROM group_users GU 
-                    JOIN users u ON GU.userID = u.userID
-                    WHERE groupID = @groupID;";
-            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
+            string qry = @"
+        SELECT gu.group_userID, gu.currency, gu.joined, gu.role, u.*,
+               COALESCE(active.count, 0) AS ActiveTasks,
+               COALESCE(pending.count, 0) AS PendingTasks,
+               COALESCE(completed.count, 0) AS CompletedTasks
+        FROM group_users gu
+        JOIN users u ON gu.userID = u.userID
+        LEFT JOIN (
+            SELECT groupUserID, COUNT(*) AS count
+            FROM task_instances
+            WHERE status = 'active'
+            GROUP BY groupUserID
+        ) active ON gu.group_userID = active.groupUserID
+        LEFT JOIN (
+            SELECT groupUserID, COUNT(*) AS count
+            FROM task_instances
+            WHERE status = 'pending'
+            GROUP BY groupUserID
+        ) pending ON gu.group_userID = pending.groupUserID
+        LEFT JOIN (
+            SELECT groupUserID, COUNT(*) AS count
+            FROM task_instances
+            WHERE status = 'completed'
+            GROUP BY groupUserID
+        ) completed ON gu.group_userID = completed.groupUserID
+        WHERE gu.groupID = @groupID;
+    ";
 
+            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
             var results = ExecuteReader(qry, parameters);
 
             List<GroupMember> groupMembers = new();
 
             foreach (var row in results)
             {
-                  User user = new User(
-                 _name: row["name"].ToString(),
-                 _email: row["email"].ToString(),
-                 _telephoneNumber: row["telephone_nr"] as string ?? string.Empty,
-                 _profilePicture: row["profile_picture"] as string ?? "profilePicture.jpg",
-                 _id: Convert.ToInt32(row["userID"]),
-                 _accountCreated: Convert.ToDateTime(row["created"]),
-                 _lastLogin: Convert.ToDateTime(row["last_login"]),
-                 _isAdmin: Convert.ToBoolean(row["is_admin"])
-             );
+                User user = new User(
+                    _name: row["name"].ToString(),
+                    _email: row["email"].ToString(),
+                    _telephoneNumber: row["telephone_nr"] as string ?? string.Empty,
+                    _profilePicture: row["profile_picture"] as string ?? "profilePicture.jpg",
+                    _id: Convert.ToInt32(row["userID"]),
+                    _accountCreated: Convert.ToDateTime(row["created"]),
+                    _lastLogin: Convert.ToDateTime(row["last_login"]),
+                    _isAdmin: Convert.ToBoolean(row["is_admin"])
+                );
 
-                List<ShopItem> boughtItems = new(); // TODO: Lijst populeren met gekochte items
+                List<ShopItem> boughtItems = new(); // TODO
 
-                GroupMember groupMember = new (
+                GroupMember groupMember = new(
                     _id: Convert.ToInt32(row["group_userID"]),
                     _user: user,
                     _groupID: groupID,
                     _currency: Convert.ToInt32(row["currency"]),
                     _boughtItems: boughtItems,
-                    _joined: Convert.ToDateTime(row["joined"])
+                    _joined: Convert.ToDateTime(row["joined"]),
+                    _activeTaskCount: Convert.ToInt32(row["ActiveTasks"]),
+                    _pendingTaskCount:  Convert.ToInt32(row["PendingTasks"]),
+                    _completedTaskCount: Convert.ToInt32(row["CompletedTasks"])
                 );
 
                 groupMembers.Add(groupMember);
             }
-            return groupMembers;
 
+            return groupMembers;
         }
-        
+
+
         #endregion
         #region SHOP
         public int InsertShopItems(List<ShopItem> shopItems, int groupID)
@@ -504,7 +531,7 @@ namespace donely_Inspilab.Classes
 
         public int InsertTaskInstance(TaskInstance task)
         {
-            string qry = @"INSERT INTO tasks_definition(taskID, groupUserID, status, deadline) 
+            string qry = @"INSERT INTO task_instances(taskID, groupUserID, status, deadline) 
                         VALUES(@taskID, @groupUserID, @status, @deadline) ";
             Dictionary<string, object> parameters = new()
             {
@@ -518,6 +545,23 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong with the database");
             return taskId;
         }
+
+        //public TaskInstance GetTaskInstance(int taskInstanceId)
+        //{
+        //    string qry = "SELECT * FROM task_instances WHERE TaskInstanceID = @TaskInstanceId;";
+        //    Dictionary<string, object> parameters = new() { ["@TaskInstanceId"] = taskInstanceId };
+        //    var result = ExecuteReader(qry, parameters)[0];
+        //    TaskInstance instance = new TaskInstance(
+        //            _id: Convert.ToInt32(result["taskID"]),
+        //            _name: result["name"].ToString(),
+        //            _description: result["details"].ToString(),
+        //            _reward: Convert.ToInt32(result["reward_currency"]),
+        //            _frequency: (TaskFrequency)Convert.ToInt32(result["frequency"]),
+        //            _requiresValidation: Convert.ToBoolean(result["validation_required"]),
+        //            _IsActive: Convert.ToBoolean(result["is_active"]),
+        //            _groupId: Convert.ToInt32(result["groupID"])
+        //        );
+        //}
 
        
         #endregion

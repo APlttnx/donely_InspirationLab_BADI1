@@ -76,6 +76,10 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new ManageMemberTasksPage(member));
         }
+        public static void ToAssignTaskPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new AssignTaskPage(member));
+        }
 
         // Add other navigation methods as needed...
     }

@@ -21,10 +21,17 @@ namespace donely_Inspilab.Pages.Task
     /// </summary>
     public partial class ManageMemberTasksPage : Page
     {
+        private GroupMember Member { get; set; }
         public ManageMemberTasksPage(GroupMember member)
         {
             InitializeComponent();
-            lblMemberName.Content = $"Tasks of {member.User.Name}";
+            Member = member;
+            lblMemberName.Content = $"Tasks of {Member.User.Name}";
+            LoadTaskInstances();
+        }
+        private void LoadTaskInstances()
+        {
+
         }
 
         private void GoBack_click(object sender, RoutedEventArgs e)
@@ -34,7 +41,7 @@ namespace donely_Inspilab.Pages.Task
 
         private void GiveTask_Click(object sender, RoutedEventArgs e)
         {
-
+            NavService.ToAssignTaskPage(Member);
         }
         private void SucceedTask_Click(object sender, RoutedEventArgs e)
         {

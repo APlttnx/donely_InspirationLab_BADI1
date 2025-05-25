@@ -10,6 +10,7 @@ namespace donely_Inspilab.Classes
 {
     public static class TaskService
     {
+        //CREATE TASK
         public static Task CreateTask(string name, string description, int reward, TaskFrequency frequency, bool validationRequired, int groupId)
         {
             //Validations 
@@ -21,7 +22,14 @@ namespace donely_Inspilab.Classes
             int id = db.InsertTaskDefinition(newTask);
             return db.GetTaskById(id); //onmiddelijk geüpdatete taak uit database halen --> zeker hetzelfde
         }
+        //READ TASK
+        public static List<Task> GetGroupDefinitions(int groupId)
+        {
+            Database db = new();
+            return (db.GetGroupTaskDefinitions(groupId));
+        }
 
+        //UPDATE TASK
         public static Task UpdateTask(int id, string name, string description, int reward, TaskFrequency frequency, bool validationRequired)
         {
             if (reward < 0)
@@ -35,33 +43,35 @@ namespace donely_Inspilab.Classes
 
             return db.GetTaskById(id);
         }
-
+        
+        //UPDATE TASK - Toggle Active
         public static void ToggleTaskIsActive(int taskId, bool isActive)
         {
             Database db = new();
             db.UpdateTaskIsActive(taskId, isActive);
         }
 
+        //DELETE (Actually update) TASK
         public static void SoftDeleteTask(int taskId)
         {
             Database db = new();
             db.SoftDeleteTask(taskId);
         }
 
+        //CREATE INSTANCE
         public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, GroupMember member)
         {
             if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future");
-            TaskInstance newInstance = new(task, member.UserId, deadline);
+            TaskInstance newInstance = new(task, member.Id, deadline);
             Database db = new();
             newInstance.Id = db.InsertTaskInstance(newInstance);
+            
+
             return newInstance;
         }
 
-        public static List<Task> GetGroupDefinitions(int groupId)
-        {
-            Database db = new();
-            return(db.GetGroupTaskDefinitions(groupId));
-        }
+
+       
         //TODO
         //public static TaskInstance CreateNextRecurringInstance(TaskInstance previousTask, GroupMember member, DateTime lastDeadline)
         //{

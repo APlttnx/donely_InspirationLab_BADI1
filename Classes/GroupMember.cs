@@ -22,7 +22,11 @@ namespace donely_Inspilab.Classes
         public List<ShopItem> BoughtItems { get; set; } = new();
         public DateTime Joined { get; set; }
 
-        public GroupMember(int _id, User _user, int _groupID, int _currency, List<ShopItem> _boughtItems, DateTime _joined)
+        public int ActiveTaskCount { get; set; }
+        public int PendingTaskCount { get; set; }
+        public int CompletedTaskCount { get;set; }
+
+        public GroupMember(int _id, User _user, int _groupID, int _currency, List<ShopItem> _boughtItems, DateTime _joined, int _activeTaskCount, int _pendingTaskCount, int _completedTaskCount)
         {
             Id = _id;
             UserId = (int)_user.Id;
@@ -31,6 +35,9 @@ namespace donely_Inspilab.Classes
             Currency = _currency;
             BoughtItems = _boughtItems;
             Joined = _joined;
+            ActiveTaskCount = _activeTaskCount;
+            PendingTaskCount = _pendingTaskCount;
+            CompletedTaskCount = _completedTaskCount;            
         }
         public GroupMember(int _groupID, int _userID, int _initialCurrency = 0, string _role = "member") //Initial constructor voor nieuwe member aan groep toe te voegen
         {
