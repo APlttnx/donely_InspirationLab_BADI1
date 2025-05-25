@@ -28,9 +28,9 @@
                     <GridViewColumn Header="Member" Width="130" DisplayMemberBinding="{Binding User.Name}" />
                     <GridViewColumn Header="Balance" Width="60" DisplayMemberBinding="{Binding Currency}" />
                     <GridViewColumn Header="Joined" Width="130" DisplayMemberBinding="{Binding Joined, StringFormat='{}{0:dd-MM-yyyy}'}" />
-                    <GridViewColumn Header="Active" Width="80" DisplayMemberBinding="{Binding ActiveTasks}" />
-                    <GridViewColumn Header="Pending" Width="80" DisplayMemberBinding="{Binding PendingTasks}" />
-                    <GridViewColumn Header="Completed" Width="80" DisplayMemberBinding="{Binding CompletedTasks}" />
+                    <GridViewColumn Header="Active" Width="80" DisplayMemberBinding="{Binding ActiveTaskCount}" />
+                    <GridViewColumn Header="Pending" Width="80" DisplayMemberBinding="{Binding PendingTaskCount}" />
+                    <GridViewColumn Header="Completed" Width="80" DisplayMemberBinding="{Binding CompletedTaskCount}" />
                     <GridViewColumn Header="" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

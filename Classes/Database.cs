@@ -328,32 +328,27 @@ namespace donely_Inspilab.Classes
         public List<GroupMember> GetGroupMembers(int groupID)
         {
             string qry = @"
-        SELECT gu.group_userID, gu.currency, gu.joined, gu.role, u.*,
-               COALESCE(active.count, 0) AS ActiveTasks,
-               COALESCE(pending.count, 0) AS PendingTasks,
-               COALESCE(completed.count, 0) AS CompletedTasks
-        FROM group_users gu
-        JOIN users u ON gu.userID = u.userID
-        LEFT JOIN (
-            SELECT groupUserID, COUNT(*) AS count
-            FROM task_instances
-            WHERE status = 'active'
-            GROUP BY groupUserID
-        ) active ON gu.group_userID = active.groupUserID
-        LEFT JOIN (
-            SELECT groupUserID, COUNT(*) AS count
-            FROM task_instances
-            WHERE status = 'pending'
-            GROUP BY groupUserID
-        ) pending ON gu.group_userID = pending.groupUserID
-        LEFT JOIN (
-            SELECT groupUserID, COUNT(*) AS count
-            FROM task_instances
-            WHERE status = 'completed'
-            GROUP BY groupUserID
-        ) completed ON gu.group_userID = completed.groupUserID
-        WHERE gu.groupID = @groupID;
-    ";
+                        SELECT 
+                            gu.group_userID,
+                            gu.currency,
+                            gu.joined,
+                            gu.role,
+                            u.*,
+                            COALESCE(t.ActiveTasks, 0) AS ActiveTasks,
+                            COALESCE(t.PendingTasks, 0) AS PendingTasks,
+                            COALESCE(t.CompletedTasks, 0) AS CompletedTasks
+                        FROM group_users gu
+                        JOIN users u ON gu.userID = u.userID
+                        LEFT JOIN (
+                            SELECT 
+                                groupUserID,
+                                SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS ActiveTasks,
+                                SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS PendingTasks,
+                                SUM(CASE WHEN status = 2 OR status = 3  THEN 1 ELSE 0 END) AS CompletedTasks
+                                FROM task_instances
+                                GROUP BY groupUserID
+                             ) t ON gu.group_userID = t.groupUserID
+                             WHERE gu.groupID = 17;";
 
             Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
             var results = ExecuteReader(qry, parameters);
