@@ -15,6 +15,11 @@ namespace donely_Inspilab.Classes
             Database db = new();
             return(db.GetGroupMembers(groupID));
         }
+        public static void KickMember(GroupMember member)
+        {
+            Database db = new();
+            db.DeleteGroupMember(member.Id);
+        }
 
     }
 }

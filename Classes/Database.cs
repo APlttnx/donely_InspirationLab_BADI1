@@ -246,6 +246,16 @@ namespace donely_Inspilab.Classes
             return groupUserId;
         }
 
+        public void DeleteGroupMember(int memberId)
+        {
+            string qry = "DELETE FROM group_users WHERE group_userID = @memberID;";
+            Dictionary<string, object> parameters = new() { ["@memberID"] = memberId };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to delete member.");
+        }
+            
+
         public List<Group> GetGroupOverview(int userId)
         {
             string qry = @"
@@ -356,6 +366,7 @@ namespace donely_Inspilab.Classes
             return groupMembers;
 
         }
+        
         #endregion
         #region SHOP
         public int InsertShopItems(List<ShopItem> shopItems, int groupID)
