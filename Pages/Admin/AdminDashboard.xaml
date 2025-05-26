@@ -1,0 +1,81 @@
+﻿<Page x:Class="donely_Inspilab.Pages.Admin.AdminDashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:donely_Inspilab.Pages.Admin"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AdminDashboard">
+
+    <Grid>
+        <!-- Title -->
+        <TextBlock Text="Admin Dashboard"
+                   FontWeight="Bold"
+                   FontSize="32"
+                   FontFamily="QuickSand"
+                   HorizontalAlignment="Center"
+                   Margin="0,20,0,0" />
+
+        <!-- Card Container -->
+        <StackPanel Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="0,80,0,0">
+
+            <!-- Users Card -->
+            <Border Width="250" Height="180"
+        CornerRadius="20"
+        Padding="20"
+        Margin="0,0,20,0"
+        MouseDown="GoToUsers"
+        Cursor="Hand">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Background" Value="#F2BAC9"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e89aae"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Total Users"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   FontFamily="QuickSand"
+                   HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="TxtUserCount"
+                   FontSize="48"
+                   FontWeight="Bold"
+                   FontFamily="QuickSand"
+                   HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+
+            <!-- Groups Card -->
+            <Border Width="250" Height="180"
+            Background="#BAD7F2"
+            CornerRadius="20"
+            Padding="20">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="Total Groups"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       FontFamily="QuickSand"
+                       HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="TxtGroupCount"
+                       FontSize="48"
+                       FontWeight="Bold"
+                       FontFamily="QuickSand"
+                       HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

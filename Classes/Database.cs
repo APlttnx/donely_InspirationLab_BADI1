@@ -163,6 +163,43 @@ namespace donely_Inspilab.Classes
             parameters.Add("@userID", id);
             return ExecuteNonQuery(qry, parameters, out _);
         }
+        public List<User> GetAllUsers()
+        {
+            string qry = "SELECT * FROM users";
+            var results = ExecuteReader(qry);
+            List<User> users = new();
+
+            foreach (var result in results)
+            {
+                users.Add(new User(
+                    _name: result["name"].ToString(),
+                    _email: result["email"].ToString(),
+                    _telephoneNumber: result["telephone_nr"].ToString(),
+                    _profilePicture: result["profile_picture"].ToString(),
+                    _id: Convert.ToInt32(result["userID"]),
+                    _accountCreated: Convert.ToDateTime(result["created"]),
+                    _lastLogin: Convert.ToDateTime(result["last_login"]),
+                    _isAdmin: Convert.ToBoolean(result["is_admin"])
+                ));
+            }
+
+            return users;
+        }
+        public void UpdateUser(int userId, string name, string email, string phone)
+        {
+            string qry = "UPDATE users SET name = @name, email = @mail, telephone_nr = @phone WHERE userID = @id";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@id"] = userId,
+                ["@name"] = name,
+                ["@mail"] = email,
+                ["@phone"] = phone
+            };
+
+            ExecuteNonQuery(qry, parameters, out _);
+        }
+
+
         #endregion
 
         #region GROUPS
@@ -338,6 +375,23 @@ namespace donely_Inspilab.Classes
 
         }
         #endregion
+
+        #region ADMIN
+        public int GetTotalUserCount()
+        {
+            string qry = "SELECT COUNT(*) FROM users";
+            var res = ExecuteReader(qry);
+            return Convert.ToInt32(res[0].Values.First());
+        }
+
+        public int GetTotalGroupCount()
+        {
+            string qry = "SELECT COUNT(*) FROM groups_";
+            var res = ExecuteReader(qry);
+            return Convert.ToInt32(res[0].Values.First());
+        }
+        #endregion
+
         #region SHOP
         public int InsertShopItems(List<ShopItem> shopItems, int groupID)
         {

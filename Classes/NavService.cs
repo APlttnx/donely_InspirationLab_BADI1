@@ -2,13 +2,15 @@
 using donely_Inspilab.Pages.auth;
 using donely_Inspilab.Pages.Settings;
 using donely_Inspilab.Pages.Group;
+
+using donely_Inspilab.Pages.Admin;
 using donely_Inspilab.Pages.Task;
-//using donely_Inspilab.Pages.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace donely_Inspilab.Classes
 {
@@ -68,6 +70,20 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
+
+        //ADMIN
+        public static void ToAdminDashboard()
+        {
+            App.MainFrame.Navigate(new AdminDashboard());
+        }
+        public static void ToAdminOverview()
+        {
+            App.MainFrame.Navigate(new UserOverviewPage());
+        }
+        public static void ToAdminCreateUserPage()
+        {
+            App.MainFrame.Navigate(new CreateUserPage());
+
         public static void ToManageTasksPage()
         {
             App.MainFrame.Navigate(new ManageTasksPage());
@@ -75,6 +91,7 @@ namespace donely_Inspilab.Classes
         public static void ToManageMemberTasksPage(GroupMember member)
         {
             App.MainFrame.Navigate(new ManageMemberTasksPage(member));
+
         }
 
         // Add other navigation methods as needed...
