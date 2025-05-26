@@ -11,5 +11,6 @@ namespace donely_Inspilab.Classes
         public int UserID { get; set; } = _userId;
         public string HashedPassword { get; set; } = _hashedPassword;
         public bool IsF2A { get; set; } = _isF2A;
+
     }
 }
