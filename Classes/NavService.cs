@@ -74,23 +74,6 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new TaskLibraryPage());
         }
-        //ADMIN
-        public static void ToAdminDashboard()
-        {
-            App.MainFrame.Navigate(new AdminDashboard());
-        }
-        public static void ToAdminOverview()
-        {
-            App.MainFrame.Navigate(new UserOverviewPage());
-        }
-        public static void ToAdminCreateUserPage()
-        {
-            App.MainFrame.Navigate(new CreateUserPage());
-
-        public static void ToManageTasksPage()
-        {
-            App.MainFrame.Navigate(new TaskLibraryPage());
-        }
         public static void ToManageMemberTasksPage(GroupMember member)
         {
             App.MainFrame.Navigate(new ManageMemberTasksPage(member));
