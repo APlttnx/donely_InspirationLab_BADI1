@@ -38,7 +38,12 @@ namespace donely_Inspilab.Pages.auth
                 if (currentUser != null)
                 {
                     SessionManager.Login(currentUser);
-                    NavService.ToHomePage();
+                    System.Diagnostics.Debug.WriteLine("Admin? " + currentUser.IsAdmin);
+
+                    if (currentUser.IsAdmin)
+                        NavService.ToAdminOverview();
+                    else
+                        NavService.ToHomePage();
                 }
                 else
                 {
