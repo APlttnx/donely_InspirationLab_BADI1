@@ -29,13 +29,13 @@ namespace donely_Inspilab.Pages.Task
             LoadLibrary();
             //lsvTaskLibrary.ItemsSource = GroupState.LoadedGroup.Tasks;
         }
-        private List<Classes.Task> taskList = []; //public zodat window items kan toevoegen zonder telkens hele tabel te herladen
+
         private void LoadLibrary()
         {
             try
             {
-                taskList = TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
-                lsvTaskLibrary.ItemsSource = taskList;
+                GroupState.LoadedGroup.TaskDefinitions = TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
+                lsvTaskLibrary.ItemsSource = GroupState.LoadedGroup.TaskDefinitions;
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace donely_Inspilab.Pages.Task
             var result = newTaskWindow.ShowDialog();
             if (result==true && newTaskWindow.NewTask != null)
             {
-                taskList.Add(newTaskWindow.NewTask);
+                GroupState.LoadedGroup.TaskDefinitions.Add(newTaskWindow.NewTask);
                 lsvTaskLibrary.Items.Refresh();
             }
         }
@@ -69,8 +69,8 @@ namespace donely_Inspilab.Pages.Task
 
             if (result == true && editWindow.EditedTask != null)
             {
-                int index = taskList.IndexOf(selectedTask);
-                taskList[index] = editWindow.EditedTask;
+                int index = GroupState.LoadedGroup.TaskDefinitions.IndexOf(selectedTask);
+                GroupState.LoadedGroup.TaskDefinitions[index] = editWindow.EditedTask;
                 lsvTaskLibrary.Items.Refresh();
             }
         }
@@ -104,7 +104,7 @@ namespace donely_Inspilab.Pages.Task
                 Classes.Task selectedTask = (Classes.Task)lsvTaskLibrary.SelectedItem;
                 TaskService.ToggleTaskIsActive(selectedTask.Id, false); //ervoor zorgen dat recurring niet verder herhaald voor verwijderde taken
                 TaskService.SoftDeleteTask(selectedTask.Id);
-                taskList.Remove(selectedTask);
+                GroupState.LoadedGroup.TaskDefinitions.Remove(selectedTask);
                 lsvTaskLibrary.Items.Refresh();
             }
             catch (Exception ex)
