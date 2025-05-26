@@ -3,6 +3,7 @@ using donely_Inspilab.Pages.auth;
 using donely_Inspilab.Pages.Settings;
 using donely_Inspilab.Pages.Group;
 using donely_Inspilab.Pages.Task;
+//using donely_Inspilab.Pages.Group.Member;
 //using donely_Inspilab.Pages.Admin;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace donely_Inspilab.Classes
         //GROUPS
         public static void ToGroupPage()
         {
-            App.MainFrame.Navigate(new GroupDashboardPage());
+            App.MainFrame.Navigate(new MemberGroupDashboardPage());
         }
         public static void ToGroupOwnerPage()
         {

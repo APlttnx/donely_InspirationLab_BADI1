@@ -24,7 +24,7 @@ namespace donely_Inspilab.Pages.Task
     public partial class AssignTaskPage : Page
     {
 
-        private List<Classes.Task> taskList = [];
+        private List<Classes.Task> TaskList = [];
 
         public TaskInstance NewAssignedTask { get; private set; }
 
@@ -45,17 +45,17 @@ namespace donely_Inspilab.Pages.Task
         {
             try
             {
-                taskList = TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
-                foreach (var task in taskList)
+                TaskList = GroupState.LoadedGroup.TaskDefinitions.Count > 0 ? GroupState.LoadedGroup.TaskDefinitions : TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
+                foreach (var task in TaskList)
                 {
                     if (task.IsActive == false)
-                        taskList.Remove(task); //inactieve taken niet laten zien
+                        TaskList.Remove(task); //inactieve taken niet laten zien
                 }
-                lsvTaskLibrary.ItemsSource = taskList;
+                lsvTaskLibrary.ItemsSource = TaskList;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong loading tasks");
+                MessageBox.Show("Something went wrong loading tasks" + ex.Message);
             }
         }
 
