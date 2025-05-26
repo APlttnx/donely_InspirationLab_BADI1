@@ -299,7 +299,8 @@ namespace donely_Inspilab.Classes
                     _name: record["group_name"].ToString(),
                     _owner: owner,
                     _creationDate: Convert.ToDateTime(record["creation_date"]),
-                    _imageLink: record["group_image"].ToString()
+                    _imageLink: record["group_image"].ToString(),
+                    _inviteCode: record["invite_code"].ToString()
                 );
 
                 groups.Add(group);
@@ -324,13 +325,55 @@ namespace donely_Inspilab.Classes
                     _name: record["name"].ToString(),
                     _owner: currentUser, // already known
                     _creationDate: Convert.ToDateTime(record["creation_date"]),
-                    _imageLink: record["image"].ToString()
+                    _imageLink: record["image"].ToString(),
+                    _inviteCode: record["invite_code"].ToString()
                 );
                 ownedGroups.Add(group);
             }
             return ownedGroups;
         }
 
+        public List<GroupMember> GetGroupMembers(int groupID)
+        {
+            string qry = @"SELECT GU.group_userID, GU.currency, GU.joined, GU.role, u.* 
+                    FROM group_users GU 
+                    JOIN users u ON GU.userID = u.userID
+                    WHERE groupID = @groupID;";
+            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
+
+            var results = ExecuteReader(qry, parameters);
+
+            List<GroupMember> groupMembers = new();
+
+            foreach (var row in results)
+            {
+                  User user = new User(
+                 _name: row["name"].ToString(),
+                 _email: row["email"].ToString(),
+                 _telephoneNumber: row["telephone_nr"] as string ?? string.Empty,
+                 _profilePicture: row["profile_picture"] as string ?? "profilePicture.jpg",
+                 _id: Convert.ToInt32(row["userID"]),
+                 _accountCreated: Convert.ToDateTime(row["created"]),
+                 _lastLogin: Convert.ToDateTime(row["last_login"]),
+                 _isAdmin: Convert.ToBoolean(row["is_admin"])
+             );
+
+                List<ShopItem> boughtItems = new(); // TODO: Lijst populeren met gekochte items
+
+                GroupMember groupMember = new (
+                    _id: Convert.ToInt32(row["group_userID"]),
+                    _user: user,
+                    _groupID: groupID,
+                    _currency: Convert.ToInt32(row["currency"]),
+                    _boughtItems: boughtItems,
+                    _joined: Convert.ToDateTime(row["joined"])
+                );
+
+                groupMembers.Add(groupMember);
+            }
+            return groupMembers;
+
+        }
         #endregion
 
         #region ADMIN

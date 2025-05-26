@@ -14,17 +14,22 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using donely_Inspilab.Classes;
 
-namespace donely_Inspilab.Pages.Group
+namespace donely_Inspilab.Pages.Task
 {
     /// <summary>
-    /// Interaction logic for GroupDashboardPage.xaml
+    /// Interaction logic for ManageMemberTasks.xaml
     /// </summary>
-    public partial class GroupDashboardPage : Page
+    public partial class ManageMemberTasksPage : Page
     {
-        public GroupDashboardPage()
+        public ManageMemberTasksPage(GroupMember member)
         {
             InitializeComponent();
-            lblTest.Content = GroupState.LoadedGroup.Name;
-        } 
+            lblMemberName.Content = $"Tasks of {member.User.Name}";
+        }
+
+        private void GoBack_click(object sender, RoutedEventArgs e)
+        {
+            NavService.ToGroupOwnerPage();
+        }
     }
 }

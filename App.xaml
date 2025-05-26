@@ -11,7 +11,7 @@
         <Style TargetType="Window">
             <Setter Property="Background" Value="#BAF2BB" />
         </Style>
-        
+
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
             <Setter Property="FontSize" Value="20" />
@@ -131,6 +131,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Hoogte Listviewrijen globaal bepalen -->
+        <Style TargetType="ListViewItem">
+            <Setter Property="Height" Value="40"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -14,7 +14,6 @@ namespace donely_Inspilab.Classes
         public User User { get; set; }
 
         public int GroupId { get; set; }
-        public Group Group { get; set; }
 
         public int Currency { get; set; }
 
@@ -23,13 +22,12 @@ namespace donely_Inspilab.Classes
         public List<ShopItem> BoughtItems { get; set; } = new();
         public DateTime Joined { get; set; }
 
-        public GroupMember(int _id, User _user, Group _group, int _currency, List<ShopItem> _boughtItems, DateTime _joined)
+        public GroupMember(int _id, User _user, int _groupID, int _currency, List<ShopItem> _boughtItems, DateTime _joined)
         {
             Id = _id;
             UserId = (int)_user.Id;
             User = _user;
-            GroupId = _group.Id;
-            Group = _group;
+            GroupId = _groupID;
             Currency = _currency;
             BoughtItems = _boughtItems;
             Joined = _joined;
