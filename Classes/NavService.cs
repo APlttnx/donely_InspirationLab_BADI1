@@ -23,10 +23,10 @@ namespace donely_Inspilab.Classes
                 if (SessionManager.CurrentUser.IsAdmin)
                 {
                     App.MainFrame.Navigate(new AdminDashboard());
+                    return;
                 }
                 GroupState.ClearGroup(); //Elke keer als homepage geladen wordt, wordt de geladen group leeggemaakt --> Via home kan je terug een groep selecteren
-
-
+                App.MainFrame.Navigate(new HomePage());
                 /* Optie om homepagina te cachen en zo niet alles elke keer te herladen. Vond zelf achteraf dat dit misschien niet nodig was op deze schaal.
                 // If HomePage is already cached, navigate to it
                 //App.HomePage ??= new HomePage();
@@ -34,9 +34,6 @@ namespace donely_Inspilab.Classes
                 // Navigate to the cached HomePage
                 //App.MainFrame.Navigate(App.HomePage);
                 */
-
-
-                App.MainFrame.Navigate(new HomePage());
             }
             else
             {

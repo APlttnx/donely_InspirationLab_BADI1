@@ -24,7 +24,13 @@ namespace donely_Inspilab.Pages.Group
         public MemberGroupDashboardPage()
         {
             InitializeComponent();
-            lblTest.Content = GroupState.LoadedGroup.Name;
-        } 
+            lblGroupName.Content = GroupState.LoadedGroup.Name;
+            imgGroupImage.Source = GroupState.LoadedGroup.ImageSource;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavService.ToHomePage();
+        }
     }
 }

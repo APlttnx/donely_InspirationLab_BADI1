@@ -47,7 +47,7 @@
                     <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
                     <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Task.Reward}" />
                     <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding DeadlineDisplay}" />
-                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding IssueDateDisplay}" />
+                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding CompletionDateDisplay}" />
                     <GridViewColumn Header="" Width="40">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
