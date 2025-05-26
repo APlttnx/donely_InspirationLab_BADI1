@@ -60,7 +60,7 @@ namespace donely_Inspilab.Classes
         //GROUPS
         public static void ToGroupPage()
         {
-            App.MainFrame.Navigate(new GroupDashboardPage());
+            App.MainFrame.Navigate(new MemberGroupDashboardPage());
         }
         public static void ToGroupOwnerPage()
         {

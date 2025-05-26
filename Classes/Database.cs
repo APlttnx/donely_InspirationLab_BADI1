@@ -703,7 +703,7 @@ namespace donely_Inspilab.Classes
                     WHERE TD.Frequency <> 0
                       AND TD.is_deleted = 0
                       AND TD.is_active = 1
-                      AND DATE(TI.completed_on) < CURDATE();
+                      AND DATE(TI.completed_on) < CURDATE()
                       AND NOT EXISTS (
 	                      SELECT 1 FROM task_instances TI2
 	                      WHERE TI2.taskID = TI.taskID
@@ -711,12 +711,7 @@ namespace donely_Inspilab.Classes
 		                    AND TI2.status = 0 
 	                );";
 
-            var parameters = new Dictionary<string, object>
-            {
-                ["@failedStatus"] = (int)TaskProgress.Failure,
-                ["@activeStatus"] = (int)TaskProgress.Active,
-                ["@nowDate"] = DateTime.Now.Date,
-            };
+            var parameters = new Dictionary<string, object>();
 
             var results = ExecuteReader(qry, parameters);
 
