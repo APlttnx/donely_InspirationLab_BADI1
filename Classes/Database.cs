@@ -699,6 +699,7 @@ namespace donely_Inspilab.Classes
                     ) latest ON TI.taskID = latest.taskID 
                             AND TI.groupUserID = latest.groupUserID 
                             AND TI.completed_on = latest.latest_completion
+
                     JOIN tasks_definition TD ON TI.taskID = TD.taskID
                     WHERE TD.Frequency <> 0
                       AND TD.is_deleted = 0

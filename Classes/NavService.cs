@@ -20,6 +20,10 @@ namespace donely_Inspilab.Classes
         {
             if (SessionManager.IsLoggedIn)
             {
+                if (SessionManager.CurrentUser.IsAdmin)
+                {
+                    App.MainFrame.Navigate(new AdminDashboard());
+                }
                 GroupState.ClearGroup(); //Elke keer als homepage geladen wordt, wordt de geladen group leeggemaakt --> Via home kan je terug een groep selecteren
 
 

@@ -66,7 +66,6 @@ namespace donely_Inspilab.Pages.Group
         {
             try
             {
-                //TODO: kick member --> Delete from user_group table (MessageBox "You Sure?" -> GroupMemberService -> db.Delete (zeker zijn dat dit ook gebruiker verwijdert in relevante tabellen
                 if (lsvMembersOverview.SelectedItem == null)
                 {
                     MessageBox.Show("Please select a member first!", "Nothing selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);

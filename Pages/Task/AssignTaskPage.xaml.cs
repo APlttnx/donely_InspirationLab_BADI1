@@ -48,7 +48,7 @@ namespace donely_Inspilab.Pages.Task
                 TaskList = GroupState.LoadedGroup.TaskDefinitions.Count > 0 ? GroupState.LoadedGroup.TaskDefinitions : TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
                 foreach (var task in TaskList)
                 {
-                    if (task.IsActive == false)
+                    if (task.IsActive == false) //TODO
                         TaskList.Remove(task); //inactieve taken niet laten zien
                 }
                 lsvTaskLibrary.ItemsSource = TaskList;
