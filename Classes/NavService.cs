@@ -73,19 +73,10 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new UserOverviewPage());
         }
-        public static void ToAdminEditUserPage()
-        {
-            App.MainFrame.Navigate(new EditUserPage());
-        }
         public static void ToAdminCreateUserPage()
         {
             App.MainFrame.Navigate(new CreateUserPage());
         }
-        public static void ToAdminDeleteUserPage()
-        {
-            App.MainFrame.Navigate(new DeleteUserPage());
-        }
-
 
         // Add other navigation methods as needed...
     }

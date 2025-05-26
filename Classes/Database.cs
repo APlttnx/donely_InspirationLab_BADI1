@@ -185,6 +185,20 @@ namespace donely_Inspilab.Classes
 
             return users;
         }
+        public void UpdateUser(int userId, string name, string email, string phone)
+        {
+            string qry = "UPDATE users SET name = @name, email = @mail, telephone_nr = @phone WHERE userID = @id";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@id"] = userId,
+                ["@name"] = name,
+                ["@mail"] = email,
+                ["@phone"] = phone
+            };
+
+            ExecuteNonQuery(qry, parameters, out _);
+        }
+
 
         #endregion
 

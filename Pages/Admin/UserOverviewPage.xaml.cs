@@ -36,15 +36,57 @@ namespace donely_Inspilab.Pages.Admin
             NavService.ToAdminCreateUserPage();
         }
 
-        private void EditUser_Click(object sender, RoutedEventArgs e)
+        private void ChangeUser_Click(object sender, RoutedEventArgs e)
         {
-            NavService.ToAdminEditUserPage();
+            if (UserDataGrid.SelectedItem is User selectedUser)
+            {
+                EditUserWindow editWindow = new(selectedUser); // pass user
+                bool? result = editWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    LoadUserList(); // reload table after update
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to change.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+
 
         private void DeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            NavService.ToAdminDeleteUserPage();
+            if (UserDataGrid.SelectedItem is User selectedUser)
+            {
+                DeleteUserWindow deleteWindow = new(selectedUser);
+                bool? result = deleteWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    LoadUserList(); // refresh the table
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+
+        private void LoadUserList()
+        {
+            Database db = new();
+            UserDataGrid.ItemsSource = db.GetAllUsers(); // Assumes you have a method to get all users
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService != null && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
 
     }
 }
