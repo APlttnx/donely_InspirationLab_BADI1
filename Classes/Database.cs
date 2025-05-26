@@ -163,6 +163,29 @@ namespace donely_Inspilab.Classes
             parameters.Add("@userID", id);
             return ExecuteNonQuery(qry, parameters, out _);
         }
+        public List<User> GetAllUsers()
+        {
+            string qry = "SELECT * FROM users";
+            var results = ExecuteReader(qry);
+            List<User> users = new();
+
+            foreach (var result in results)
+            {
+                users.Add(new User(
+                    _name: result["name"].ToString(),
+                    _email: result["email"].ToString(),
+                    _telephoneNumber: result["telephone_nr"].ToString(),
+                    _profilePicture: result["profile_picture"].ToString(),
+                    _id: Convert.ToInt32(result["userID"]),
+                    _accountCreated: Convert.ToDateTime(result["created"]),
+                    _lastLogin: Convert.ToDateTime(result["last_login"]),
+                    _isAdmin: Convert.ToBoolean(result["is_admin"])
+                ));
+            }
+
+            return users;
+        }
+
         #endregion
 
         #region GROUPS

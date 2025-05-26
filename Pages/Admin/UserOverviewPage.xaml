@@ -4,12 +4,55 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages.Admin"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
       Title="UserOverviewPage">
 
-    <Grid>
-        <Label Content="User Overview" Height="43" Margin="19,10,0,0" FontWeight="Bold" FontSize="32" FontFamily="QuickSand"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-    </Grid>
+            <TextBlock Text="User Overview"
+                       FontWeight="Bold"
+                       FontSize="32"
+                       FontFamily="QuickSand"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20" />
+
+            <!-- Table -->
+            <DataGrid x:Name="UserDataGrid"
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      MaxHeight="400"
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="0,0,0,20">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                    <DataGridTextColumn Header="Phone" Binding="{Binding TelephoneNumber}" />
+                    <DataGridTextColumn Header="Admin" Binding="{Binding IsAdmin}" />
+                    <DataGridTextColumn Header="Account Created" Binding="{Binding AccountCreated}" />
+                    <DataGridTextColumn Header="Last Login" Binding="{Binding LastLogin}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="Create User"
+                        Click="CreateUser_Click"
+                        Style="{StaticResource BlueButton}" />
+                <Button Content="Change User"
+                        Click="EditUser_Click"
+                        Style="{StaticResource RedButton}" />
+                <Button Content="Delete User"
+                        Click="DeleteUser_Click"
+                        Style="{StaticResource RedButton}" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>
