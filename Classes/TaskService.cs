@@ -62,7 +62,7 @@ namespace donely_Inspilab.Classes
         //CREATE INSTANCE
         public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, int memberId)
         {
-            if (deadline.Date <= DateTime.Now.Date) throw new ArgumentException("Deadline must be in the future");
+            if (deadline.Date < DateTime.Now.Date) throw new ArgumentException("Deadline must be in the future");
             TaskInstance newInstance = new(task, memberId, deadline);
             Database db = new();
             newInstance.Id = db.InsertTaskInstance(newInstance);
@@ -90,9 +90,7 @@ namespace donely_Inspilab.Classes
             Database db = new();
             return db.AutoFailExpiredTasksGlobal();
         }
-
-
-        //TODO
+        // auto reassigner
         public static void AutoReassignRecurringTasks()
         {
             Database db = new();

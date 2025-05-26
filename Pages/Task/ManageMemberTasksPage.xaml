@@ -74,7 +74,7 @@
                                         BorderThickness="0"
                                         Background="white"
                                         Foreground="OrangeRed"
-                                        Click="FailTask_Click" />
+                                        Click="FailPendingTask_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -96,7 +96,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Give Task" Style="{StaticResource BlueButton}"  HorizontalAlignment="Right" Click="GiveTask_Click"/>
         </StackPanel>
         

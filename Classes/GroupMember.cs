@@ -79,6 +79,10 @@ namespace donely_Inspilab.Classes
                 .Where(t => t.Status == TaskProgress.Success || t.Status == TaskProgress.Failure)
                 .OrderByDescending(t => t.CompletionDate) //meest recente completions eerst
                 .ToList();
+
+            ActiveTaskCount = ActiveTaskList.Count;
+            PendingTaskCount = PendingTaskList.Count;
+            CompletedTaskCount = CompletedTaskList.Count;
         }
 
         public void AutoFailExpiredTasks()

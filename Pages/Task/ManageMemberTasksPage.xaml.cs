@@ -57,7 +57,7 @@ namespace donely_Inspilab.Pages.Task
             //if (member == null) return;
 
         }
-        private void FailTask_Click(object sender, RoutedEventArgs e)
+        private void FailPendingTask_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             if (button == null) return;
@@ -65,7 +65,6 @@ namespace donely_Inspilab.Pages.Task
             //// The DataContext of the Button is the Member bound in the DataTemplate
             //GroupMember member = button.DataContext as GroupMember;
             //if (member == null) return;
-
         }
     }
 }
