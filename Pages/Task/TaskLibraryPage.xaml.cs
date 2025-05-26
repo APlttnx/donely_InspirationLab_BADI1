@@ -112,7 +112,8 @@ namespace donely_Inspilab.Pages.Task
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-        }//TODO als Task Instances op punt staat --> Check doen of er een actieve instance is (dus != fail/success) -> zo ja, dan kan deze nog niet verwijderd worden. Voor recurring ook check Active/Not Active
+        }//
+         //als Task Instances op punt staat --> Check doen of er een actieve instance is (dus != fail/success) -> zo ja, dan kan deze nog niet verwijderd worden. Voor recurring ook check Active/Not Active
 
 
 

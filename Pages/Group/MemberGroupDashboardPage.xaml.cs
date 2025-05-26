@@ -19,9 +19,9 @@ namespace donely_Inspilab.Pages.Group
     /// <summary>
     /// Interaction logic for GroupDashboardPage.xaml
     /// </summary>
-    public partial class GroupDashboardPage : Page
+    public partial class MemberGroupDashboardPage : Page
     {
-        public GroupDashboardPage()
+        public MemberGroupDashboardPage()
         {
             InitializeComponent();
             lblTest.Content = GroupState.LoadedGroup.Name;

@@ -20,6 +20,10 @@ namespace donely_Inspilab.Classes
         {
             if (SessionManager.IsLoggedIn)
             {
+                if (SessionManager.CurrentUser.IsAdmin)
+                {
+                    App.MainFrame.Navigate(new AdminDashboard());
+                }
                 GroupState.ClearGroup(); //Elke keer als homepage geladen wordt, wordt de geladen group leeggemaakt --> Via home kan je terug een groep selecteren
 
 
@@ -71,6 +75,20 @@ namespace donely_Inspilab.Classes
             App.MainFrame.Navigate(new GroupCreationPage());
         }
         public static void ToTaskLibraryPage()
+        {
+            App.MainFrame.Navigate(new TaskLibraryPage());
+        }
+        public static void ToManageMemberTasksPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new ManageMemberTasksPage(member));
+
+        }
+        public static void ToAssignTaskPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new AssignTaskPage(member));
+        }
+
+
         //ADMIN
         public static void ToAdminDashboard()
         {
@@ -83,19 +101,6 @@ namespace donely_Inspilab.Classes
         public static void ToAdminCreateUserPage()
         {
             App.MainFrame.Navigate(new CreateUserPage());
-
-        public static void ToManageTasksPage()
-        {
-            App.MainFrame.Navigate(new TaskLibraryPage());
-        }
-        public static void ToManageMemberTasksPage(GroupMember member)
-        {
-            App.MainFrame.Navigate(new ManageMemberTasksPage(member));
-
-        }
-        public static void ToAssignTaskPage(GroupMember member)
-        {
-            App.MainFrame.Navigate(new AssignTaskPage(member));
         }
 
         // Add other navigation methods as needed...
