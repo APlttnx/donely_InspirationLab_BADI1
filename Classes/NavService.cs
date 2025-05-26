@@ -71,18 +71,12 @@ namespace donely_Inspilab.Classes
             App.MainFrame.Navigate(new GroupCreationPage());
         }
         public static void ToTaskLibraryPage()
-        //ADMIN
-        public static void ToAdminDashboard()
         {
-            App.MainFrame.Navigate(new AdminDashboard());
+            App.MainFrame.Navigate(new TaskLibraryPage());
         }
-        public static void ToAdminOverview()
-        {
-            App.MainFrame.Navigate(new UserOverviewPage());
-        }
-        public static void ToAdminCreateUserPage()
-        {
-            App.MainFrame.Navigate(new CreateUserPage());
+
+
+        //TASKS
 
         public static void ToManageTasksPage()
         {
@@ -96,6 +90,21 @@ namespace donely_Inspilab.Classes
         public static void ToAssignTaskPage(GroupMember member)
         {
             App.MainFrame.Navigate(new AssignTaskPage(member));
+        }
+
+
+        //ADMIN
+        public static void ToAdminDashboard()
+        {
+            App.MainFrame.Navigate(new AdminDashboard());
+        }
+        public static void ToAdminOverview()
+        {
+            App.MainFrame.Navigate(new UserOverviewPage());
+        }
+        public static void ToAdminCreateUserPage()
+        {
+            App.MainFrame.Navigate(new CreateUserPage());
         }
 
         // Add other navigation methods as needed...
