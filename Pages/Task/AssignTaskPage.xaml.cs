@@ -69,7 +69,7 @@ namespace donely_Inspilab.Pages.Task
                 Classes.Task newTask = TaskService.CreateTask(txtTaskName.Text, txtDescription.Text, Convert.ToInt32(txtReward.Text), (TaskFrequency)cmbFrequency.SelectedItem, (bool)cbValidation.IsChecked, GroupState.LoadedGroup.Id);
                 if (newTask != null)
                 {
-                    NewAssignedTask = TaskService.CreateTaskInstance(newTask, dpDeadlineNew.SelectedDate.Value, Member);
+                    NewAssignedTask = TaskService.CreateTaskInstance(newTask, dpDeadlineNew.SelectedDate.Value, Member.Id);
                     MessageBox.Show("Task successfully assigned!", "Success", MessageBoxButton.OK);
                     NavService.ToManageMemberTasksPage(Member);
                 }
@@ -103,7 +103,7 @@ namespace donely_Inspilab.Pages.Task
                 Classes.Task newTask = lsvTaskLibrary.SelectedItem as Classes.Task;
                 if (newTask != null)
                 {
-                    NewAssignedTask = TaskService.CreateTaskInstance(newTask, dpDeadlineLibrary.SelectedDate.Value, Member);
+                    NewAssignedTask = TaskService.CreateTaskInstance(newTask, dpDeadlineLibrary.SelectedDate.Value, Member.Id);
                     MessageBox.Show("Task successfully assigned!", "Success", MessageBoxButton.OK);
                     NavService.ToManageMemberTasksPage(Member);
                 }

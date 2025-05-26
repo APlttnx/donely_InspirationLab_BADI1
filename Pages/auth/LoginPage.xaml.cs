@@ -38,6 +38,9 @@ namespace donely_Inspilab.Pages.auth
                 if (currentUser != null)
                 {
                     SessionManager.Login(currentUser);
+                    TaskService.AutoFailExpiredTasksGlobal(); // Bij login --> Run global AutoFailer (alle expired tasks worden dan automatisch gemarkeerd als Failed. Onze db is klein genoeg dat dit zo geen problemen oplevert, maar zou later een robustere oplossing nodig hebben
+                    TaskService.AutoReassignRecurringTasks(); //same als hierboven. Recurrente opdrachten worden automatisch herhaald als alle voorwaarden voldaan
+                    // Voor grotere db --> mss ook best Async?
                     NavService.ToHomePage();
                 }
                 else

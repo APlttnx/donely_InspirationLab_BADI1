@@ -73,7 +73,5 @@ namespace donely_Inspilab.Classes
             ImageLink = _imageLink;
             InviteCode = _inviteCode;
         }
-
-
     }
 }

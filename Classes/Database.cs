@@ -602,14 +602,14 @@ namespace donely_Inspilab.Classes
                 throw new Exception("Failed to update task instance.");
         }
 
-        //Global AutoFailer:
+        //Global AutoFailer: Completion Date is gezet op CompletionDate --> makkelijker voor AutoReassigner
         public int AutoFailExpiredTasksGlobal()
         {
             string qry = @"
                 UPDATE task_instances TI
                 JOIN tasks_definition TD ON TI.taskID = TD.taskID
                 SET TI.status = @failedStatus,
-                    TI.completed_on = @now
+                    TI.completed_on = TI.deadline
                 WHERE TI.status = @activeStatus
                   AND TI.deadline < @nowDate
                 ";
@@ -618,11 +618,82 @@ namespace donely_Inspilab.Classes
             {
                 ["@failedStatus"] = (int)TaskProgress.Failure,
                 ["@activeStatus"] = (int)TaskProgress.Active,
-                ["@now"] = DateTime.Now,
                 ["@nowDate"] = DateTime.Now.Date,
             };
 
             return ExecuteNonQuery(qry, parameters, out _);
+        }
+        //voor auto-reassigner
+        public List<TaskInstance> GetAllCompletedRecurringTasks()
+        {
+            /*Query filtert alle laatste versies (dus laatste combo GroupUserID en TaskID) van Task Instances waar: 
+              - Task Definition is Actief (is_active = 1)
+              - Task Definition is Not (soft) Deleted (is_deleted = 0)
+              - Task Definition is Recurring (dus Frequency != 0, want 0 is One Time) (Frequency <> 0)
+              - Task Instance Completion Date is in het verleden (want als vandaag completed --> sowieso niet herhalen) (DATE(completed_on) < CURDATE();)
+              - Laatste Task Instance is ingediend --> dus geen actieve instance op dit moment (status <> 0 )
+              - En tenslotte check of dat er geen actieve instances van dezelfde combinatie bestaand
+            */
+            string qry = @"
+                    SELECT TI.*, TD.*
+                    FROM task_instances TI
+                    JOIN (
+                        SELECT taskID, groupUserID, MAX(completed_on) AS latest_completion
+                        FROM task_instances
+                        WHERE status <> 0 -- completed
+                        GROUP BY taskID, groupUserID
+                    ) latest ON TI.taskID = latest.taskID 
+                            AND TI.groupUserID = latest.groupUserID 
+                            AND TI.completed_on = latest.latest_completion
+                    JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                    WHERE TD.Frequency <> 0
+                      AND TD.is_deleted = 0
+                      AND TD.is_active = 1
+                      AND DATE(TI.completed_on) < CURDATE();
+                      AND NOT EXISTS (
+	                      SELECT 1 FROM task_instances TI2
+	                      WHERE TI2.taskID = TI.taskID
+		                    AND TI2.groupUserID = TI.groupUserID
+		                    AND TI2.status = 0 
+	                );";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@failedStatus"] = (int)TaskProgress.Failure,
+                ["@activeStatus"] = (int)TaskProgress.Active,
+                ["@nowDate"] = DateTime.Now.Date,
+            };
+
+            var results = ExecuteReader(qry, parameters);
+
+            List<TaskInstance> taskInstances = [];
+            foreach (var row in results)
+            {
+                //Populate Task Definition
+                Task task = new Task(
+                        _id: Convert.ToInt32(row["taskID"]),
+                        _name: row["name"].ToString(),
+                        _description: row["details"].ToString(),
+                        _reward: Convert.ToInt32(row["reward_currency"]),
+                        _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                        _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                        _IsActive: Convert.ToBoolean(row["is_active"]),
+                        _groupId: Convert.ToInt32(row["groupID"])
+                    );
+
+                //Populate Task Instance
+                TaskInstance instance = new TaskInstance(
+                        _id: Convert.ToInt32(row["taskInstanceID"]),
+                        _task: task,
+                        _memberId: Convert.ToInt32(row["groupUserID"]),
+                        _deadline: Convert.ToDateTime(row["deadline"]),
+                        _status: (TaskProgress)Convert.ToInt32(row["status"]),
+                        _issueDate: Convert.ToDateTime(row["issued_on"]),
+                        _completionDate: row["completed_on"] == DBNull.Value ? null : Convert.ToDateTime(row["completed_on"]) //als leeg --> null value doorgeven
+                    );
+                taskInstances.Add(instance);
+            }
+            return taskInstances;
         }
         #endregion
     }

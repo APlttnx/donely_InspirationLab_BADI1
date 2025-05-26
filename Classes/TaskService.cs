@@ -1,6 +1,7 @@
 ﻿using donely_Inspilab.Enum;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,14 +60,12 @@ namespace donely_Inspilab.Classes
         }
 
         //CREATE INSTANCE
-        public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, GroupMember member)
+        public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, int memberId)
         {
-            if (deadline < DateTime.Now) throw new ArgumentException("Deadline must be in the future");
-            TaskInstance newInstance = new(task, member.Id, deadline);
+            if (deadline.Date <= DateTime.Now.Date) throw new ArgumentException("Deadline must be in the future");
+            TaskInstance newInstance = new(task, memberId, deadline);
             Database db = new();
             newInstance.Id = db.InsertTaskInstance(newInstance);
-            
-
             return newInstance;
         }
 
@@ -94,35 +93,35 @@ namespace donely_Inspilab.Classes
 
 
         //TODO
-        //public static TaskInstance CreateNextRecurringInstance(TaskInstance previousTask, GroupMember member, DateTime lastDeadline)
-        //{
-        //    previousTask.Task.
-        //    if (task.Frequency == TaskFrequency.None)
-        //        throw new InvalidOperationException("Non-recurring task can't be scheduled again.");
+        public static void AutoReassignRecurringTasks()
+        {
+            Database db = new();
+            List<TaskInstance> tasksToReassign = db.GetAllCompletedRecurringTasks();
 
-        //    var nextDeadline = CreateNextDeadline(task, lastDeadline);
-        //    return TaskInstance.CreateTaskInstance(task, nextDeadline, member);
-        //}
-        //private static DateTime CreateNextDeadline(Task task, DateTime previousDeadline)
-        //{
-        //    DateTime deadline = new DateTime();
-        //    //DateTime endOfDay = DateTime.Now.Date.AddDays(1).AddMilliseconds(-1);
-        //    switch (task.Frequency)
-        //    {
-        //        case TaskFrequency.None:
-        //            throw new ArgumentException("This task is not a recurring task");
-        //        case TaskFrequency.Daily:
-        //            deadline = previousDeadline.AddDays(1);
-        //            break;
-        //        case TaskFrequency.Weekly:
-        //            deadline = previousDeadline.AddDays(7);
-        //            break;
-        //        case TaskFrequency.Monthly:
-        //            deadline = previousDeadline.AddMonths(1);
-        //            break;
-        //        default: return DateTime.MinValue;
-        //    }
-        //     return deadline;            
-        //}
+            foreach (TaskInstance instance in tasksToReassign)
+            {
+                DateTime prevDeadline = instance.Deadline;
+                DateTime newDeadline;
+                DateTime now = DateTime.Now;
+                switch (instance.Task.Frequency)
+                {
+                    case TaskFrequency.Daily:
+                        newDeadline = now.Date; //als geen actieve dailies --> nieuwe actieve deadline is vandaag
+                        break;
+                    case TaskFrequency.Weekly:
+                        newDeadline = now > prevDeadline ? prevDeadline.AddDays(7) : new();
+                        break;
+                    case TaskFrequency.Monthly:
+                        newDeadline = now > prevDeadline ? prevDeadline.AddMonths(1) : new();
+                        break;
+                    default:
+                        newDeadline = new();
+                        break;
+                }
+                if (newDeadline != DateTime.MinValue)
+                    CreateTaskInstance(instance.Task, newDeadline, instance.MemberId);
+            }
+        }
+        
     }
 }
