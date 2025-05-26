@@ -295,6 +295,23 @@ namespace donely_Inspilab.Classes
         }
 
         #endregion
+
+        #region ADMIN
+        public int GetTotalUserCount()
+        {
+            string qry = "SELECT COUNT(*) FROM users";
+            var res = ExecuteReader(qry);
+            return Convert.ToInt32(res[0].Values.First());
+        }
+
+        public int GetTotalGroupCount()
+        {
+            string qry = "SELECT COUNT(*) FROM groups_";
+            var res = ExecuteReader(qry);
+            return Convert.ToInt32(res[0].Values.First());
+        }
+        #endregion
+
         #region SHOP
         public int InsertShopItems(List<ShopItem> shopItems, int groupID)
         {

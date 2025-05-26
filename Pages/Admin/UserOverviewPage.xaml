@@ -9,6 +9,7 @@
       Title="UserOverviewPage">
 
     <Grid>
-        
+        <Label Content="User Overview" Height="43" Margin="19,10,0,0" FontWeight="Bold" FontSize="32" FontFamily="QuickSand"/>
+
     </Grid>
 </Page>

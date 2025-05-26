@@ -65,6 +65,10 @@ namespace donely_Inspilab.Classes
             App.MainFrame.Navigate(new GroupCreationPage());
         }
         //ADMIN
+        public static void ToAdminDashboard()
+        {
+            App.MainFrame.Navigate(new AdminDashboard());
+        }
         public static void ToAdminOverview()
         {
             App.MainFrame.Navigate(new UserOverviewPage());
