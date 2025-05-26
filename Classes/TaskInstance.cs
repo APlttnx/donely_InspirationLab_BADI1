@@ -41,13 +41,10 @@ namespace donely_Inspilab.Classes
             CompletionDate = _completionDate;
         }
         public DateOnly DeadlineDateOnly => DateOnly.FromDateTime(Deadline);
+
+        //Voor gebruik bij Listviews
         public string DeadlineDisplay => DateFormatter.FormatDate(Deadline);
         public string IssueDateDisplay => DateFormatter.FormatDate(IssueDate);
         public string CompletionDateDisplay => DateFormatter.FormatDate((DateTime)CompletionDate);
-
-
-
-
-
     }
 }

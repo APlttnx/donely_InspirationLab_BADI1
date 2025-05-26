@@ -58,7 +58,8 @@ namespace donely_Inspilab.Classes
 
         public void LoadTaskList(List<TaskInstance> tasks)
         {
-            this.AllTaskInstances = tasks;
+            AllTaskInstances = tasks;
+            AutoFailExpiredTasks();
             RefreshFilteredLists();
         }
 
@@ -80,6 +81,18 @@ namespace donely_Inspilab.Classes
                 .ToList();
         }
 
+        public void AutoFailExpiredTasks()
+        {
+            DateOnly now = DateOnly.FromDateTime(DateTime.Now);
+            var ExpiredTasks = AllTaskInstances.Where(t => t.Status == TaskProgress.Active && t.DeadlineDateOnly < now); 
+            foreach (TaskInstance task in ExpiredTasks)
+            {
+                task.Status = TaskProgress.Failure;
+                task.CompletionDate = DateTime.Now;
+                TaskService.UpdateTask(task);
+            }
+            RefreshFilteredLists();
+        }
 
     }
 }

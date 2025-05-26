@@ -579,7 +579,51 @@ namespace donely_Inspilab.Classes
             return taskInstances;
         }
 
+        //update task Instance (ex. failed, completion, ...)
+        public void UpdateTaskInstance(TaskInstance task)
+        {
+            string qry = @"
+                    UPDATE task_instances 
+                    SET status = @status, 
+                        deadline = @deadline, 
+                        issued_on = @issued_on, 
+                        completed_on = @completed_on
+                    WHERE taskInstanceID = @taskInstanceID";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@status"] = task.Status,
+                ["@deadline"] = task.Deadline,
+                ["@issued_on"] = task.IssueDate,
+                ["@completed_on"] = task.CompletionDate.HasValue ? (object)task.CompletionDate.Value : DBNull.Value, //check of completion Date al waarde of niet
+                ["@taskInstanceID"] = task.Id
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update task instance.");
+        }
 
+        //Global AutoFailer:
+        public int AutoFailExpiredTasksGlobal()
+        {
+            string qry = @"
+                UPDATE task_instances TI
+                JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                SET TI.status = @failedStatus,
+                    TI.completed_on = @now
+                WHERE TI.status = @activeStatus
+                  AND TI.deadline < @nowDate
+                ";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@failedStatus"] = (int)TaskProgress.Failure,
+                ["@activeStatus"] = (int)TaskProgress.Active,
+                ["@now"] = DateTime.Now,
+                ["@nowDate"] = DateTime.Now.Date,
+            };
+
+            return ExecuteNonQuery(qry, parameters, out _);
+        }
         #endregion
     }
 }

@@ -32,6 +32,7 @@ namespace donely_Inspilab.Pages
         {
             InitializeComponent();
             LoadGroups(); //Inladen groepen via database en in listviews plaatsen
+            TaskService.AutoFailExpiredTasksGlobal();
         }
 
         private void LoadGroups()

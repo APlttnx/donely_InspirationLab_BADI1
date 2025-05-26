@@ -78,8 +78,21 @@ namespace donely_Inspilab.Classes
             return member;
         }
 
+        //UPDATE
+        public static void UpdateTask(TaskInstance task)
+        {
+            Database db = new();
+            db.UpdateTaskInstance(task);
+        }
 
-       
+        //BATCH AUTOFAILER Global
+        public static int AutoFailExpiredTasksGlobal()
+        {
+            Database db = new();
+            return db.AutoFailExpiredTasksGlobal();
+        }
+
+
         //TODO
         //public static TaskInstance CreateNextRecurringInstance(TaskInstance previousTask, GroupMember member, DateTime lastDeadline)
         //{
