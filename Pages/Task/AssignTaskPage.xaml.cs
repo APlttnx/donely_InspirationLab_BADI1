@@ -45,12 +45,12 @@ namespace donely_Inspilab.Pages.Task
         {
             try
             {
-                TaskList = GroupState.LoadedGroup.TaskDefinitions.Count > 0 ? GroupState.LoadedGroup.TaskDefinitions : TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
-                foreach (var task in TaskList)
+                if (GroupState.LoadedGroup.TaskDefinitions.Count == 0)
                 {
-                    if (task.IsActive == false) //TODO
-                        TaskList.Remove(task); //inactieve taken niet laten zien
+                    GroupState.LoadedGroup.TaskDefinitions = TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
                 }
+                TaskList = GroupState.LoadedGroup.TaskDefinitions.Where(t => t.IsActive).ToList() ; //filtert inactieve taken eruit
+
                 lsvTaskLibrary.ItemsSource = TaskList;
             }
             catch (Exception ex)
