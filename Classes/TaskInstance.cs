@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using donely_Inspilab.Enum;
+using donely_Inspilab.Methods;
 
 namespace donely_Inspilab.Classes
 {
@@ -14,10 +15,12 @@ namespace donely_Inspilab.Classes
         public int TaskId {  get; set; }
         public int MemberId { get; set; }
         public DateTime Deadline { get; set; }
+       
+
         public TaskProgress Status { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime? CompletionDate { get; set; }
-
+        
         //Constructor Creating new instance
         public TaskInstance(Task _task, int _memberId, DateTime _deadline)
         {
@@ -37,6 +40,11 @@ namespace donely_Inspilab.Classes
             IssueDate = _issueDate;
             CompletionDate = _completionDate;
         }
+        public DateOnly DeadlineDateOnly => DateOnly.FromDateTime(Deadline);
+        public string DeadlineDisplay => DateFormatter.FormatDate(Deadline);
+        public string IssueDateDisplay => DateFormatter.FormatDate(IssueDate);
+        public string CompletionDateDisplay => DateFormatter.FormatDate((DateTime)CompletionDate);
+
 
 
 

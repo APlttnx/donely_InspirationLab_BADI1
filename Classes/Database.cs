@@ -348,7 +348,7 @@ namespace donely_Inspilab.Classes
                                 FROM task_instances
                                 GROUP BY groupUserID
                              ) t ON gu.group_userID = t.groupUserID
-                             WHERE gu.groupID = 17;";
+                             WHERE gu.groupID = @groupID;";
 
             Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
             var results = ExecuteReader(qry, parameters);
@@ -541,24 +541,45 @@ namespace donely_Inspilab.Classes
             return taskId;
         }
 
-        //public TaskInstance GetTaskInstance(int taskInstanceId)
-        //{
-        //    string qry = "SELECT * FROM task_instances WHERE TaskInstanceID = @TaskInstanceId;";
-        //    Dictionary<string, object> parameters = new() { ["@TaskInstanceId"] = taskInstanceId };
-        //    var result = ExecuteReader(qry, parameters)[0];
-        //    TaskInstance instance = new TaskInstance(
-        //            _id: Convert.ToInt32(result["taskID"]),
-        //            _name: result["name"].ToString(),
-        //            _description: result["details"].ToString(),
-        //            _reward: Convert.ToInt32(result["reward_currency"]),
-        //            _frequency: (TaskFrequency)Convert.ToInt32(result["frequency"]),
-        //            _requiresValidation: Convert.ToBoolean(result["validation_required"]),
-        //            _IsActive: Convert.ToBoolean(result["is_active"]),
-        //            _groupId: Convert.ToInt32(result["groupID"])
-        //        );
-        //}
+        public List<TaskInstance> GetTaskInstancesMemberId(int groupUserId)
+        {
+            string qry = @"
+                SELECT * FROM task_instances TI
+                JOIN tasks_definition TD ON TI. taskID = TD.taskID
+                WHERE TI.GroupUserID = @groupUserID";
+            Dictionary<string, object> parameters = new() { ["@groupUserID"] = groupUserId };
+            var result = ExecuteReader(qry, parameters);
+            List<TaskInstance> taskInstances = [];
+            foreach (var row in result)
+            {
+                //Populate Task Definition
+                Task task = new Task(
+                       _id: Convert.ToInt32(row["taskID"]),
+                       _name: row["name"].ToString(),
+                       _description: row["details"].ToString(),
+                       _reward: Convert.ToInt32(row["reward_currency"]),
+                       _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                       _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                       _IsActive: Convert.ToBoolean(row["is_active"]),
+                       _groupId: Convert.ToInt32(row["groupID"])
+                    );
 
-       
+                //Populate Task Instance
+                TaskInstance instance = new TaskInstance(
+                        _id: Convert.ToInt32(row["taskInstanceID"]),
+                        _task: task,
+                        _memberId: Convert.ToInt32(row["groupUserID"]),
+                        _deadline: Convert.ToDateTime(row["deadline"]),
+                        _status: (TaskProgress)Convert.ToInt32(row["status"]),
+                        _issueDate: Convert.ToDateTime(row["issued_on"]),
+                        _completionDate: row["completed_on"] == DBNull.Value ? null : Convert.ToDateTime(row["completed_on"]) //als leeg --> null value doorgeven
+                    );
+                taskInstances.Add(instance);
+            }
+            return taskInstances;
+        }
+
+
         #endregion
     }
 }

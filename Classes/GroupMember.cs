@@ -1,4 +1,5 @@
-﻿using System;
+﻿using donely_Inspilab.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,14 @@ namespace donely_Inspilab.Classes
         public int PendingTaskCount { get; set; }
         public int CompletedTaskCount { get;set; }
 
+
+        private List<TaskInstance> AllTaskInstances = new();
+
+        public List<TaskInstance> ActiveTaskList { get; private set; } = new();
+        public List<TaskInstance> PendingTaskList { get; private set; } = new();
+        public List<TaskInstance> CompletedTaskList { get; private set; } = new();
+
+
         public GroupMember(int _id, User _user, int _groupID, int _currency, List<ShopItem> _boughtItems, DateTime _joined, int _activeTaskCount, int _pendingTaskCount, int _completedTaskCount)
         {
             Id = _id;
@@ -46,6 +55,31 @@ namespace donely_Inspilab.Classes
             Currency = _initialCurrency;
             Role = _role;
         }
+
+        public void LoadTaskList(List<TaskInstance> tasks)
+        {
+            this.AllTaskInstances = tasks;
+            RefreshFilteredLists();
+        }
+
+        public void RefreshFilteredLists()
+        {
+            ActiveTaskList = AllTaskInstances
+                .Where(t => t.Status == TaskProgress.Active)
+                .OrderBy(t => t.Deadline)
+                .ToList();
+
+            PendingTaskList = AllTaskInstances
+                .Where(t => t.Status == TaskProgress.Pending)
+                .OrderBy(t => t.CompletionDate)
+                .ToList();
+
+            CompletedTaskList = AllTaskInstances
+                .Where(t => t.Status == TaskProgress.Success || t.Status == TaskProgress.Failure)
+                .OrderByDescending(t => t.CompletionDate) //meest recente completions eerst
+                .ToList();
+        }
+
 
     }
 }

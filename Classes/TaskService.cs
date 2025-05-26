@@ -70,6 +70,14 @@ namespace donely_Inspilab.Classes
             return newInstance;
         }
 
+        //READ INSTANCES FROM MEMBER
+        public static GroupMember LoadTaskInstances(GroupMember member)
+        {
+            Database db = new();
+            member.LoadTaskList(db.GetTaskInstancesMemberId(member.Id));
+            return member;
+        }
+
 
        
         //TODO

@@ -25,7 +25,6 @@ namespace donely_Inspilab.Classes
 
         public List<GroupMember> Members { get; set; } = new(); 
         //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
-        //public List<TaskInstance> ActiveTasks { get; set; } = new();
 
         //Create new group Constructor
         public Group(string _name, User _owner, string _imageLink = "groupImages/default.png")

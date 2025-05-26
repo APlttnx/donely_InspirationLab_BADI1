@@ -22,6 +22,7 @@ namespace donely_Inspilab.Pages.Task
     public partial class ManageMemberTasksPage : Page
     {
         private GroupMember Member { get; set; }
+
         public ManageMemberTasksPage(GroupMember member)
         {
             InitializeComponent();
@@ -31,7 +32,10 @@ namespace donely_Inspilab.Pages.Task
         }
         private void LoadTaskInstances()
         {
-
+            Member = TaskService.LoadTaskInstances(Member);
+            lsvActiveTasks.ItemsSource =  Member.ActiveTaskList;
+            lsvPendingTasks.ItemsSource = Member.PendingTaskList;
+            lsvCompletedTasks.ItemsSource = Member.CompletedTaskList;
         }
 
         private void GoBack_click(object sender, RoutedEventArgs e)
