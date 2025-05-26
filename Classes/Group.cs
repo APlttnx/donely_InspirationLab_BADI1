@@ -24,7 +24,8 @@ namespace donely_Inspilab.Classes
         public bool ShopActive => ShopItems.Count > 0;
 
         public List<GroupMember> Members { get; set; } = new();
-        //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
+
+        public List<Task> TaskDefinitions { get; set; } = new();
 
         public ImageSource ImageSource
         {
