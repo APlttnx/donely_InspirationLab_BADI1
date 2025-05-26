@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <Folder Include="Enum\" />
     <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Admin\" />

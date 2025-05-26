@@ -24,7 +24,11 @@ namespace donely_Inspilab.Classes
             //TODO: Tasks en shopitems ook ophalen
             LoadedGroup = group;
         }
-
+        public static void ReloadGroup() //dient voor manuele reloads uit te voeren
+        {
+            if (LoadedGroup == null) return;
+            LoadedGroup.Members = GroupMemberService.GetListGroupMembers(LoadedGroup.Id);
+        }
 
     }
 }

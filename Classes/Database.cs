@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using donely_Inspilab.Enum;
+using donely_Inspilab.Exceptions;
+using Microsoft.Extensions.Configuration;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using MySqlConnector;
-using System.ComponentModel.Design;
-using donely_Inspilab.Exceptions;
 
 namespace donely_Inspilab.Classes
 {
@@ -217,6 +220,7 @@ namespace donely_Inspilab.Classes
             return newGroupID;
         }
 
+
         public bool CheckInviteCode(string code)
         {
             string qry = "SELECT invite_code FROM Groups_ WHERE invite_code = @code";
@@ -234,6 +238,21 @@ namespace donely_Inspilab.Classes
             string groupName = res[0]["name"].ToString();
             int ownerID = Convert.ToInt32(res[0]["owner"]);
             return (groupID, groupName, ownerID);
+        }
+
+        public void UpdateGroup(Group group)
+        {
+            string qry = "UPDATE groups_ SET name = @name, image = @image WHERE groupid = @id";
+            Dictionary<string, object> parameters = new()
+            {
+                { "@id", group.Id },
+                { "@name", group.Name },
+                { "@image", group.ImageLink }
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+
+            if (rowsAffected != 1)
+                throw new ArgumentException("Something went wrong, group wasn't updated.");
         }
 
         public bool MemberPresentInGroup(int groupID, int userID)
@@ -263,6 +282,16 @@ namespace donely_Inspilab.Classes
             ExecuteNonQuery(qry, parameters, out int groupUserId);
             return groupUserId;
         }
+
+        public void DeleteGroupMember(int memberId)
+        {
+            string qry = "DELETE FROM group_users WHERE group_userID = @memberID;";
+            Dictionary<string, object> parameters = new() { ["@memberID"] = memberId };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to delete member.");
+        }
+            
 
         public List<Group> GetGroupOverview(int userId)
         {
@@ -335,45 +364,68 @@ namespace donely_Inspilab.Classes
 
         public List<GroupMember> GetGroupMembers(int groupID)
         {
-            string qry = @"SELECT GU.group_userID, GU.currency, GU.joined, GU.role, u.* 
-                    FROM group_users GU 
-                    JOIN users u ON GU.userID = u.userID
-                    WHERE groupID = @groupID;";
-            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
+            string qry = @"
+                        SELECT 
+                            gu.group_userID,
+                            gu.currency,
+                            gu.joined,
+                            gu.role,
+                            u.*,
+                            COALESCE(t.ActiveTasks, 0) AS ActiveTasks,
+                            COALESCE(t.PendingTasks, 0) AS PendingTasks,
+                            COALESCE(t.CompletedTasks, 0) AS CompletedTasks
+                        FROM group_users gu
+                        JOIN users u ON gu.userID = u.userID
+                        LEFT JOIN (
+                            SELECT 
+                                groupUserID,
+                                SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS ActiveTasks,
+                                SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS PendingTasks,
+                                SUM(CASE WHEN status = 2 OR status = 3  THEN 1 ELSE 0 END) AS CompletedTasks
+                                FROM task_instances
+                                GROUP BY groupUserID
+                             ) t ON gu.group_userID = t.groupUserID
+                             WHERE gu.groupID = @groupID;";
 
+            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
             var results = ExecuteReader(qry, parameters);
 
             List<GroupMember> groupMembers = new();
 
             foreach (var row in results)
             {
-                  User user = new User(
-                 _name: row["name"].ToString(),
-                 _email: row["email"].ToString(),
-                 _telephoneNumber: row["telephone_nr"] as string ?? string.Empty,
-                 _profilePicture: row["profile_picture"] as string ?? "profilePicture.jpg",
-                 _id: Convert.ToInt32(row["userID"]),
-                 _accountCreated: Convert.ToDateTime(row["created"]),
-                 _lastLogin: Convert.ToDateTime(row["last_login"]),
-                 _isAdmin: Convert.ToBoolean(row["is_admin"])
-             );
+                User user = new User(
+                    _name: row["name"].ToString(),
+                    _email: row["email"].ToString(),
+                    _telephoneNumber: row["telephone_nr"] as string ?? string.Empty,
+                    _profilePicture: row["profile_picture"] as string ?? "profilePicture.jpg",
+                    _id: Convert.ToInt32(row["userID"]),
+                    _accountCreated: Convert.ToDateTime(row["created"]),
+                    _lastLogin: Convert.ToDateTime(row["last_login"]),
+                    _isAdmin: Convert.ToBoolean(row["is_admin"])
+                );
 
-                List<ShopItem> boughtItems = new(); // TODO: Lijst populeren met gekochte items
+                List<ShopItem> boughtItems = new(); // TODO
 
-                GroupMember groupMember = new (
+                GroupMember groupMember = new(
                     _id: Convert.ToInt32(row["group_userID"]),
                     _user: user,
                     _groupID: groupID,
                     _currency: Convert.ToInt32(row["currency"]),
                     _boughtItems: boughtItems,
-                    _joined: Convert.ToDateTime(row["joined"])
+                    _joined: Convert.ToDateTime(row["joined"]),
+                    _activeTaskCount: Convert.ToInt32(row["ActiveTasks"]),
+                    _pendingTaskCount:  Convert.ToInt32(row["PendingTasks"]),
+                    _completedTaskCount: Convert.ToInt32(row["CompletedTasks"])
                 );
 
                 groupMembers.Add(groupMember);
             }
-            return groupMembers;
 
+            return groupMembers;
         }
+
+
         #endregion
 
         #region ADMIN
@@ -412,6 +464,290 @@ namespace donely_Inspilab.Classes
             if (rowsAffected == -1)
                 throw new ArgumentException("Something went wrong, new item wasn't added");
             return rowsAffected;
+        }
+        #endregion
+
+        #region TASKS
+        public int InsertTaskDefinition(Task task)
+        {
+            string qry = @"INSERT INTO tasks_definition(groupID, name, details, reward_currency, frequency, is_active, validation_required) 
+                        VALUES(@groupID, @name, @details, @reward_currency, @frequency, @is_active, @validation_required)";
+                Dictionary<string, object> parameters = new() {
+                    ["@groupID"] = task.GroupId,
+                    ["@name"] = task.Name,
+                    ["@details"] = task.Description,
+                    ["@reward_currency"] = task.Reward,
+                    ["@frequency"] = task.Frequency,
+                    ["@is_active"] = task.IsActive,
+                    ["@validation_required"] = task.RequiresValidation,
+                };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
+            if (rowsAffected != 1) //checken of werkelijk toegevoegd
+                throw new ArgumentException("Something went wrong with the database");
+            return taskId;
+        }
+        public Task GetTaskById(int taskId)
+        {
+            string qry = "SELECT * FROM tasks_definition WHERE taskID = @taskId;";
+            Dictionary<string, object> parameters = new() { ["@taskId"] = taskId };
+            var result = ExecuteReader(qry, parameters)[0];
+            Task task = new Task(
+                   _id: Convert.ToInt32(result["taskID"]),
+                   _name: result["name"].ToString(),
+                   _description: result["details"].ToString(),
+                   _reward: Convert.ToInt32(result["reward_currency"]),
+                   _frequency: (TaskFrequency)Convert.ToInt32(result["frequency"]),
+                   _requiresValidation: Convert.ToBoolean(result["validation_required"]),
+                   _IsActive: Convert.ToBoolean(result["is_active"]),
+                   _groupId: Convert.ToInt32(result["groupID"])
+               );
+            return task;
+        }
+        public int UpdateTaskDefinition(Task task)
+        {
+            string qry = @"UPDATE tasks_definition
+                   SET name = @name,
+                       details = @details,
+                       reward_currency = @reward_currency,
+                       frequency = @frequency,
+                       validation_required = @validation_required,
+                       is_active = @is_active
+                   WHERE taskID = @taskID";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@name"] = task.Name,
+                ["@details"] = task.Description,
+                ["@reward_currency"] = task.Reward,
+                ["@frequency"] = task.Frequency,
+                ["@validation_required"] = task.RequiresValidation,
+                ["@is_active"] = task.IsActive,
+                ["@taskID"] = task.Id
+            };
+
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            return rowsAffected;
+        }
+        public void UpdateTaskIsActive(int taskId, bool isActive)
+        {
+            string qry = "UPDATE tasks_definition SET is_active = @is_active WHERE taskID = @taskID";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@is_active"] = isActive,
+                ["@taskID"] = taskId
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update task status.");
+        }
+        //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage
+        public List<Task> GetGroupTaskDefinitions(int groupId)
+        {
+            string qry = "SELECT * FROM tasks_definition WHERE groupID = @groupID AND is_deleted = 0;";
+            Dictionary<string, object> parameters = new() { ["groupID"] = groupId };
+            var results = ExecuteReader(qry, parameters);
+
+            List<Task> taskDefinitions = new();
+
+            foreach (var row in results)
+            {
+                Task task = new Task(
+                    _id: Convert.ToInt32(row["taskID"]),
+                    _name: row["name"].ToString(),
+                    _description: row["details"].ToString(),
+                    _reward: Convert.ToInt32(row["reward_currency"]),
+                    _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                    _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                    _IsActive: Convert.ToBoolean(row["is_active"]),
+                    _groupId: Convert.ToInt32(row["groupID"])
+                );
+                taskDefinitions.Add(task);
+            }
+            return taskDefinitions;
+        }
+
+        //Sets is_deleted variable to 1 so it's "deleted" (won't show in library). No full delete since task_instances keep history too, and that needs the Task Definition to still exist.
+        //This way the task can't be given again by the owner, but can still be fetched for still running and completed tasks.
+        //Also: This means an admin can go into the database and restore the task... so that's nice
+        public void SoftDeleteTask(int taskId)
+        {
+            string qry = "UPDATE tasks_definition SET is_deleted = 1 WHERE taskID = @taskID";
+            Dictionary<string, object> parameters = new() { ["@taskID"] = taskId };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to delete task.");
+        }
+
+        public int InsertTaskInstance(TaskInstance task)
+        {
+            string qry = @"INSERT INTO task_instances(taskID, groupUserID, status, deadline) 
+                        VALUES(@taskID, @groupUserID, @status, @deadline) ";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@taskID"] = task.TaskId,
+                ["@groupUserID"] = task.MemberId, 
+                ["@status"] = task.Status,            
+                ["@deadline"] = task.Deadline         
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out int taskId);
+            if (rowsAffected != 1) //checken of werkelijk toegevoegd
+                throw new ArgumentException("Something went wrong with the database");
+            return taskId;
+        }
+
+        public List<TaskInstance> GetTaskInstancesMemberId(int groupUserId)
+        {
+            string qry = @"
+                SELECT * FROM task_instances TI
+                JOIN tasks_definition TD ON TI. taskID = TD.taskID
+                WHERE TI.GroupUserID = @groupUserID";
+            Dictionary<string, object> parameters = new() { ["@groupUserID"] = groupUserId };
+            var result = ExecuteReader(qry, parameters);
+            List<TaskInstance> taskInstances = [];
+            foreach (var row in result)
+            {
+                //Populate Task Definition
+                Task task = new Task(
+                       _id: Convert.ToInt32(row["taskID"]),
+                       _name: row["name"].ToString(),
+                       _description: row["details"].ToString(),
+                       _reward: Convert.ToInt32(row["reward_currency"]),
+                       _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                       _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                       _IsActive: Convert.ToBoolean(row["is_active"]),
+                       _groupId: Convert.ToInt32(row["groupID"])
+                    );
+
+                //Populate Task Instance
+                TaskInstance instance = new TaskInstance(
+                        _id: Convert.ToInt32(row["taskInstanceID"]),
+                        _task: task,
+                        _memberId: Convert.ToInt32(row["groupUserID"]),
+                        _deadline: Convert.ToDateTime(row["deadline"]),
+                        _status: (TaskProgress)Convert.ToInt32(row["status"]),
+                        _issueDate: Convert.ToDateTime(row["issued_on"]),
+                        _completionDate: row["completed_on"] == DBNull.Value ? null : Convert.ToDateTime(row["completed_on"]) //als leeg --> null value doorgeven
+                    );
+                taskInstances.Add(instance);
+            }
+            return taskInstances;
+        }
+
+        //update task Instance (ex. failed, completion, ...)
+        public void UpdateTaskInstance(TaskInstance task)
+        {
+            string qry = @"
+                    UPDATE task_instances 
+                    SET status = @status, 
+                        deadline = @deadline, 
+                        issued_on = @issued_on, 
+                        completed_on = @completed_on
+                    WHERE taskInstanceID = @taskInstanceID";
+            Dictionary<string, object> parameters = new()
+            {
+                ["@status"] = task.Status,
+                ["@deadline"] = task.Deadline,
+                ["@issued_on"] = task.IssueDate,
+                ["@completed_on"] = task.CompletionDate.HasValue ? (object)task.CompletionDate.Value : DBNull.Value, //check of completion Date al waarde of niet
+                ["@taskInstanceID"] = task.Id
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update task instance.");
+        }
+
+        //Global AutoFailer: Completion Date is gezet op CompletionDate --> makkelijker voor AutoReassigner
+        public int AutoFailExpiredTasksGlobal()
+        {
+            string qry = @"
+                UPDATE task_instances TI
+                JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                SET TI.status = @failedStatus,
+                    TI.completed_on = TI.deadline
+                WHERE TI.status = @activeStatus
+                  AND TI.deadline < @nowDate
+                ";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@failedStatus"] = (int)TaskProgress.Failure,
+                ["@activeStatus"] = (int)TaskProgress.Active,
+                ["@nowDate"] = DateTime.Now.Date,
+            };
+
+            return ExecuteNonQuery(qry, parameters, out _);
+        }
+        //voor auto-reassigner
+        public List<TaskInstance> GetAllCompletedRecurringTasks()
+        {
+            /*Query filtert alle laatste versies (dus laatste combo GroupUserID en TaskID) van Task Instances waar: 
+              - Task Definition is Actief (is_active = 1)
+              - Task Definition is Not (soft) Deleted (is_deleted = 0)
+              - Task Definition is Recurring (dus Frequency != 0, want 0 is One Time) (Frequency <> 0)
+              - Task Instance Completion Date is in het verleden (want als vandaag completed --> sowieso niet herhalen) (DATE(completed_on) < CURDATE();)
+              - Laatste Task Instance is ingediend --> dus geen actieve instance op dit moment (status <> 0 )
+              - En tenslotte check of dat er geen actieve instances van dezelfde combinatie bestaand
+            */
+            string qry = @"
+                    SELECT TI.*, TD.*
+                    FROM task_instances TI
+                    JOIN (
+                        SELECT taskID, groupUserID, MAX(completed_on) AS latest_completion
+                        FROM task_instances
+                        WHERE status <> 0 -- completed
+                        GROUP BY taskID, groupUserID
+                    ) latest ON TI.taskID = latest.taskID 
+                            AND TI.groupUserID = latest.groupUserID 
+                            AND TI.completed_on = latest.latest_completion
+                    JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                    WHERE TD.Frequency <> 0
+                      AND TD.is_deleted = 0
+                      AND TD.is_active = 1
+                      AND DATE(TI.completed_on) < CURDATE();
+                      AND NOT EXISTS (
+	                      SELECT 1 FROM task_instances TI2
+	                      WHERE TI2.taskID = TI.taskID
+		                    AND TI2.groupUserID = TI.groupUserID
+		                    AND TI2.status = 0 
+	                );";
+
+            var parameters = new Dictionary<string, object>
+            {
+                ["@failedStatus"] = (int)TaskProgress.Failure,
+                ["@activeStatus"] = (int)TaskProgress.Active,
+                ["@nowDate"] = DateTime.Now.Date,
+            };
+
+            var results = ExecuteReader(qry, parameters);
+
+            List<TaskInstance> taskInstances = [];
+            foreach (var row in results)
+            {
+                //Populate Task Definition
+                Task task = new Task(
+                        _id: Convert.ToInt32(row["taskID"]),
+                        _name: row["name"].ToString(),
+                        _description: row["details"].ToString(),
+                        _reward: Convert.ToInt32(row["reward_currency"]),
+                        _frequency: (TaskFrequency)Convert.ToInt32(row["frequency"]),
+                        _requiresValidation: Convert.ToBoolean(row["validation_required"]),
+                        _IsActive: Convert.ToBoolean(row["is_active"]),
+                        _groupId: Convert.ToInt32(row["groupID"])
+                    );
+
+                //Populate Task Instance
+                TaskInstance instance = new TaskInstance(
+                        _id: Convert.ToInt32(row["taskInstanceID"]),
+                        _task: task,
+                        _memberId: Convert.ToInt32(row["groupUserID"]),
+                        _deadline: Convert.ToDateTime(row["deadline"]),
+                        _status: (TaskProgress)Convert.ToInt32(row["status"]),
+                        _issueDate: Convert.ToDateTime(row["issued_on"]),
+                        _completionDate: row["completed_on"] == DBNull.Value ? null : Convert.ToDateTime(row["completed_on"]) //als leeg --> null value doorgeven
+                    );
+                taskInstances.Add(instance);
+            }
+            return taskInstances;
         }
         #endregion
     }

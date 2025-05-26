@@ -54,7 +54,7 @@ namespace donely_Inspilab.Pages.Group
 
         private void ToCreatedTaskOverviewPage_Click(object sender, RoutedEventArgs e)
         {
-            NavService.ToManageTasksPage();
+            NavService.ToTaskLibraryPage();
         }
 
         private void ToHomePage_Click(object sender, RoutedEventArgs e)
@@ -64,7 +64,28 @@ namespace donely_Inspilab.Pages.Group
 
         private void KickMember_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: kick member --> Delete from user_group table (MessageBox "You Sure?" -> GroupMemberService -> db.Delete (zeker zijn dat dit ook gebruiker verwijdert in relevante tabellen
+            try
+            {
+                //TODO: kick member --> Delete from user_group table (MessageBox "You Sure?" -> GroupMemberService -> db.Delete (zeker zijn dat dit ook gebruiker verwijdert in relevante tabellen
+                if (lsvMembersOverview.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a member first!", "Nothing selected", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                GroupMember selectedMember = lsvMembersOverview.SelectedItem as GroupMember;
+                var answer = MessageBox.Show($"Are you sure you want to kick {selectedMember.User.Name} from the group?", "Kicking member", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (answer == MessageBoxResult.Yes)
+                {
+                    GroupMemberService.KickMember(selectedMember);
+                    GroupState.LoadedGroup.Members.Remove(selectedMember); //reloading full list, just to be sure
+                    lsvMembersOverview.Items.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Something went wrong - {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         

@@ -46,28 +46,35 @@ namespace donely_Inspilab.Pages.Group
         {
             try
             {
-                
                 if (string.IsNullOrWhiteSpace(txtName.Text))
                     throw new ArgumentException("Group has to have a name!");
-                //Niets aangepast
+
+                // Nothing changed
                 if (txtName.Text == GroupState.LoadedGroup.Name && _fileName == GroupState.LoadedGroup.ImageLink)
                 {
-                    this.DialogResult = false; 
+                    this.DialogResult = false;
                     this.Close();
                 }
                 else
                 {
-                    //TODO: Group Edit via database
+                    GroupState.LoadedGroup.Name = txtName.Text;
+                    GroupState.LoadedGroup.ImageLink = _fileName;
+
+                    GroupService.UpdateGroup(GroupState.LoadedGroup);
+                    MessageBox.Show("Group edited successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.DialogResult = true;
                 }
             }
-
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message, "Invalid edit", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unexpected error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {

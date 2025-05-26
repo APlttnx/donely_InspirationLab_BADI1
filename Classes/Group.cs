@@ -23,16 +23,15 @@ namespace donely_Inspilab.Classes
         public List<ShopItem> ShopItems { get; set; } = new();
         public bool ShopActive => ShopItems.Count > 0;
 
-        public List<GroupMember> Members { get; set; } = new(); 
+        public List<GroupMember> Members { get; set; } = new();
         //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
-        //public List<TaskInstance> ActiveTasks { get; set; } = new();
 
         public ImageSource ImageSource
         {
             get
             {
-                string? fullPath = !string.IsNullOrWhiteSpace(ImageLink) 
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "GroupImages", ImageLink) 
+                string? fullPath = !string.IsNullOrWhiteSpace(ImageLink)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "GroupImages", ImageLink)
                     : null;
 
                 if (string.IsNullOrEmpty(fullPath) || !File.Exists(fullPath))
@@ -56,16 +55,15 @@ namespace donely_Inspilab.Classes
             }
         }
 
-
         //Create new group Constructor
-        public Group(string _name, User _owner, string _imageLink = "groupImages/default.png")
+        public Group(string _name, User _owner, string _imageLink = "default.png")
         {
             Name = _name;
             Owner = _owner ?? throw new ArgumentNullException(nameof(_owner));  
             ImageLink = _imageLink;
         }
 
-        // Full constructor (lists are separate methods)
+        // Full constructor
         public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink, string _inviteCode)
         {
             Id = _id;
@@ -75,7 +73,5 @@ namespace donely_Inspilab.Classes
             ImageLink = _imageLink;
             InviteCode = _inviteCode;
         }
-
-
     }
 }

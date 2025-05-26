@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages.Group"
       mc:Ignorable="d" 
-      d:DesignHeight="850" d:DesignWidth="550"
+      Height="740" Width="auto"
       Title="GroupCreationPage">
 
     <Grid Margin="20">

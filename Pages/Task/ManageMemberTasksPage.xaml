@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages.Task"
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="1500"
-      Width="1500"
+      Width="auto"
       Title="Member Tasks"
       Margin="10,10,10,10">
 
@@ -15,7 +14,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" MinHeight="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -25,19 +24,19 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Style="{StaticResource CloseButton}" Grid.Column="4" Click="GoBack_click" HorizontalAlignment="Left" Margin="43,1,0,0" />
+        <Button Style="{StaticResource CloseButton}" Grid.Column="4" Click="GoBack_click" HorizontalAlignment="Left" />
 
-        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center"/>
+        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
 
         <Label Content="Active" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1"/>
 
         <ListView  x:Name="lsvActiveTasks" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding User.Name}" />
-                    <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Reward}" />
-                    <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding Deadline}" />
-                    <GridViewColumn Header="Issued On" Width="80" DisplayMemberBinding="{Binding Issued}" />
+                    <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
+                    <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Task.Reward}" />
+                    <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding DeadlineDisplay}" />
+                    <GridViewColumn Header="Issued On" Width="80" DisplayMemberBinding="{Binding IssueDateDisplay}" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -45,10 +44,10 @@
         <ListView  x:Name="lsvPendingTasks" MinHeight="150"  Grid.Row="2" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding User.Name}" />
-                    <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Reward}" />
-                    <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding Deadline}" />
-                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding Issued}" />
+                    <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
+                    <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Task.Reward}" />
+                    <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding DeadlineDisplay}" />
+                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding IssueDateDisplay}" />
                     <GridViewColumn Header="" Width="40">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -60,7 +59,7 @@
                                         BorderThickness="0"
                                         Background="white"
                                         Foreground="Green"
-                                        Click="ManageTasksButton_Click" />
+                                        Click="SucceedTask_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -75,7 +74,7 @@
                                         BorderThickness="0"
                                         Background="white"
                                         Foreground="OrangeRed"
-                                        Click="ManageTasksButton_Click" />
+                                        Click="FailPendingTask_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -89,13 +88,17 @@
         <ListView  x:Name="lsvCompletedTasks" MinHeight="150"  Grid.Row="2" Grid.Column="3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding User.Name}" />
-                    <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Reward}" />
-                    <GridViewColumn Header="Issued" Width="80" DisplayMemberBinding="{Binding Deadline}" />
-                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding Issued}" />
-                    <GridViewColumn Header="Result" Width="80" DisplayMemberBinding="{Binding Issued}" />
+                    <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
+                    <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Task.Reward}" />
+                    <GridViewColumn Header="Issued" Width="80" DisplayMemberBinding="{Binding IssueDateDisplay}" />
+                    <GridViewColumn Header="Completed On" Width="90" DisplayMemberBinding="{Binding CompletionDateDisplay}" />
+                    <GridViewColumn Header="Result" Width="80" DisplayMemberBinding="{Binding Status}" />
                 </GridView>
             </ListView.View>
         </ListView>
+        <StackPanel Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Give Task" Style="{StaticResource BlueButton}"  HorizontalAlignment="Right" Click="GiveTask_Click"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

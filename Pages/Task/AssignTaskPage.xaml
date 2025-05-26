@@ -1,0 +1,145 @@
+﻿<Page x:Class="donely_Inspilab.Pages.Task.AssignTaskPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:donely_Inspilab.Pages.Task"
+        mc:Ignorable="d"
+        Title="Assigning Task" Height="650" Width="1400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <!-- Title -->
+            <RowDefinition Height="*"/>
+            <!-- Main content -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Style="{StaticResource CloseButton}" Click="GoBack_Click" Grid.Column="4" Grid.Row="0"/>
+
+        <!-- Title -->
+        <Label Content="Assign New Task"
+           Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0"
+           HorizontalAlignment="Center"
+           FontWeight="Bold" FontSize="24"/>
+
+        <!-- Left Panel: Form -->
+        <Grid Grid.Row="1" Grid.Column="1" Height="450" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Label -->
+                <RowDefinition Height="*"/>
+                <!-- Form -->
+                <RowDefinition Height="Auto"/>
+                <!-- Button -->
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Create New Task" HorizontalAlignment="Center"/>
+
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Task: *" Width="150"/>
+                    <TextBox x:Name="txtTaskName"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Description:" Width="150" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtDescription"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"
+                         Height="80" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Frequency:" Width="150"/>
+                    <ComboBox x:Name="cmbFrequency" Width="200"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Reward:" Width="150"/>
+                    <TextBox x:Name="txtReward" Text="0" Width="200"
+                         PreviewTextInput="NumberOnly_PreviewTextInput"
+                         DataObject.Pasting="NumberOnly_Pasting"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Validation Required:" Width="210"/>
+                    <CheckBox x:Name="cbValidation" Height="15" Width="15">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,2">
+                    <Label Content="Deadline: *" Width="150"/>
+                    <DatePicker x:Name="dpDeadlineNew" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+
+
+            <Button Grid.Row="2"
+                Style="{StaticResource YellowButton}"
+                Content="Create &amp; Assign Task"
+                Click="CreateAssignTask_Click"
+                Width="250"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,0"/>
+        </Grid>
+        <Border Grid.Row="1" Grid.Column="2"
+        Width="1"
+        Background="Gray"
+        Margin="0,10"
+        HorizontalAlignment="Center"/>
+
+        <!-- Right Panel: Library -->
+        <Grid Grid.Row="1" Grid.Column="3" Height="450" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Label -->
+                <RowDefinition Height="152*"/>
+                <!-- ListView -->
+                <RowDefinition Height="27*"/>
+                <!-- Datepicker -->
+                <RowDefinition Height="Auto"/>
+                <!-- Button -->
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Choose from Library" HorizontalAlignment="Center"/>
+
+            <!-- Your original ListView -->
+            <ListView Grid.Row="1"
+                  x:Name="lsvTaskLibrary"
+                  MinHeight="150"
+                  Margin="10,0,10,0"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  MouseDoubleClick="AssignTask_Click">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding NameDisplay}" />
+                        <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding Description}" />
+                        <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Reward}" />
+                        <GridViewColumn Header="Validation" Width="70" DisplayMemberBinding="{Binding RequiresValidation}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Orientation="Horizontal" Margin="0,2" Grid.Row="2">
+                <Label Content="Deadline: *" Width="150"/>
+                <DatePicker x:Name="dpDeadlineLibrary" Width="200"/>
+            </StackPanel>
+            <!-- Button pinned to bottom -->
+            <Button Grid.Row="3"
+                Style="{StaticResource YellowButton}"
+                Content="Assign Task"
+                Click="AssignTask_Click"
+                HorizontalAlignment="Center"
+                Margin="0,10,0,0"/>
+        </Grid>
+    </Grid>
+
+</Page>

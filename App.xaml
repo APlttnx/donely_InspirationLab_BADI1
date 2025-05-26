@@ -29,6 +29,24 @@
             <Setter Property="MinWidth" Value="300"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="MinWidth" Value="300"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="MinWidth" Value="300"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+        </Style>
         <Style TargetType="PasswordBox">
             <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
             <Setter Property="FontSize" Value="20" />
@@ -38,6 +56,7 @@
             <Setter Property="MinWidth" Value="300"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
+
         <Style x:Key="BaseButtonStyle" TargetType="Button">
             <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
             <Setter Property="Margin" Value="10,10,10,10"/>
@@ -133,7 +152,7 @@
             </Setter>
         </Style>
 
-        <!-- Hoogte Listviewrijen globaal bepalen -->
+        <!-- Hoogte Listview rijen globaal bepalen -->
         <Style TargetType="ListViewItem">
             <Setter Property="Height" Value="40"/>
         </Style>
