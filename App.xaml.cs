@@ -27,6 +27,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
+        //Configuratie via database, appsettings.json file zelf aan te maken voor custom database connectie (stel je hebt een andere poort, wachtwoord, naam, ...)
         Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -39,7 +40,12 @@ public partial class App : Application
     public static void LogoutAndReset()
     {
         //App.HomePage = null;
+
+        //leegmaken session en states
         SessionManager.Logout();
+        GroupState.ClearGroup();
+
+        //naar welcomepage
         App.MainFrame.Navigate(new WelcomePage());
 
     }

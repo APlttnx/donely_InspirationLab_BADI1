@@ -26,9 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enum\" />
     <Folder Include="Pages\Admin\" />
-    <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Settings\" />
   </ItemGroup>
 
@@ -36,7 +34,9 @@
     <Resource Include="Assets\Images\Calendar.jpg" />
     <Resource Include="Assets\Images\Donely_Logo_Transparant.png" />
     <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
-    <Resource Include="Assets\Images\profilePicture.jpg" />
+    <Content Include="Assets\Images\profilePicture.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\GroupImages\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

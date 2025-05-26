@@ -1,0 +1,45 @@
+﻿<Page x:Class="donely_Inspilab.Pages.Task.TaskLibraryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:donely_Inspilab.Pages.Task"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900"
+      Title="Task Library">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Button Style="{StaticResource CloseButton}" Click="Close_Click" Grid.Column="2" HorizontalAlignment="Left" Margin="75,1,0,0" RenderTransformOrigin="0.5,0.5"/>
+        <Label Content="Task Library" Grid.Row="1" Grid.Column="1" FontWeight="Bold" />
+        <ListView  x:Name="lsvTaskLibrary" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" SelectionChanged="lsvTaskLibrary_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Task" Width="150" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Description" Width="250" DisplayMemberBinding="{Binding Description}" />
+                    <GridViewColumn Header="Frequency" Width="80" DisplayMemberBinding="{Binding Frequency}" />
+                    <GridViewColumn Header="Reward" Width="50" DisplayMemberBinding="{Binding Reward}" />
+                    <GridViewColumn Header="Validation" Width="70" DisplayMemberBinding="{Binding RequiresValidation}" />
+                    <GridViewColumn Header="Active" Width="60" DisplayMemberBinding="{Binding ActiveDisplay}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="3">
+            <Button Content="Add Task" Style="{StaticResource BlueButton}" Click="AddTask_Click"/>
+            <Button Content="Edit Task" Style="{StaticResource BlueButton}" Click="EditTask_Click"/>
+            <Button Content="Activate" Style="{StaticResource YellowButton}" Click = "ToggleTask_Click" Name="btnToggle" IsEnabled="False"/>
+            <Button Content="Delete" Style="{StaticResource RedButton}" Click= "DeleteTask_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

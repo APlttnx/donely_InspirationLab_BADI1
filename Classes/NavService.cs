@@ -2,7 +2,7 @@
 using donely_Inspilab.Pages.auth;
 using donely_Inspilab.Pages.Settings;
 using donely_Inspilab.Pages.Group;
-//using donely_Inspilab.Pages.Task;
+using donely_Inspilab.Pages.Task;
 //using donely_Inspilab.Pages.Admin;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,9 @@ namespace donely_Inspilab.Classes
         {
             if (SessionManager.IsLoggedIn)
             {
+                GroupState.ClearGroup(); //Elke keer als homepage geladen wordt, wordt de geladen group leeggemaakt --> Via home kan je terug een groep selecteren
+
+
                 /* Optie om homepagina te cachen en zo niet alles elke keer te herladen. Vond zelf achteraf dat dit misschien niet nodig was op deze schaal.
                 // If HomePage is already cached, navigate to it
                 //App.HomePage ??= new HomePage();
@@ -25,12 +28,14 @@ namespace donely_Inspilab.Classes
                 // Navigate to the cached HomePage
                 //App.MainFrame.Navigate(App.HomePage);
                 */
+
+
                 App.MainFrame.Navigate(new HomePage());
             }
             else
             {
-                // Navigate to a login or welcome page if the user is not logged in
-                App.MainFrame.Navigate(new LoginPage());
+                // Naar login navigeren als niet ingelogd
+                ToLoginPage();
             }
         }
 
@@ -51,21 +56,30 @@ namespace donely_Inspilab.Classes
             App.MainFrame.Navigate(new SettingsPage());
         }
         //GROUPS
-        public static void ToGroupPage(Group group)
+        public static void ToGroupPage()
         {
-            App.MainFrame.Navigate(new GroupDashboardPage(group));
+            App.MainFrame.Navigate(new GroupDashboardPage());
         }
-        public static void ToGroupOwnerPage(Group group)
+        public static void ToGroupOwnerPage()
         {
-            App.MainFrame.Navigate(new GroupOwnerPage(group));
+            App.MainFrame.Navigate(new GroupOwnerPage());
         }
         public static void ToGroupCreationPage()
         {
             App.MainFrame.Navigate(new GroupCreationPage());
         }
-        
-
-
+        public static void ToTaskLibraryPage()
+        {
+            App.MainFrame.Navigate(new TaskLibraryPage());
+        }
+        public static void ToManageMemberTasksPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new ManageMemberTasksPage(member));
+        }
+        public static void ToAssignTaskPage(GroupMember member)
+        {
+            App.MainFrame.Navigate(new AssignTaskPage(member));
+        }
 
         // Add other navigation methods as needed...
     }

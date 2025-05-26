@@ -11,7 +11,6 @@ namespace donely_Inspilab.Classes
         public static User? CurrentUser { get; private set; }
         public static bool IsLoggedIn => CurrentUser != null;
 
-
         public static event EventHandler? LoginStatusChanged;
 
         public static void Login(User _user)

@@ -66,6 +66,15 @@ namespace donely_Inspilab.Classes
             return(db.GetOwnGroups(user));
         }
 
+        public static void UpdateGroup(Group group)
+        {
+            if (group == null) throw new ArgumentNullException(nameof(group));
+            if (!SessionManager.IsLoggedIn) throw new InvalidOperationException("User must be logged in to edit a group.");
+
+            Database db = new();
+            db.UpdateGroup(group);
+        }
+
 
     }
 }

@@ -18,19 +18,20 @@ namespace donely_Inspilab.Classes
         public User Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public string InviteCode { get; set; }
+
+        //Lists worden manueel gevuld via aparte methodes in de service wanneer ze nodig zijn (zoals op Group Owner dashboard of Member dashboard)
         public List<ShopItem> ShopItems { get; set; } = new();
         public bool ShopActive => ShopItems.Count > 0;
 
-        //public List<User> Members { get; set; } = new(); // via GroupUsers join table
+        public List<GroupMember> Members { get; set; } = new();
         //public List<TaskDefinition> TaskDefinitions { get; set; } = new();
-        //public List<TaskInstance> ActiveTasks { get; set; } = new();
 
         public ImageSource ImageSource
         {
             get
             {
-                string? fullPath = !string.IsNullOrWhiteSpace(ImageLink) 
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "GroupImages", ImageLink) 
+                string? fullPath = !string.IsNullOrWhiteSpace(ImageLink)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "GroupImages", ImageLink)
                     : null;
 
                 if (string.IsNullOrEmpty(fullPath) || !File.Exists(fullPath))
@@ -54,25 +55,23 @@ namespace donely_Inspilab.Classes
             }
         }
 
-
         //Create new group Constructor
-        public Group(string _name, User _owner, string _imageLink = "groupImages/default.png")
+        public Group(string _name, User _owner, string _imageLink = "default.png")
         {
             Name = _name;
             Owner = _owner ?? throw new ArgumentNullException(nameof(_owner));  
             ImageLink = _imageLink;
         }
 
-        // Full constructor (lists are separate methods)
-        public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink)
+        // Full constructor
+        public Group(int _id, string _name, User _owner, DateTime _creationDate, string _imageLink, string _inviteCode)
         {
             Id = _id;
             Name = _name;
             Owner = _owner ?? throw new ArgumentNullException(nameof(_owner));
             CreationDate = _creationDate;
             ImageLink = _imageLink;
+            InviteCode = _inviteCode;
         }
-
-
     }
 }

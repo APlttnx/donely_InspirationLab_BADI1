@@ -21,10 +21,10 @@ namespace donely_Inspilab.Pages.Group
     /// </summary>
     public partial class GroupDashboardPage : Page
     {
-        public GroupDashboardPage(Classes.Group group)
+        public GroupDashboardPage()
         {
             InitializeComponent();
-            lblTest.Content = group.Name;
+            lblTest.Content = GroupState.LoadedGroup.Name;
         } 
     }
 }
