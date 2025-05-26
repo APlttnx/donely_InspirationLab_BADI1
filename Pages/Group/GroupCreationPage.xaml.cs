@@ -1,6 +1,9 @@
-﻿using System;
+﻿using donely_Inspilab.Classes;
+using donely_Inspilab.Methods;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
-using donely_Inspilab.Classes;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -26,11 +28,12 @@ namespace donely_Inspilab.Pages.Group
     public partial class GroupCreationPage : Page
     {
         private ObservableCollection<ShopItem> ShopList { get; set; } = new(); //dient voor dynamische upload ListView
-
+        private string _fileName = "default.png";
         public GroupCreationPage()
         {
             InitializeComponent();
             PrepareShopList();
+            UploadedImage.Source = new BitmapImage(new Uri($"/Assets/GroupImages/{_fileName}", UriKind.Relative));
         }
 
 
@@ -57,8 +60,24 @@ namespace donely_Inspilab.Pages.Group
 
         private void UploadImage_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var result = ImageUploader.UploadImage("Assets/GroupImages");
+                if (result != null)
+                {
+                    UploadedImage.Source = result.Value.image;
+                    _fileName = result.Value.fileName;
+                    // Save _fileName if needed
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to upload image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+
+
 
         private void CreateNewGroup_Click(object sender, RoutedEventArgs e)
         {
@@ -66,14 +85,15 @@ namespace donely_Inspilab.Pages.Group
             try
             {
                 if (string.IsNullOrWhiteSpace(txtName.Text)) throw new ArgumentException("Please fill in the required fields.");
-                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, null, ShopList.ToList());
-                bool result = ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
-                if (result)
+                Classes.Group newGroup = GroupService.CreateGroup(txtName.Text, _fileName, ShopList.ToList());
+                if (ShopList.Count != 0)
                 {
-                    MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
-                    NavService.ToGroupPage();
+                    ShopItemService.InsertShopItems(newGroup.ShopItems, newGroup.Id);
                 }
-                
+                MessageBox.Show($"Group {newGroup.Name} successfully created", "Registration Failed", MessageBoxButton.OK);
+                GroupState.LoadGroup(newGroup);
+                NavService.ToGroupOwnerPage();
+
             }
             catch (ArgumentException ex)
             {

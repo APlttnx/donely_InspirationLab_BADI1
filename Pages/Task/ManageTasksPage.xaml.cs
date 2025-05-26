@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using donely_Inspilab.Classes;
 
-namespace donely_Inspilab.Pages.Group
+namespace donely_Inspilab.Pages.Task
 {
     /// <summary>
-    /// Interaction logic for GroupDashboardPage.xaml
+    /// Interaction logic for ManageTasksPage.xaml
     /// </summary>
-    public partial class GroupDashboardPage : Page
+    public partial class ManageTasksPage : Page
     {
-        public GroupDashboardPage()
+        public ManageTasksPage()
         {
             InitializeComponent();
-            lblTest.Content = GroupState.LoadedGroup.Name;
-        } 
+        }
     }
 }

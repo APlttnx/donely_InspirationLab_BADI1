@@ -11,7 +11,6 @@ namespace donely_Inspilab.Classes
         public static User? CurrentUser { get; private set; }
         public static bool IsLoggedIn => CurrentUser != null;
 
-
         public static event EventHandler? LoginStatusChanged;
 
         public static void Login(User _user)
@@ -25,6 +24,20 @@ namespace donely_Inspilab.Classes
             CurrentUser = null;
             LoginStatusChanged?.Invoke(null, EventArgs.Empty);
             NavService.ToWelcomePage();
+        }
+        
+        public static int GetCurrentUserID()
+        {
+            if (IsLoggedIn)
+            {
+                return (int)CurrentUser.Id;
+            }
+            else
+            {
+                NavService.ToLoginPage();
+                return 0;
+            }
+            
         }
     }
 }

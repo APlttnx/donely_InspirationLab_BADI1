@@ -16,6 +16,16 @@ namespace donely_Inspilab.Exceptions
         public DuplicateEmailException(string message, Exception inner)
             : base(message, inner) { }
     }
+    public class DuplicateException : Exception
+    {
+        public DuplicateException() { }
+
+        public DuplicateException(string message)
+            : base(message) { }
+
+        public DuplicateException(string message, Exception inner)
+            : base(message, inner) { }
+    }
 
     public class DataAccessException : Exception
     {

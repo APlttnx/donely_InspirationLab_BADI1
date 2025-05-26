@@ -13,7 +13,7 @@ namespace donely_Inspilab.Classes
         {
             Database db = new();
             int result = db.InsertShopItems(shopItems, groupID);
-            if (result == shopItems.Count)
+            if (result != shopItems.Count)
                 throw new ArgumentException("Something went wrong adding shop items");
             return true;
         }
