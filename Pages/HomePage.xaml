@@ -31,7 +31,7 @@
                                FontWeight="Bold"
                                FontFamily="QuickSand"
                                Margin="0,0,0,10"/>
-                    <ListView x:Name="lsvGroupOverview" MinHeight="150" MouseDoubleClick="ToGroupMemberDashboard">
+                    <ListView x:Name="lsvGroupOverview" MinHeight="150" MouseDoubleClick="ToGroupMemberDashboard" MaxHeight="500">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="50">
@@ -55,7 +55,7 @@
                                FontWeight="Bold"
                                FontFamily="QuickSand"
                                Margin="0,0,0,10"/>
-                    <ListView x:Name="lsvOwnedGroupsOverview" MinHeight="150" MouseDoubleClick="ToGroupOwnerDashboard">
+                    <ListView x:Name="lsvOwnedGroupsOverview" MinHeight="150" MouseDoubleClick="ToGroupOwnerDashboard" MaxHeight="500">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="50">
