@@ -1,55 +1,105 @@
 ﻿<Page x:Class="donely_Inspilab.Pages.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:donely_Inspilab.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignHeight="800" d:DesignWidth="1200"
       Title="HomePage">
 
     <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto" MaxWidth="1000" Margin="20">
+            <TextBlock Text="Dashboard"
+                       FontWeight="Bold"
+                       FontSize="32"
+                       FontFamily="QuickSand"
+                       Margin="0,20,0,30"
+                       HorizontalAlignment="Center"/>
 
-        <Label Content="Dashboard" Height="43" Margin="10,10,0,0" FontWeight="Bold" FontSize="32"/>
-        <Button Content="Create Group" HorizontalAlignment="Left" Margin="238,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToGroupCreation" Width="162"/>
-        <Button Content="Join Group" HorizontalAlignment="Left" Margin="421,374,0,0" VerticalAlignment="Top" Style="{StaticResource RedButton}" Click="ToJoinGroup"/>
-        <ListView  x:Name="lsvGroupOverview" MinHeight="150" Margin="155,120,454,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupMemberDashboard">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="50">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImageSource}"
-                                   Width="32" Height="32"
-                                   Stretch="Uniform"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <ListView  x:Name="lsvOwnedGroupsOverview" MinHeight="150" Margin="496,120,90,180" d:ItemsSource="{d:SampleData ItemCount=5}" MouseDoubleClick="ToGroupOwnerDashboard">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="50">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImageSource}"
-                                   Width="32" Height="32"
-                                   Stretch="Uniform"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="176,285,0,0" VerticalAlignment="Top" Click="ToGroupMemberDashboard"/>
-        <Button Content="Open" Style ="{StaticResource BlueButton}" HorizontalAlignment="Left" Margin="528,285,0,0" VerticalAlignment="Top" Click="ToGroupOwnerDashboard"/>
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
+                <!-- Member Groups -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Groups You Joined"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               FontFamily="QuickSand"
+                               Margin="0,0,0,10"/>
+                    <ListView x:Name="lsvGroupOverview" MinHeight="150" MouseDoubleClick="ToGroupMemberDashboard">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageSource}" Width="32" Height="32" Stretch="Uniform"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Open" Style="{StaticResource BlueButton}" Click="ToGroupMemberDashboard" Height="40" />
+                </StackPanel>
+
+                <!-- Owned Groups -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Groups You Own"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               FontFamily="QuickSand"
+                               Margin="0,0,0,10"/>
+                    <ListView x:Name="lsvOwnedGroupsOverview" MinHeight="150" MouseDoubleClick="ToGroupOwnerDashboard">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding ImageSource}" Width="32" Height="32" Stretch="Uniform"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Group" Width="130" DisplayMemberBinding="{Binding Name}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Open" Style="{StaticResource BlueButton}" Click="ToGroupOwnerDashboard" Height="40" />
+                </StackPanel>
+            </Grid>
+            <TextBlock Text="Your Ongoing Tasks"
+                       FontWeight="Bold"
+                       FontSize="20"
+                       FontFamily="QuickSand"
+                       Margin="0,0,0,10"
+                       />
+
+
+            <!-- Ongoing Tasks Table -->
+
+            <DataGrid x:Name="taskDataGrid"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      MinHeight="150"
+                      Margin="0,0,0,40">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Task" Binding="{Binding Task.Name}" Width="*" />
+                    <DataGridTextColumn Header="Deadline" Binding="{Binding DeadlineDisplay}" Width="150" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Button Content="Create Group" Style="{StaticResource RedButton}" Click="ToGroupCreation" Width="170" Height="40"/>
+                <Button Content="Join Group" Style="{StaticResource RedButton}" Click="ToJoinGroup" Width="170"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
-
-
-
 </Page>
