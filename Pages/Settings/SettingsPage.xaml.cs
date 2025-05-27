@@ -57,9 +57,10 @@ namespace donely_Inspilab.Pages.Settings
                 }
             }
         }
-        private void GoBackToHome(object sender, RoutedEventArgs e)
+        private void GoBack(object sender, RoutedEventArgs e)
         {
-            NavService.ToHomePage();
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
 
     }

@@ -10,10 +10,13 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\Calendar.jpg" />
+    <None Remove="Assets\Images\Collab.png" />
     <None Remove="Assets\Images\Donely_Logo_Transparant.png" />
+    <None Remove="Assets\Images\Fun.png" />
     <None Remove="Assets\Images\Logo_Icon_Transparant.png" />
     <None Remove="Assets\Images\profilePicture.jpg" />
     <None Remove="Assets\GroupImages\default.png" />
+    <None Remove="Assets\Images\Rewards.png" />
     <None Remove="donely_db_developmentScript.sql" />
   </ItemGroup>
 
@@ -35,8 +38,13 @@
 
   <ItemGroup>
     <Resource Include="Assets\Images\Calendar.jpg" />
+    <Resource Include="Assets\Images\Collab.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Images\Donely_Logo_Transparant.png" />
+    <Resource Include="Assets\Images\Fun.png" />
     <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
+    <Resource Include="Assets\Images\Rewards.png" />
     <Content Include="Assets\Images\profilePicture.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
