@@ -404,7 +404,7 @@ namespace donely_Inspilab.Classes
                     _lastLogin: Convert.ToDateTime(row["last_login"]),
                     _isAdmin: Convert.ToBoolean(row["is_admin"])
                 );
-
+                
                 List<ShopItem> boughtItems = new(); // TODO
 
                 GroupMember groupMember = new(
@@ -425,6 +425,17 @@ namespace donely_Inspilab.Classes
             return groupMembers;
         }
 
+        public void UpdateMemberCurrency(int memberId, int currency)
+        {
+            string qry = "UPDATE group_users SET currency = @currency WHERE group_userID = @memberId;";
+            Dictionary<string, object> parameters = new() {
+                ["@memberId"] = memberId,
+                ["@currency"] = currency,
+            };
+            int rowsChanged = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsChanged !=1)
+                throw new Exception();
+        }
 
         #endregion
 

@@ -20,6 +20,15 @@ namespace donely_Inspilab.Classes
         public TaskProgress Status { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime? CompletionDate { get; set; }
+
+        public string TimeLeft => CalcTimeLeft();
+        private string CalcTimeLeft()
+        {
+            DateTime corrDeadline = Deadline.AddDays(1).AddMinutes(-1);
+            TimeSpan time = corrDeadline - DateTime.Now;
+            return $"{time.Days} Days {time.Hours} Hours";
+        }
+        
         
         //Constructor Creating new instance
         public TaskInstance(Task _task, int _memberId, DateTime _deadline)

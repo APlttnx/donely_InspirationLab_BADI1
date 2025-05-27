@@ -28,7 +28,7 @@ namespace donely_Inspilab.Classes
         public int CompletedTaskCount { get;set; }
 
 
-        private List<TaskInstance> AllTaskInstances = new();
+        public List<TaskInstance> AllTaskInstances = new();
 
         public List<TaskInstance> ActiveTaskList { get; private set; } = new();
         public List<TaskInstance> PendingTaskList { get; private set; } = new();
@@ -93,10 +93,20 @@ namespace donely_Inspilab.Classes
             {
                 task.Status = TaskProgress.Failure;
                 task.CompletionDate = DateTime.Now;
-                TaskService.UpdateTask(task);
+                TaskService.UpdateTaskInstance(task);
             }
             RefreshFilteredLists();
         }
 
+        public void UpdateTaskStatus(TaskInstance updatedTask)
+        {
+            int index = -1;
+            index = AllTaskInstances.FindIndex(t => t.Id == updatedTask.Id);
+            if (index != -1)
+            {
+                AllTaskInstances[index] = updatedTask;
+                RefreshFilteredLists();
+            }
+        }
     }
 }

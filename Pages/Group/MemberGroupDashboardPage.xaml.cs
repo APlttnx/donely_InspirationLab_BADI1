@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using donely_Inspilab.Classes;
+using donely_Inspilab.Enum;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -21,10 +22,93 @@ namespace donely_Inspilab.Pages.Group
     /// </summary>
     public partial class MemberGroupDashboardPage : Page
     {
+
+        private GroupMember CurrentMember;
+        private List<GroupMember> OtherMembers;
         public MemberGroupDashboardPage()
         {
             InitializeComponent();
-            lblTest.Content = GroupState.LoadedGroup.Name;
-        } 
+            LoadItems();
+        }
+
+
+        private void LoadItems()
+        {
+
+
+            //groupmember splitsen in current member en rest
+            CurrentMember = (GroupMember)GroupState.LoadedGroup.Members.FirstOrDefault(t => t.UserId == SessionManager.GetCurrentUserID());
+            OtherMembers = GroupState.LoadedGroup.Members.Where(t => t.UserId != SessionManager.GetCurrentUserID()).ToList(); //Huidige user uit de memberlijst halen
+
+            //taken laden
+            CurrentMember = TaskService.LoadTaskInstances(CurrentMember);
+
+            //Listviews en labels invullen
+            lblGroupName.Content = GroupState.LoadedGroup.Name;
+            imgGroupImage.Source = GroupState.LoadedGroup.ImageSource;
+            lsvMembersOverview.ItemsSource = OtherMembers;
+            lsvMemberTasks.ItemsSource = CurrentMember.ActiveTaskList;
+            lblCurrency.Content = CurrentMember.Currency;
+        }
+        private void GoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavService.ToHomePage();
+        }
+
+        private void SucceedTask_Click(object sender, RoutedEventArgs e)
+        {
+            var task = (sender as Button)?.DataContext as TaskInstance;
+            SetTaskStatus(task, TaskProgress.Success);
+        }
+
+        private void FailTask_Click(object sender, RoutedEventArgs e)
+        {
+            var task = (sender as Button)?.DataContext as TaskInstance;
+            SetTaskStatus(task, TaskProgress.Failure);
+        }
+
+        private void SetTaskStatus(TaskInstance task, TaskProgress status)
+        {
+            try
+            {
+                task.CompletionDate = DateTime.Now;
+                string message = "";
+                if (status == TaskProgress.Success)
+                {
+                    if (task.DeadlineDateOnly < DateOnly.FromDateTime((DateTime)task.CompletionDate))
+                    {
+                        task.Status = TaskProgress.Failure; //autofail als deadline toch vervallen op moment van indienen.
+                        message = "Deadline has passed at time of handing in, Task Failed!";
+                    }
+                    else if (task.Task.RequiresValidation)
+                    {
+                        task.Status = TaskProgress.Pending;
+                        message = $"Task successfully handed in, please wait for {GroupState.LoadedGroup.Owner.Name} to confirm!";
+                    }
+                    else
+                    {
+                        task.Status = status;
+                        message = $"Task done successfully! You receive {task.Task.Reward} coins!";
+                    }
+                }
+                TaskService.UpdateTaskInstance(task); //update voor database
+                CurrentMember.UpdateTaskStatus(task); //update voor klasse
+                CurrentMember.Currency = GroupMemberService.AddCurrency(CurrentMember, task.Task.Reward); //Doet zowel update in database als in klasse
+                lblCurrency.Content = CurrentMember.Currency;
+                //reset listview
+                lsvMemberTasks.ItemsSource = CurrentMember.ActiveTaskList;
+                lsvMemberTasks.Items.Refresh();
+    
+                if (task.Status != TaskProgress.Failure)
+                    MessageBox.Show(message, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
+        }
+
+
     }
 }
