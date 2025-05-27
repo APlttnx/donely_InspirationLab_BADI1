@@ -1,39 +1,53 @@
 ﻿<Page x:Class="donely_Inspilab.Pages.Settings.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:donely_Inspilab.Pages.Settings"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="SettingsPage">
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid Background="Transparent">
+        <Button Style="{StaticResource CloseButton}"
+        Width="32"
+        Height="32"
+        Click="GoBack" Margin="0,10,10,0"/>
+        
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Width="400" Margin="0,111,0,0" >
 
-        <!-- Header and Close -->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+            <!-- Header -->
+            <DockPanel LastChildFill="False" Margin="0,0,0,20"/>
 
-        <TextBlock Text="Settings"
-               FontSize="24"
-               FontWeight="Bold"
-               VerticalAlignment="Center"
-               Grid.Column="0" />
+            <!-- Settings Buttons -->
+            <Button Content="Change Profile Picture"
+                    Style="{StaticResource BlueButton}"
+                    Width="270"
+                    Height="45"
+                    Margin="0,10"
+                    Click="GoToChangeInfo"/>
 
-        <Button Style="{StaticResource CloseButton}" Click="GoBackToHome"/>
+            <Button Content="Change Password"
+                    Style="{StaticResource BlueButton}"
+                    Width="270"
+                    Height="45"
+                    Margin="0,10"
+                    Click="GoToChangePassword"/>
 
+            <Button Content="Delete Account"
+                    Style="{StaticResource RedButton}"
+                    Width="270
+                    "
+                    Height="45"
+                    Margin="0,10"
+                    Click="GoToDeleteAccount"/>
 
-        <!-- Button Stack -->
-        <StackPanel Grid.Row="1" Margin="40,85,453,20">
-            <Button Content="Change pfp" Style="{StaticResource BlueButton}" Width="200" Click="GoToChangeInfo"/>
-            <Button Content="Change password" Style="{StaticResource BlueButton}" Width="200" Click="GoToChangePassword"/>
-            <Button Content="Delete Account" Style="{StaticResource RedButton}" Width="200" Click="GoToDeleteAccount"/>
         </StackPanel>
+        <TextBlock Text="Settings"
+            FontWeight="Bold"
+            FontSize="32"
+            FontFamily="QuickSand"
+            HorizontalAlignment="Center"
+            Margin="0,20,0,494" />
     </Grid>
 </Page>

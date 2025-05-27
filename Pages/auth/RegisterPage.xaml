@@ -5,44 +5,132 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="RegisterPage"
-      >
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="RegisterPage">
 
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!--Row 0-->
-            <RowDefinition Height="Auto"/>
-            <!--Row 1-->
-            <RowDefinition Height="Auto"/>
-            <!--Row 2-->
-            <RowDefinition Height="Auto"/>
-            <!--Row 3-->
-            <RowDefinition Height="Auto"/>
-            <!--Row 4-->
-            <RowDefinition Height="Auto"/>
-            <!--Row 5-->
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" MinWidth="300"/>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label Content="Name: *" Name="lblName" Grid.Row="0" Grid.Column="0"/>
-        <TextBox Name="txtName" Grid.Row="0" Grid.Column="1"/>
-        <Label Content="E-mail: *" Name="lblEmail" Grid.Row="1" Grid.Column="0"/>
-        <TextBox Name="txtEmail" Grid.Row="1" Grid.Column="1"/>
-        <Label Content="Telephone number: *" Name="lblTelNr" Grid.Row="2" Grid.Column="0"/>
-        <TextBox Name="txtTelnr" Grid.Row="2" Grid.Column="1"/>
-        <Label Content="Password: *" Name="lblPassword" Grid.Row="3" Grid.Column="0"/>
-        <PasswordBox Name="txtPassword" Grid.Row="3" Grid.Column="1"/>
-        <Label Content="Confirm Password: *" Name="lblConfirmPassword" Grid.Row="4" Grid.Column="0"/>
-        <PasswordBox Name="txtConfirmPassword" Grid.Row="4" Grid.Column="1"/>
-        <StackPanel Grid.Row="5"  Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Content="Register" Style ="{StaticResource RedButton}" Name="btnRegister" Click="btnRegister_click"/>
-            <Button Content="Return" Style ="{StaticResource RedButton}" Name="btnReturn" Click="ReturnToWelcome"/>
-        </StackPanel>
+    <Grid>
+        <Border Width="700"
+                Height="Auto"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="White"
+                Padding="30"
+                CornerRadius="8"
+                BorderBrush="#DDD"
+                BorderThickness="1">
 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="/Assets/Images/Donely_Logo_Transparant.png"
+                Margin="0,-36,0,48"
+                 HorizontalAlignment="Center" Width="168"/>
+                
+                <!-- Close Button -->
+                <Button Style="{StaticResource CloseButton}"
+                        Width="32"
+                        Height="32"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Click="GoBack"/>
+
+                <!-- Title -->
+                <TextBlock Text="Welcome to Donely"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           FontFamily="QuickSand"
+                           HorizontalAlignment="Center"
+                           Margin="0,81,0,62"
+                           Grid.Row="0"/>
+                <TextBlock
+                           FontSize="19"
+                           FontWeight="Light"
+                           FontFamily="QuickSand"
+                           HorizontalAlignment="Center"
+                           Margin="0,118,0,25"
+                           Grid.Row="0" Text="Get started - it's free. No credit card needed."/>
+
+                <!-- Name -->
+                <TextBlock Text="Name:"
+                           FontSize="19"
+                           FontFamily="QuickSand"
+                           FontWeight="SemiBold"
+                           Margin="169,0,0,5"
+                           Grid.Row="1"
+                           HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtName"
+                         Height="30"
+                         Grid.Row="2"
+                         Margin="0,0,0,10"
+                         HorizontalAlignment="Center"/>
+
+                <!-- Email -->
+                <TextBlock Text="E-mail:"
+                           FontSize="19"
+                           FontFamily="QuickSand"
+                           FontWeight="SemiBold"
+                           Margin="169,10,-169,5"
+                           Grid.Row="3"/>
+                <TextBox x:Name="txtEmail"
+                         Height="30"
+                         Grid.Row="4"
+                         Margin="0,0,0,10"
+                         HorizontalAlignment="Center"/>
+
+                <!-- Tel -->
+                <TextBlock Text="Telephone Number:"
+                           FontSize="19"
+                           FontFamily="QuickSand"
+                           FontWeight="SemiBold"
+                           Margin="169,8,-169,8"
+                           Grid.Row="5"/>
+                <TextBox x:Name="txtTelnr"
+                         Height="30"
+                         Grid.Row="6"
+                         Margin="0,0,0,10"
+                         HorizontalAlignment="Center"/>
+
+                <!-- Password Section -->
+                <StackPanel Grid.Row="7" Margin="0,10,0,0">
+                    <TextBlock Text="Password:"
+                               FontSize="19"
+                               FontFamily="QuickSand"
+                               FontWeight="SemiBold" Width="300" Height="27"
+                               />
+                    <PasswordBox x:Name="txtPassword"
+                                 Height="30"
+                                 Margin="0,0,0,10"
+                                 HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Confirm Password:"
+                               FontSize="19"
+                               FontFamily="QuickSand"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,5" Width="301"/>
+                    <PasswordBox x:Name="txtConfirmPassword"
+                                 Height="30"
+                                 Margin="0,0,0,20"
+                                 HorizontalAlignment="Center"/>
+
+                    <!-- Register Button -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Register"
+                                Width="143"
+                                Style="{StaticResource YellowButton}"
+                                Margin="5"
+                                Click="btnRegister_click" Height="39"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

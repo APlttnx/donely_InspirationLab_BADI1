@@ -53,9 +53,11 @@ namespace donely_Inspilab.Pages.auth
             }
         }
 
-        private void ReturnToWelcome(object sender, RoutedEventArgs e)
+        private void GoBack(object sender, RoutedEventArgs e)
         {
-            NavService.ToWelcomePage();
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
+
     }
 }
