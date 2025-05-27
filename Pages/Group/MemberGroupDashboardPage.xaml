@@ -48,9 +48,9 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
-                        <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Task.Description}" />
+                        <GridViewColumn Header="Description" Width="400" DisplayMemberBinding="{Binding Task.Description}" />
                         <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Task.Reward}" />
-                        <GridViewColumn Header="Time Left" Width="80" DisplayMemberBinding="{Binding TimeLeft}"/>
+                        <GridViewColumn Header="Time Left" Width="120" DisplayMemberBinding="{Binding TimeLeft}"/>
                         <GridViewColumn Header="Deadline" Width="80" DisplayMemberBinding="{Binding DeadlineDisplay}" />
                         <GridViewColumn Header="Issued On" Width="90" DisplayMemberBinding="{Binding IssueDateDisplay}" />
                         <GridViewColumn Header="Success" Width="46">
@@ -89,14 +89,14 @@
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <Button Style="{StaticResource BlueButton}" Grid.Column="1" Content="Shop" Grid.Row="0" HorizontalAlignment="Right"/>
                 <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
-                    <Label Content="Currency: " />
+                    <Label Content="Coins: " />
                     <Label Name="lblCurrency" Content="XX"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,30,0,30" Width="auto">
             <Label Content="Other Members:" Grid.Row="4" Grid.Column="1"/>
-            <ListView  x:Name="lsvMembersOverview" MinHeight="150"  Grid.Row="1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Width="310" HorizontalAlignment="Left" MaxHeight="250">
+            <ListView  x:Name="lsvMembersOverview" MinHeight="150"  Grid.Row="1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Width="320" HorizontalAlignment="Left" MaxHeight="250">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Member" Width="170" DisplayMemberBinding="{Binding User.Name}" />

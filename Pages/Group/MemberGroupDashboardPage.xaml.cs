@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using donely_Inspilab.Classes;
+using donely_Inspilab.Enum;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -28,7 +29,6 @@ namespace donely_Inspilab.Pages.Group
         {
             InitializeComponent();
             LoadItems();
-            
         }
 
 
@@ -57,11 +57,56 @@ namespace donely_Inspilab.Pages.Group
 
         private void SucceedTask_Click(object sender, RoutedEventArgs e)
         {
-
+            var task = (sender as Button)?.DataContext as TaskInstance;
+            SetTaskStatus(task, TaskProgress.Success);
         }
+
         private void FailTask_Click(object sender, RoutedEventArgs e)
         {
+            var task = (sender as Button)?.DataContext as TaskInstance;
+            SetTaskStatus(task, TaskProgress.Failure);
+        }
 
+        private void SetTaskStatus(TaskInstance task, TaskProgress status)
+        {
+            try
+            {
+                task.CompletionDate = DateTime.Now;
+                string message = "";
+                if (status == TaskProgress.Success)
+                {
+                    if (task.DeadlineDateOnly < DateOnly.FromDateTime((DateTime)task.CompletionDate))
+                    {
+                        task.Status = TaskProgress.Failure; //autofail als deadline toch vervallen op moment van indienen.
+                        message = "Deadline has passed at time of handing in, Task Failed!";
+                    }
+                    else if (task.Task.RequiresValidation)
+                    {
+                        task.Status = TaskProgress.Pending;
+                        message = $"Task successfully handed in, please wait for {GroupState.LoadedGroup.Owner.Name} to confirm!";
+                    }
+                    else
+                    {
+                        task.Status = status;
+                        message = $"Task done successfully! You receive {task.Task.Reward} coins!";
+                    }
+                }
+                TaskService.UpdateTaskInstance(task); //update voor database
+                CurrentMember.UpdateTaskStatus(task); //update voor klasse
+                CurrentMember.Currency = GroupMemberService.AddCurrency(CurrentMember, task.Task.Reward); //Doet zowel update in database als in klasse
+                lblCurrency.Content = CurrentMember.Currency;
+                //reset listview
+                lsvMemberTasks.ItemsSource = CurrentMember.ActiveTaskList;
+                lsvMemberTasks.Items.Refresh();
+    
+                if (task.Status != TaskProgress.Failure)
+                    MessageBox.Show(message, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
 
 

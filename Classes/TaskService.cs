@@ -78,7 +78,7 @@ namespace donely_Inspilab.Classes
         }
 
         //UPDATE
-        public static void UpdateTask(TaskInstance task)
+        public static void UpdateTaskInstance(TaskInstance task)
         {
             Database db = new();
             db.UpdateTaskInstance(task);
@@ -90,7 +90,7 @@ namespace donely_Inspilab.Classes
             Database db = new();
             return db.AutoFailExpiredTasksGlobal();
         }
-        // auto reassigner
+        // AUTO REASSIGNER
         public static void AutoReassignRecurringTasks()
         {
             Database db = new();

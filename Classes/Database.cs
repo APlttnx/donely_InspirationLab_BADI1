@@ -404,7 +404,7 @@ namespace donely_Inspilab.Classes
                     _lastLogin: Convert.ToDateTime(row["last_login"]),
                     _isAdmin: Convert.ToBoolean(row["is_admin"])
                 );
-
+                
                 List<ShopItem> boughtItems = new(); // TODO
 
                 GroupMember groupMember = new(
@@ -425,50 +425,17 @@ namespace donely_Inspilab.Classes
             return groupMembers;
         }
 
-        //public GroupMember GetGroupMember(int userID, int groupID) // Was voor enkel groupMember, achteraf niet nodig --> gewoon lijst gebruiken
-        //{
-        //    string qry = @"
-        //                SELECT 
-        //                    gu.group_userID,
-        //                    gu.currency,
-        //                    gu.joined,
-        //                    gu.role,
-        //                    COALESCE(t.ActiveTasks, 0) AS ActiveTasks,
-        //                    COALESCE(t.PendingTasks, 0) AS PendingTasks,
-        //                    COALESCE(t.CompletedTasks, 0) AS CompletedTasks
-        //                FROM group_users gu
-        //                JOIN users u ON gu.userID = u.userID
-        //                LEFT JOIN (
-        //                    SELECT 
-        //                        groupUserID,
-        //                        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) AS ActiveTasks,
-        //                        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) AS PendingTasks,
-        //                        SUM(CASE WHEN status = 2 OR status = 3  THEN 1 ELSE 0 END) AS CompletedTasks
-        //                        FROM task_instances
-        //                        GROUP BY groupUserID
-        //                     ) t ON gu.group_userID = t.groupUserID
-        //                     WHERE gu.groupID = @groupID;
-        //                     AND u.userID = @userID";
-
-        //    Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
-        //    var result = ExecuteReader(qry, parameters)[0];
-
-        //    List<ShopItem> boughtItems = new(); // TODO
-
-        //    GroupMember groupMember = new(
-        //        _id: Convert.ToInt32(result["group_userID"]),
-        //        _user: SessionManager.CurrentUser,
-        //        _groupID: groupID,
-        //        _currency: Convert.ToInt32(result["currency"]),
-        //        _boughtItems: boughtItems,
-        //        _joined: Convert.ToDateTime(result["joined"]),
-        //        _activeTaskCount: Convert.ToInt32(result["ActiveTasks"]),
-        //        _pendingTaskCount: Convert.ToInt32(result["PendingTasks"]),
-        //        _completedTaskCount: Convert.ToInt32(result["CompletedTasks"])
-        //        );
-            
-        //    return groupMember ;
-        //}
+        public void UpdateMemberCurrency(int memberId, int currency)
+        {
+            string qry = "UPDATE group_users SET currency = @currency WHERE group_userID = @memberId;";
+            Dictionary<string, object> parameters = new() {
+                ["@memberId"] = memberId,
+                ["@currency"] = currency,
+            };
+            int rowsChanged = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsChanged !=1)
+                throw new Exception();
+        }
 
         #endregion
 

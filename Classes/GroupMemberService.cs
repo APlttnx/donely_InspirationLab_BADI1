@@ -21,5 +21,14 @@ namespace donely_Inspilab.Classes
             db.DeleteGroupMember(member.Id);
         }
 
+        public static int AddCurrency(GroupMember member, int currency)
+        {
+            member.Currency += currency;
+            Database db = new();
+            db.UpdateMemberCurrency(member.Id, member.Currency);
+
+            return member.Currency;
+        }
+
     }
 }
