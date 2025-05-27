@@ -26,8 +26,8 @@ namespace donely_Inspilab.Pages
     /// </summary>
     public partial class HomePage : Page
     {
-        private List<Classes.Group> GroupList { get; set; } = new(); //dient voor dynamische upload ListView
-        private List<Classes.Group> OwnedGroupList { get; set; } = new(); //dient voor dynamische upload ListView
+        private List<Classes.Group> GroupList { get; set; } = new(); //dient voor ListView
+        private List<Classes.Group> OwnedGroupList { get; set; } = new(); //dient voor ListView
         public HomePage()
         {
             InitializeComponent();
@@ -45,6 +45,7 @@ namespace donely_Inspilab.Pages
                 OwnedGroupList.Clear();
                 OwnedGroupList = GroupService.GetOverviewOwnGroups(SessionManager.CurrentUser);
                 lsvOwnedGroupsOverview.ItemsSource = OwnedGroupList;
+                lsvUserTasks.ItemsSource = TaskService.GetOngoingTasksOfUser(SessionManager.GetCurrentUserID());
             }
             catch (Exception ex)
             {

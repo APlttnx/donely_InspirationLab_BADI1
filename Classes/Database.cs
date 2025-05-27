@@ -756,6 +756,33 @@ namespace donely_Inspilab.Classes
             }
             return taskInstances;
         }
+
+        //GET ALL TASKS CURRENT USER
+        public List<OngoingTasksView> GetAllTasksOfUser(int userID)
+        {
+            string qry = @"SELECT ti.deadline, td.name as taskName, td.frequency, td.reward_currency, g.name as groupName, g.groupid 
+                        FROM task_instances ti
+                        JOIN group_users gu ON ti.groupUserID = gu.group_UserID
+                        JOIN groups_ g on g.GroupId = gu.GroupID
+                        JOIN tasks_definition td ON td.taskID = ti.taskID
+                        WHERE gu.userID = @userID
+                            AND ti.status = 0;"; //status = 0 --> enkel actieve tasks
+            Dictionary<string, object> parameters = new() { ["@userID"] = userID } ;
+            var results = ExecuteReader(qry, parameters);
+            List<OngoingTasksView> views = [];
+            foreach (var row in results)
+            {
+                int groupId = Convert.ToInt32(row["groupid"]);
+                string groupName = row["groupName"].ToString();
+                string taskName = row["taskName"].ToString();
+                int reward = Convert.ToInt32(row["reward_currency"]);
+                DateTime deadline = Convert.ToDateTime(row["deadline"]);
+                TaskFrequency frequency = (TaskFrequency)Convert.ToInt32(row["frequency"]);
+
+                views.Add(new OngoingTasksView(groupId, groupName, taskName, reward, deadline, frequency));
+            }
+            return views;
+        }
         #endregion
     }
 }

@@ -120,6 +120,13 @@ namespace donely_Inspilab.Classes
                     CreateTaskInstance(instance.Task, newDeadline, instance.MemberId);
             }
         }
+
+        //GET ALL TASKS OF USER ACROSS GROUPS
+        public static List<OngoingTasksView> GetOngoingTasksOfUser(int userID)
+        {
+            Database db = new();
+            return(db.GetAllTasksOfUser(userID));
+        }
         
     }
 }

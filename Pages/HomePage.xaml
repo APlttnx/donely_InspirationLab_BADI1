@@ -82,18 +82,16 @@
 
             <!-- Ongoing Tasks Table -->
 
-            <DataGrid x:Name="taskDataGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="True"
-                      MinHeight="150"
-                      Margin="0,0,0,40">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Task" Binding="{Binding Task.Name}" Width="*" />
-                    <DataGridTextColumn Header="Deadline" Binding="{Binding DeadlineDisplay}" Width="150" />
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="120" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <ListView  x:Name="lsvUserTasks" MinHeight="150"  Grid.Row="1" Grid.Column="0" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0" MaxHeight="600">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Group" Width="100" DisplayMemberBinding="{Binding GroupName}" />
+                        <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding TaskNameDisplay}" />
+                        <GridViewColumn Header="Reward" Width="80" DisplayMemberBinding="{Binding Reward}" />
+                        <GridViewColumn Header="Time Left" Width="120" DisplayMemberBinding="{Binding TimeLeft}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
             <!-- Action Buttons -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
