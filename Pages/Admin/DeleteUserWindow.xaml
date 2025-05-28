@@ -18,10 +18,8 @@
         <Button Content="X"
                 Click="Cancel_Click"
                 Style="{StaticResource CloseButton}"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Width="30" Height="30"
-                Grid.Row="0"/>
+                Width="39" Height="40"
+                Grid.Row="0" Grid.RowSpan="2" Margin="0,-15,-17,0"/>
 
         <!-- Confirmation Text -->
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">

@@ -9,10 +9,7 @@
         <!-- Close Button -->
         <Button Content="X"
                 Style="{StaticResource CloseButton}"
-                Click="Close_Click"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="0,0,0,10"/>
+                Click="Close_Click" Height="33" Width="40"/>
 
         <!-- Content -->
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" >

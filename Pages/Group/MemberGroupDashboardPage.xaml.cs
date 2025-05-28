@@ -132,6 +132,30 @@ namespace donely_Inspilab.Pages.Group
             this.NavigationService.Navigate(new MemberShopPage());
         }
 
+        //leave group
+        private void LeaveGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to leave this group?", "Leave Group", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                int userId = SessionManager.GetCurrentUserID();
+                int groupId = GroupState.LoadedGroup.Id;
+
+                Database db = new Database();
+                bool success = db.LeaveGroup(userId, groupId);
+
+                if (success)
+                {
+                    MessageBox.Show("You have left the group.", "Left Group", MessageBoxButton.OK, MessageBoxImage.Information);
+                    NavService.ToHomePage();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
 
     }
 }

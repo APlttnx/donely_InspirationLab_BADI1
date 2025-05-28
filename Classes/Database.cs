@@ -463,6 +463,18 @@ namespace donely_Inspilab.Classes
             }
         }
 
+        public bool LeaveGroup(int userId, int groupId)
+        {
+            string qry = "DELETE FROM group_users WHERE userID = @userId AND groupID = @groupId";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@userId"] = userId,
+                ["@groupId"] = groupId
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            return rowsAffected > 0;
+        }
+
         #endregion
 
         #region ADMIN

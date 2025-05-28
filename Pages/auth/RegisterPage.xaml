@@ -34,13 +34,11 @@
                 <Image Source="/Assets/Images/Donely_Logo_Transparant.png"
                 Margin="0,-36,0,48"
                  HorizontalAlignment="Center" Width="168"/>
-                
+
                 <!-- Close Button -->
                 <Button Style="{StaticResource CloseButton}"
-                        Width="32"
-                        Height="32"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
+                        Width="43"
+                        Height="38"
                         Click="GoBack"/>
 
                 <!-- Title -->

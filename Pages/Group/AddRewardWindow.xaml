@@ -24,9 +24,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="20,20,20,20" />
-        <Button Grid.Row="0" Grid.Column="3" Name="btnCancel" Style="{StaticResource CloseButton}" Click="btnCancel_Click" />
+        <Button Grid.Column="3" Name="btnCancel" Style="{StaticResource CloseButton}" Click="btnCancel_Click" HorizontalAlignment="Left" Height="40" Margin="30,4,0,0" Width="51" Grid.RowSpan="2" />
 
-        <Label Content="Add Item" Grid.Column="2" Grid.Row="1" FontSize="25" FontWeight="Bold"/>
+        <Label Content="Add Item" Grid.Column="2" Grid.Row="1" FontSize="25" FontWeight="Bold" Margin="31,0,0,0" VerticalAlignment="Center"/>
 
         <Label Grid.Row="2" Grid.Column="1" Content="Name:" />
         <TextBox Grid.Row="2" Grid.Column="2" Name="txtName"/>
@@ -40,6 +40,6 @@
         <Label Grid.Row="5" Grid.Column="1" Content="Limit (opt): "/>
         <TextBox Grid.Row="5" Grid.Column="2" Name="txtLimit" Text="0"/>
 
-        <Button Grid.Row="6" Grid.ColumnSpan="4" Content="Add" Style="{StaticResource YellowButton}" Click="AddShopItem_Click"/>
+        <Button Grid.Row="6" Content="Add" Style="{StaticResource YellowButton}" Click="AddShopItem_Click" Grid.Column="2" Margin="16,10,137,10"/>
     </Grid>
 </Window>
