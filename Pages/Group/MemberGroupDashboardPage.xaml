@@ -87,7 +87,7 @@
                 </ListView.View>
             </ListView>
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <Button Style="{StaticResource BlueButton}" Grid.Column="1" Content="Shop" Grid.Row="0" HorizontalAlignment="Right"/>
+                <Button Style="{StaticResource BlueButton}" Grid.Column="1" Content="Shop" Grid.Row="0" HorizontalAlignment="Right" Click="GoToShop"/>
                 <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right">
                     <Label Content="Coins: " />
                     <Label Name="lblCurrency" Content="XX"/>

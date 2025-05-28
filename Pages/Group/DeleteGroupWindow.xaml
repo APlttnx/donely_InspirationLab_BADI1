@@ -12,7 +12,7 @@
             <Label x:Name="lblDeleteCode" FontWeight="Bold" Content="CODE" HorizontalAlignment="Center"/>
             <Label Content="Please fill in the above code to confirm you want to delete this group" HorizontalAlignment="Center"/>
             <TextBox x:Name="txtConfirmDelete" HorizontalAlignment="Center" TextChanged="txtConfirmDelete_TextChanged"/>
-            <Button x:Name="btnDelete" Style="{StaticResource RedButton}" Content="Delete Group" IsEnabled="False" Click="DeleteGroup_Click"/>
+            <Button x:Name="btnDelete" Style="{StaticResource RedButton}" Content="Delete Group" IsEnabled="False" Click="DeleteGroup_Click" Width="172" Height="38"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using donely_Inspilab.Classes;
 using donely_Inspilab.Enum;
+using donely_Inspilab.Pages.Shop;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -28,9 +29,18 @@ namespace donely_Inspilab.Pages.Group
         public MemberGroupDashboardPage()
         {
             InitializeComponent();
+            this.Loaded += MemberGroupDashboardPage_Loaded;
             LoadItems();
         }
 
+        private void MemberGroupDashboardPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Reload group members from the database
+            var db = new Database();
+            GroupState.LoadedGroup.Members = db.GetGroupMembers(GroupState.LoadedGroup.Id);
+
+            LoadItems();
+        }
 
         private void LoadItems()
         {
@@ -115,6 +125,11 @@ namespace donely_Inspilab.Pages.Group
                 MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
+        }
+        private void GoToShop(object sender, RoutedEventArgs e)
+        {
+            // Navigate to the ShopPage
+            this.NavigationService.Navigate(new MemberShopPage());
         }
 
 

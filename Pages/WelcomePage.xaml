@@ -51,6 +51,7 @@
                 <Image Source="/Assets/Images/Rewards.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,299,0,0" Width="324" Grid.Row="1"/>
                 <Image Source="/Assets/Images/Fun.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,532,0,0" Width="324" Grid.Row="1"/>
                 <Image Source="/Assets/Images/Collab.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,48,0,0" Width="324" Grid.Row="1"/>
+                <Image Source="/Assets/Images/Dashboard.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,817,0,0" Width="324" Grid.Row="1"/>
 
                 <!-- USP sectie -->
 
@@ -67,14 +68,23 @@
             <Button Content="Sign Up"
                         Width="200"
                         Height="60"
-                        FontSize="20"
-                        FontWeight="Bold"
                         Click="ToRegisterPage"
                         Style="{StaticResource RedButton}"
                         HorizontalAlignment="Left"
-                        Margin="720,1350,0,540"/>
+                        Margin="720,1691,0,199"/>
 
             <local:FooterControl Margin="0,1850,0,0" />
+            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
+                Margin="410,1400,571,324" ><Run Text="•   See all your ongoing tasks in one beautiful view&#xA;•   Instantly jump between your groups with a single click&#xA;•   Track every group member at a glance"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Easy to invite new members or join other groups"/></TextBlock>
+            <TextBlock Text="Clear, Effortless Dashboards" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="412,1329,488,551"/>
+            <TextBlock FontFamily="QuickSand" 
+                       FontSize="36" 
+                       FontWeight="Bold" 
+                       Foreground="White"
+                       Margin="615,1616,0,264"
+                       Text="Sign Up Today For Free!"
+                       HorizontalAlignment="Left">
+            </TextBlock>
         </Grid>
 
 

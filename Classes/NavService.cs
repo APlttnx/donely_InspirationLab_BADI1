@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using donely_Inspilab.Pages.Shop;
 
 namespace donely_Inspilab.Classes
 {
@@ -98,6 +98,16 @@ namespace donely_Inspilab.Classes
         public static void ToAdminCreateUserPage()
         {
             App.MainFrame.Navigate(new CreateUserPage());
+        }
+
+        //SHOP
+        public static void ToMemberShopPage()
+        {
+            App.MainFrame.Navigate(new MemberShopPage());
+        }
+        public static void ToOwnerManageShopPage()
+        {
+            App.MainFrame.Navigate(new OwnerManageShop());
         }
 
         // Add other navigation methods as needed...

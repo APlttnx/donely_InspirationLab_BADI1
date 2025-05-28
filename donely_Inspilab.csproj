@@ -10,8 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\Quicksand-VariableFont_wght.ttf" />
+    <None Remove="Assets\GroupImages\HouseWEyesIsntReal.png" />
+    <None Remove="Assets\GroupImages\jK18oLIGRm-KX7E0HpQQ-g.jpeg" />
     <None Remove="Assets\Images\Calendar.jpg" />
     <None Remove="Assets\Images\Collab.png" />
+    <None Remove="Assets\Images\Dashboard.png" />
     <None Remove="Assets\Images\Donely_Logo_Transparant.png" />
     <None Remove="Assets\Images\Fun.png" />
     <None Remove="Assets\Images\Logo_Icon_Transparant.png" />
@@ -41,10 +45,14 @@
     <Resource Include="Assets\Images\Collab.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Images\Dashboard.png" />
     <Resource Include="Assets\Images\Donely_Logo_Transparant.png" />
     <Resource Include="Assets\Images\Fun.png" />
     <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
     <Resource Include="Assets\Images\Rewards.png" />
+    <Content Include="Assets\Fonts\Quicksand-VariableFont_wght.ttf" />
+    <Content Include="Assets\GroupImages\HouseWEyesIsntReal.png" />
+    <Content Include="Assets\GroupImages\jK18oLIGRm-KX7E0HpQQ-g.jpeg" />
     <Content Include="Assets\Images\Logo_Icon.ico" />
     <Content Include="Assets\ProfilePictures\profilePicture.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

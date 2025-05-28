@@ -129,7 +129,7 @@ namespace donely_Inspilab.Pages.Group
 
         private void ToManageShopPage_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TODO SET UP SHOP PAGE!!!"); //TODO
+            NavService.ToOwnerManageShopPage();
         }
     }
 }

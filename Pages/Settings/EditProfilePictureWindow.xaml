@@ -11,8 +11,8 @@
             <Border BorderBrush="Black" BorderThickness="3" CornerRadius="5" Width="180" Height="180" Margin="10,10,10,10">
                 <Image x:Name="imgProfilePicture"  Source="/Assets/ProfilePictures/profilePicture.jpg" />
             </Border>
-            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Center" Width="176"/>
-            <Button Content="Save Image" Click="SaveImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Center" Width="176"/>
+            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource BlueButton}" Margin="10" HorizontalAlignment="Center" Width="182" Height="38"/>
+            <Button Content="Save Image" Click="SaveImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Center" Width="181" Height="35"/>
         </StackPanel>
     </Grid>
 </Window>

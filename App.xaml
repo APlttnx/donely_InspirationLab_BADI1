@@ -13,7 +13,7 @@
         </Style>
 
         <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -22,7 +22,7 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
@@ -30,7 +30,7 @@
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -39,7 +39,7 @@
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
         <Style TargetType="DatePicker">
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -48,7 +48,7 @@
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
         <Style TargetType="PasswordBox">
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Height" Value="40" />
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -58,10 +58,11 @@
         </Style>
 
         <Style x:Key="BaseButtonStyle" TargetType="Button">
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="Margin" Value="10,10,10,10"/>
             <Setter Property="Width" Value="150"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
@@ -94,7 +95,7 @@
         </Style>
         <Style x:Key="RedButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#F2BAC9"/>
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#e77e9a" />
@@ -107,7 +108,7 @@
         </Style>
         <Style x:Key="BlueButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#BAD7F2"/>
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#7eb4e7" />
@@ -119,7 +120,7 @@
         </Style>
         <Style x:Key="YellowButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
             <Setter Property="Background" Value="#F2E2BA"/>
-            <Setter Property="FontFamily" Value="{StaticResource QuicksandFont}" />
+            <Setter Property="FontFamily" Value="QuickSand" />
             <Setter Property="Foreground" Value="Black"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">

@@ -57,7 +57,7 @@
             <Button x:Name="btnCancel"
                 Style="{StaticResource CloseButton}"
                 Click="btnCancel_Click"
-                Margin="0,-17,-19,0"/>
+                Margin="0,-17,-19,0" Height="37" Width="35"/>
         </Grid>
     </ScrollViewer>
 </Page>
