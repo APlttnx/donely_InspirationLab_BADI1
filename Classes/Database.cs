@@ -203,6 +203,18 @@ namespace donely_Inspilab.Classes
             ExecuteNonQuery(qry, parameters, out _);
         }
 
+        public bool UpdateUserPassword(int userId, string newHashedPassword)
+        {
+            string qry = "UPDATE user_passwords SET password = @password WHERE userID = @userID";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@password"] = newHashedPassword,
+                ["@userID"] = userId
+            };
+            int rows = ExecuteNonQuery(qry, parameters, out _);
+            return rows == 1;
+        }
+
 
         #endregion
 

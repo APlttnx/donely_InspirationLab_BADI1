@@ -7,23 +7,22 @@
       mc:Ignorable="d"
       Title="UserOverviewPage">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="User Overview"
+        <TextBlock Text="User Overview"
                        FontWeight="Bold"
                        FontSize="32"
                        FontFamily="QuickSand"
                        HorizontalAlignment="Center"
                        Margin="0,0,0,20" />
 
-            <!-- Table -->
-            <DataGrid x:Name="UserDataGrid"
+        <!-- Table -->
+        <DataGrid x:Name="UserDataGrid"
                       Grid.Row="1"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
@@ -32,32 +31,31 @@
                       VerticalScrollBarVisibility="Visible"
                       HorizontalScrollBarVisibility="Visible"
                       Margin="0,0,0,20">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                    <DataGridTextColumn Header="Phone" Binding="{Binding TelephoneNumber}" />
-                    <DataGridTextColumn Header="Admin" Binding="{Binding IsAdmin}" />
-                    <DataGridTextColumn Header="Account Created" Binding="{Binding AccountCreated}" />
-                    <DataGridTextColumn Header="Last Login" Binding="{Binding LastLogin}" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                <DataGridTextColumn Header="Phone" Binding="{Binding TelephoneNumber}" />
+                <DataGridTextColumn Header="Admin" Binding="{Binding IsAdmin}" />
+                <DataGridTextColumn Header="Account Created" Binding="{Binding AccountCreated}" />
+                <DataGridTextColumn Header="Last Login" Binding="{Binding LastLogin}" />
+            </DataGrid.Columns>
+        </DataGrid>
 
-            <!-- Buttons -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                <Button Content="Create User"
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Content="Create User"
                         Click="CreateUser_Click"
                         Style="{StaticResource BlueButton}" Height="41" Width="160" />
-                <Button Content="Change User"
+            <Button Content="Change User"
                         Click="ChangeUser_Click"
                         Style="{StaticResource RedButton}" Width="160" />
-                <Button Content="Delete User"
+            <Button Content="Delete User"
                         Click="DeleteUser_Click"
                         Style="{StaticResource RedButton}" Width="160" />
-            </StackPanel>
-            <Button x:Name="btnCancel"
+        </StackPanel>
+        <Button x:Name="btnCancel"
                 Style="{StaticResource CloseButton}"
                 Click="btnCancel_Click"
                 Margin="0,-17,-19,0" Height="37" Width="35"/>
-        </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>

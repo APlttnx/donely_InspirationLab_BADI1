@@ -39,8 +39,14 @@ namespace donely_Inspilab.Pages.Settings
 
         private void GoToChangePassword(object sender, RoutedEventArgs e)
         {
-
+            ChangePasswordWindow pwdWindow = new ChangePasswordWindow();
+            bool? result = pwdWindow.ShowDialog();
+            if (result == true)
+            {
+                MessageBox.Show("Password changed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
+
         private void GoToDeleteAccount(object sender, RoutedEventArgs e)
         {
             if (!SessionManager.IsLoggedIn)
@@ -66,6 +72,7 @@ namespace donely_Inspilab.Pages.Settings
             if (NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }
+
 
     }
 }

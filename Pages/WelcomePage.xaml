@@ -8,10 +8,8 @@
       d:DesignHeight="1950" d:DesignWidth="1600"
       Title="WelcomePage">
 
-
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Background="#BAD7F2" Width="1600" Height="1950">
-
+        <Grid Background="#BAD7F2" Height="1950">
+            <Grid HorizontalAlignment="Center" MaxWidth="1600">
             <!-- Hero sectie -->
             <Grid Margin="0,60,0,0">
                 <Grid.RowDefinitions>
@@ -85,9 +83,7 @@
                        Text="Sign Up Today For Free!"
                        HorizontalAlignment="Left">
             </TextBlock>
+                </Grid>
         </Grid>
 
-
-
-    </ScrollViewer>
 </Page>
