@@ -85,6 +85,10 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="Gray" />
                 </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.7"/>
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Trigger>
             </Style.Triggers>
 
         </Style>
@@ -98,6 +102,7 @@
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="#d62957" />
                 </Trigger>
+                
             </Style.Triggers>
         </Style>
         <Style x:Key="BlueButton" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">

@@ -1,0 +1,18 @@
+﻿<Window x:Class="donely_Inspilab.Pages.Group.DeleteGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:donely_Inspilab.Pages.Group"
+        mc:Ignorable="d"
+        Title="Warning!" Height="450" Width="800">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
+            <Label Content="Are you sure you want to delete this group? This action is permanent!" HorizontalAlignment="Center"/>
+            <Label x:Name="lblDeleteCode" FontWeight="Bold" Content="CODE" HorizontalAlignment="Center"/>
+            <Label Content="Please fill in the above code to confirm you want to delete this group" HorizontalAlignment="Center"/>
+            <TextBox x:Name="txtConfirmDelete" HorizontalAlignment="Center" TextChanged="txtConfirmDelete_TextChanged"/>
+            <Button x:Name="btnDelete" Style="{StaticResource RedButton}" Content="Delete Group" IsEnabled="False" Click="DeleteGroup_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

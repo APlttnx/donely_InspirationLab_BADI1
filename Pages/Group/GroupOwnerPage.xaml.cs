@@ -102,5 +102,34 @@ namespace donely_Inspilab.Pages.Group
             // Navigate or do whatever you need with this member
             NavService.ToManageMemberTasksPage(member);
         }
+
+        private void DeleteGroup_Click(object sender, RoutedEventArgs e)
+        {
+            try { 
+            var answer = MessageBox.Show("Are you sure?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (answer == MessageBoxResult.Yes) {
+                    DeleteGroupWindow deleteWindow = new();
+                    deleteWindow.ShowDialog();
+                    if ((bool)deleteWindow.DialogResult)
+                    {
+                        MessageBox.Show("Group successfully deleted");
+                        NavService.ToHomePage();
+                    }
+                    else {
+                        MessageBox.Show("Group not deleted");
+                    }
+                }
+
+            }
+            catch( Exception ex)
+            {
+                MessageBox.Show("Something unexpected went wrong", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ToManageShopPage_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("TODO SET UP SHOP PAGE!!!"); //TODO
+        }
     }
 }

@@ -438,6 +438,19 @@ namespace donely_Inspilab.Classes
                 throw new Exception();
         }
 
+        public void DeleteGroup(int groupID)
+        {
+            string qry = "DELETE FROM GROUPS_ WHERE groupID = @groupID;";
+            Dictionary<string, object> parameters = new() { ["@groupID"] = groupID };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected == 0)
+                throw new Exception("Failed to delete Group.");
+            else
+            {
+                Console.Write($"ROWS CHANGED: {rowsAffected}");
+            }
+        }
+
         #endregion
 
         #region ADMIN

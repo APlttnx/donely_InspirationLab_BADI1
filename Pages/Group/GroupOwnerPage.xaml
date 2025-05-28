@@ -20,6 +20,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Button Style="{StaticResource CloseButton}" Grid.Column="2" Click="ToHomePage_Click" />
@@ -68,9 +69,14 @@
         </ListView>
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="16,0" HorizontalAlignment="Center">
             <Button Content="Edit Group" Style="{StaticResource YellowButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToEditGroupWindow_Click"/>
-            <Button Content="Invite Code" Style="{StaticResource YellowButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToInviteCodeWindow_Click"/>
+            
             <Button Content="Task Library" Style="{StaticResource BlueButton}" Width="170" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToCreatedTaskOverviewPage_Click"/>
             <Button Content="Kick" Style="{StaticResource RedButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="KickMember_Click"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="16,0" HorizontalAlignment="Center">
+            <Button Content="Invite Code" Style="{StaticResource YellowButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToInviteCodeWindow_Click"/>
+            <Button Content="Manage Shop" Style="{StaticResource BlueButton}" Width="170" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="ToManageShopPage_Click"/>
+            <Button Content="Delete Group" Style="{StaticResource RedButton}" Grid.Row="2" Grid.Column="1" Height="35" HorizontalAlignment="Left" Click="DeleteGroup_Click"/>
         </StackPanel>
     </Grid>
 </Page>
