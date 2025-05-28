@@ -35,6 +35,8 @@ namespace donely_Inspilab.Pages.Group
         {
             if (txtConfirmDelete.Text.Trim().Equals(GroupState.LoadedGroup.InviteCode, StringComparison.OrdinalIgnoreCase)){
                 GroupService.DeleteGroup(GroupState.LoadedGroup.Id);
+                this.DialogResult = true;
+                this.Close();
             }
         }
     }
