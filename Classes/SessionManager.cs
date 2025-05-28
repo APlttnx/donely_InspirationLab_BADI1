@@ -19,6 +19,12 @@ namespace donely_Inspilab.Classes
             LoginStatusChanged?.Invoke(null, EventArgs.Empty);
         }
 
+        public static void UpdateUser(User _user)
+        {
+            CurrentUser = _user;
+        }
+
+
         public static void Logout()
         {
             CurrentUser = null;

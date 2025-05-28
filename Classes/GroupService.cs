@@ -75,6 +75,12 @@ namespace donely_Inspilab.Classes
             db.UpdateGroup(group);
         }
 
+        public static void DeleteGroup(int groupID)
+        {
+            Database db = new();
+            db.DeleteGroup(groupID);
+        }
+
 
     }
 }

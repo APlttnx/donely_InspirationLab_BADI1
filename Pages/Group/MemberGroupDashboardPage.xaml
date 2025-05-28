@@ -96,9 +96,16 @@
         </Grid>
         <StackPanel Grid.Row="4" Grid.Column="1" Margin="0,30,0,30" Width="auto">
             <Label Content="Other Members:" Grid.Row="4" Grid.Column="1"/>
-            <ListView  x:Name="lsvMembersOverview" MinHeight="150"  Grid.Row="1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Width="320" HorizontalAlignment="Left" MaxHeight="250">
+            <ListView  x:Name="lsvMembersOverview" MinHeight="150"  Grid.Row="1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Width="370" HorizontalAlignment="Left" MaxHeight="250">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding User.ImageSource}" Width="32" Height="32" Stretch="Uniform"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn Header="Member" Width="170" DisplayMemberBinding="{Binding User.Name}" />
                         <GridViewColumn Header="Balance" Width="60" DisplayMemberBinding="{Binding Currency}" />
                         <GridViewColumn Header="Joined" Width="80" DisplayMemberBinding="{Binding Joined, StringFormat='{}{0:dd-MM-yyyy}'}" />

@@ -28,9 +28,13 @@ namespace donely_Inspilab.Pages.Settings
         }
 
 
-        private void GoToChangeInfo(object sender, RoutedEventArgs e)
+        private void GoToChangePfp(object sender, RoutedEventArgs e)
         {
+            EditProfilePictureWindow editPfp = new EditProfilePictureWindow();
+            bool answer = (bool)editPfp.ShowDialog();
 
+            if (answer)
+                MessageBox.Show("Profile picture successfully changed", "Success", MessageBoxButton.OK);
         }
 
         private void GoToChangePassword(object sender, RoutedEventArgs e)
