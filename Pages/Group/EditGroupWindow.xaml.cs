@@ -32,8 +32,7 @@ namespace donely_Inspilab.Pages.Group
         {
             //Huidige gegevens van de geladen groep tonen voordat je edit
             txtName.Text = GroupState.LoadedGroup.Name;
-            _fileName = GroupState.LoadedGroup.ImageLink;
-            UploadedImage.Source = new BitmapImage(new Uri($"/Assets/GroupImages/{_fileName}", UriKind.Relative));
+            UploadedImage.Source = GroupState.LoadedGroup.ImageSource;
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

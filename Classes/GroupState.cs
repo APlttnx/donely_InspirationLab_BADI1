@@ -21,7 +21,7 @@ namespace donely_Inspilab.Classes
         {
             if (LoadedGroup != null && group.Id == LoadedGroup.Id) return; //als geselecteerde groep al geladen is. Zal normaal gezien nooit triggeren aangezien ClearGroup call bij navigeren HomePage
             group.Members = GroupMemberService.GetListGroupMembers(group.Id);
-            //TODO: Tasks en shopitems ook ophalen
+            //TODO: Tasks en shopitems ophalen, maar Lazy Load -> Enkel wnr nodig
             LoadedGroup = group;
         }
         public static void ReloadGroup() //dient voor manuele reloads uit te voeren

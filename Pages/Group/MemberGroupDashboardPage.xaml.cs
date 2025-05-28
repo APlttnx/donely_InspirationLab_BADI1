@@ -75,32 +75,40 @@ namespace donely_Inspilab.Pages.Group
                 string message = "";
                 if (status == TaskProgress.Success)
                 {
-                    if (task.DeadlineDateOnly < DateOnly.FromDateTime((DateTime)task.CompletionDate))
+                    if (task.DeadlineDateOnly < DateOnly.FromDateTime((DateTime)task.CompletionDate)) //AUTOFAIL DEADLINE (backup measure)
                     {
                         task.Status = TaskProgress.Failure; //autofail als deadline toch vervallen op moment van indienen.
                         message = "Deadline has passed at time of handing in, Task Failed!";
                     }
-                    else if (task.Task.RequiresValidation)
+                    else if (task.Task.RequiresValidation) //TO PENDING
                     {
                         task.Status = TaskProgress.Pending;
                         message = $"Task successfully handed in, please wait for {GroupState.LoadedGroup.Owner.Name} to confirm!";
                     }
-                    else
+                    else // SUCCESS
                     {
                         task.Status = status;
-                        message = $"Task done successfully! You receive {task.Task.Reward} coins!";
+                        message = $"Task done successfully! Here are {task.Task.Reward} coins!";
+                        CurrentMember.Currency = GroupMemberService.AddCurrency(CurrentMember, task.Task.Reward); //Doet zowel update in database als in klasse
                     }
                 }
+                else
+                {//FAILURE
+                    task.Status = status;
+                }
+                ;
                 TaskService.UpdateTaskInstance(task); //update voor database
                 CurrentMember.UpdateTaskStatus(task); //update voor klasse
-                CurrentMember.Currency = GroupMemberService.AddCurrency(CurrentMember, task.Task.Reward); //Doet zowel update in database als in klasse
+
                 lblCurrency.Content = CurrentMember.Currency;
                 //reset listview
                 lsvMemberTasks.ItemsSource = CurrentMember.ActiveTaskList;
                 lsvMemberTasks.Items.Refresh();
-    
+
                 if (task.Status != TaskProgress.Failure)
                     MessageBox.Show(message, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show("Task Failed. You'll get 'em next time!", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

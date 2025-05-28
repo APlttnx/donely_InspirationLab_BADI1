@@ -40,7 +40,9 @@
        Grid.Column="0"/>
 
         <StackPanel Grid.Row="2" Grid.Column="1">
-            <Image x:Name="UploadedImage" Width="150" Height="150" Margin="10"/>
+            <Border BorderBrush="Black" BorderThickness="1" Width="150" Height="150" Margin="10,10,10,10">
+                <Image x:Name="UploadedImage"  Margin="10" Source="/Assets/GroupImages/default.png"/>
+            </Border>
             <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Center" Width="176"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1"/>

@@ -48,6 +48,8 @@
             FontSize="32"
             FontFamily="QuickSand"
             HorizontalAlignment="Center"
-            Margin="0,20,0,494" />
+            VerticalAlignment="Top"
+            Margin="0,20,0,0" 
+            Height="50"/>
     </Grid>
 </Page>
