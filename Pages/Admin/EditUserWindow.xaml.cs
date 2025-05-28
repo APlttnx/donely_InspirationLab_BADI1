@@ -42,14 +42,15 @@ namespace donely_Inspilab.Pages.Admin
 
         private void ChangeUser_Click(object sender, RoutedEventArgs e)
         {
-            string newName = TxtName.Text;
-            string newEmail = TxtEmail.Text;
-            string newPhone = TxtPhone.Text;
+            _user.Name = TxtName.Text;
+            _user.Email = TxtEmail.Text;
+            _user.TelephoneNumber = TxtPhone.Text;
 
             try
             {
                 Database db = new();
-                db.UpdateUser(_user.Id.Value, newName, newEmail, newPhone);
+
+                db.UpdateUser(_user); //kleine aanpassing gemaakt --> Nieuwe methode in UserService, centraal punt voor alle updates van de fields voor User
 
                 MessageBox.Show("User updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 DialogResult = true;

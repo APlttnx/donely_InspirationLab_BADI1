@@ -89,5 +89,11 @@ namespace donely_Inspilab.Classes
                 return (db.DeleteUser(id) != 0);
             return false;
         }
+
+        public static void UpdateUser(User user)
+        {
+            Database db = new();
+            db.UpdateUser(user);
+        }
     }
 }

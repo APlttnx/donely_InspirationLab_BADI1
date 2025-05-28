@@ -34,7 +34,6 @@
     <Folder Include="Enum\" />
     <Folder Include="Pages\Task\" />
     <Folder Include="Pages\Admin\" />
-    <Folder Include="Pages\Settings\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +46,7 @@
     <Resource Include="Assets\Images\Logo_Icon_Transparant.png" />
     <Resource Include="Assets\Images\Rewards.png" />
     <Content Include="Assets\Images\Logo_Icon.ico" />
-    <Content Include="Assets\Images\profilePicture.jpg">
+    <Content Include="Assets\ProfilePictures\profilePicture.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\GroupImages\default.png">

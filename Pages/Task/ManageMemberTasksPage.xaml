@@ -86,6 +86,19 @@
         <Label Content="Completed" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1"/>
 
         <ListView  x:Name="lsvCompletedTasks" MinHeight="150"  Grid.Row="2" Grid.Column="3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Height" Value="40"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="Success">
+                            <Setter Property="Background" Value="LightGreen"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Failure">
+                            <Setter Property="Background" Value="LightCoral"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />

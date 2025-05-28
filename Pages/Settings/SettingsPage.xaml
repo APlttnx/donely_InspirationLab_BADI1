@@ -25,7 +25,7 @@
                     Width="270"
                     Height="45"
                     Margin="0,10"
-                    Click="GoToChangeInfo"/>
+                    Click="GoToChangePfp"/>
 
             <Button Content="Change Password"
                     Style="{StaticResource BlueButton}"

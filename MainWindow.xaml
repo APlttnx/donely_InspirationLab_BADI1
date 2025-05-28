@@ -10,7 +10,7 @@
     <Grid Background="#BAF2BB">
         <DockPanel>
             <Border Background="White" DockPanel.Dock="Top" Height="125">
-                <pages:TaskbarControl />
+                <pages:HeaderControl />
             </Border>
             <ScrollViewer VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Disabled">

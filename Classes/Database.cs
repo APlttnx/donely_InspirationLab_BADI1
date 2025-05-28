@@ -15,7 +15,7 @@ namespace donely_Inspilab.Classes
 {
     public class Database
     {
-        // Voor db te kunnen gebruiken volgens je eigen settings --> appsettings.json file aanmaken
+        // Voor db te kunnen gebruiken volgens je eigen settings --> appsettings.json file aanmaken in Solution Explorer
         // dan iets zoals:
         /*
             "ConnectionStrings": {
@@ -188,15 +188,16 @@ namespace donely_Inspilab.Classes
 
             return users;
         }
-        public void UpdateUser(int userId, string name, string email, string phone)
+        public void UpdateUser(User user)
         {
-            string qry = "UPDATE users SET name = @name, email = @mail, telephone_nr = @phone WHERE userID = @id";
+            string qry = "UPDATE users SET name = @name, email = @mail, profile_picture = @profilePicture, telephone_nr = @phone WHERE userID = @id";
             var parameters = new Dictionary<string, object>
             {
-                ["@id"] = userId,
-                ["@name"] = name,
-                ["@mail"] = email,
-                ["@phone"] = phone
+                ["@id"] = user.Id,
+                ["@name"] = user.Name,
+                ["@mail"] = user.Email,
+                ["@phone"] = user.TelephoneNumber,
+                ["@profilePicture"] = user.ProfilePicture
             };
 
             ExecuteNonQuery(qry, parameters, out _);
@@ -456,7 +457,7 @@ namespace donely_Inspilab.Classes
         #endregion
 
         #region SHOP
-        public int InsertShopItems(List<ShopItem> shopItems, int groupID)
+        public int InsertShopItems(List<ShopItem> shopItems, int groupID) //Insert in Bulk --> lijst aan items toevoegen
         {
             Dictionary<string, object> parameters = [];
 

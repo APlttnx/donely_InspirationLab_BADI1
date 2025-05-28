@@ -17,9 +17,9 @@ using donely_Inspilab.Classes;
 namespace donely_Inspilab.Pages
 {
 
-    public partial class TaskbarControl : UserControl
+    public partial class HeaderControl : UserControl
     {
-        public TaskbarControl()
+        public HeaderControl()
         {
             InitializeComponent();
             SessionManager.LoginStatusChanged += (_, __) => UpdateUI(); //Subscription voor event uitloggen => knoppen wisselen
@@ -28,6 +28,7 @@ namespace donely_Inspilab.Pages
 
         public void UpdateUI()
         {
+            imgProfilePic.Source = SessionManager.IsLoggedIn ? SessionManager.CurrentUser.ImageSource : null;
             GuestButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Collapsed : Visibility.Visible; 
             UserButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;
         }

@@ -36,6 +36,8 @@ namespace donely_Inspilab.Pages.Group
                 NavService.ToHomePage();
                 return;
             }
+            lblGroupName.Content = GroupState.LoadedGroup.Name;
+            imgGroupImage.Source = GroupState.LoadedGroup.ImageSource;
             lsvMembersOverview.ItemsSource = GroupState.LoadedGroup.Members;
         }
 
