@@ -33,6 +33,7 @@ namespace donely_Inspilab.Pages.Group
             //Huidige gegevens van de geladen groep tonen voordat je edit
             txtName.Text = GroupState.LoadedGroup.Name;
             UploadedImage.Source = GroupState.LoadedGroup.ImageSource;
+            _fileName = GroupState.LoadedGroup.ImageLink;
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

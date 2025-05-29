@@ -27,7 +27,7 @@ namespace donely_Inspilab.Pages.Task
             InitializeComponent();
             //Zetten van frequency, standaard None
             cmbFrequency.ItemsSource = System.Enum.GetValues(typeof(TaskFrequency));
-            cmbFrequency.SelectedIndex = 0; // default
+            cmbFrequency.SelectedItem = TaskFrequency.Once; // default
         }
         public Classes.Task NewTask { get; private set; }
 
@@ -36,7 +36,7 @@ namespace donely_Inspilab.Pages.Task
             try
             {
                 //input validation -> Empty fields
-                if (string.IsNullOrEmpty(txtTaskName.Text))
+                if (string.IsNullOrEmpty(txtTaskName.Text) || cmbFrequency.SelectedItem==null)
                     throw new ArgumentException("Not all required fields are filled in.");
                 NewTask = TaskService.CreateTask(txtTaskName.Text, txtDescription.Text, Convert.ToInt32(txtReward.Text), (TaskFrequency)cmbFrequency.SelectedItem, (bool)cbValidation.IsChecked, GroupState.LoadedGroup.Id);
                 if (NewTask != null)

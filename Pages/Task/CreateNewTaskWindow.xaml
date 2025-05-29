@@ -43,7 +43,7 @@
 
             <!-- Frequency -->
             <StackPanel Orientation="Horizontal" Margin="0,2">
-                <Label Content="Frequency:" Width="150"/>
+                <Label Content="Frequency: *" Width="150"/>
                 <ComboBox x:Name="cmbFrequency"
                           Width="200"
                           SelectedItem="{Binding SelectedFrequency, Mode=TwoWay}"/>
