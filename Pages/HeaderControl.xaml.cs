@@ -23,6 +23,7 @@ namespace donely_Inspilab.Pages
         {
             InitializeComponent();
             SessionManager.LoginStatusChanged += (_, __) => UpdateUI(); //Subscription voor event uitloggen => knoppen wisselen
+            SessionManager.ProfileUpdated += UpdateUI;
             UpdateUI();
         }
 
