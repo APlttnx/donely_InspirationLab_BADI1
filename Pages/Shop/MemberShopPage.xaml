@@ -1,0 +1,56 @@
+﻿<Page x:Class="donely_Inspilab.Pages.Shop.MemberShopPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:donely_Inspilab.Pages.Shop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MemberShopPage">
+
+    <Grid>
+        <TextBlock Text="Shop"
+            FontWeight="Bold"
+            FontSize="32"
+            FontFamily="QuickSand"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Margin="0,20,0,0" 
+            Height="50"/>
+        <Button x:Name="GoBack"
+            Style="{StaticResource CloseButton}"
+            Click="GoBack_Click"
+            Margin="0,8,10,0" Height="37" Width="35"/>
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" Margin="0,61,0,346">
+            <Label Content="Coins: " />
+            <Label x:Name="lblCurrency" Content="XX"/>
+        </StackPanel>
+        <ListView x:Name="lsvShopItems"
+                  Margin="0,114,0,206"
+                  MinHeight="150"
+                  MaxHeight="400"
+                  HorizontalAlignment="Center"
+                  Width="700"
+                  SelectionMode="Single">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Description}" />
+                    <GridViewColumn Header="Price" Width="80" DisplayMemberBinding="{Binding Price}" />
+                    <GridViewColumn Header="Limit" Width="60" DisplayMemberBinding="{Binding Limit}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button x:Name="btnBuy"
+                Content="Buy"
+                Style="{StaticResource YellowButton}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,334,0,76"
+                Width="100"
+                Height="40"
+                Click="btnBuy_Click"/>
+
+    </Grid>
+</Page>

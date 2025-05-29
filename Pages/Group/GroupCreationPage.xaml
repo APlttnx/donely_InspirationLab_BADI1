@@ -5,16 +5,16 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:donely_Inspilab.Pages.Group"
       mc:Ignorable="d" 
-      Height="740" Width="auto"
+      Height="852" Width="auto"
       Title="GroupCreationPage">
 
-    <Grid Margin="20">
+    <Grid Margin="20" HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="160"/>
+            <RowDefinition Height="Auto" MinHeight="0"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -23,34 +23,32 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Create Group"
-               Grid.Row="0"
-               Grid.Column="0"
+               FontWeight="Bold"
+               FontSize="32" Margin="143,0,0,0" VerticalAlignment="Center" Height="68" Grid.ColumnSpan="2" Width="217"
                 />
-        <Button Style="{StaticResource CloseButton}" Grid.Column="2" Click="GoToHome"/>
 
         <Label Content="Name: "
                Grid.Row="1"
-               Grid.Column="0"/>
-        
+               Grid.Column="0" Height="40" Margin="5,0,0,0" VerticalAlignment="Center" Width="75"/>
+
         <TextBox Name="txtName"
                  Grid.Row="1"
-                 Grid.Column="1"
+                 Grid.Column="1" Height="40" Margin="5,0,0,0" VerticalAlignment="Center" Width="300"
             />
 
         <Label Content="Group Picture: "
-           Grid.Row="2"
-           Grid.Column="0"/>
+           Grid.Row="2" HorizontalAlignment="Center" Height="40" Margin="0,5,0,0" Width="145"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1">
-            <Image x:Name="UploadedImage" Width="250" Height="250" Margin="10"/>
-            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" HorizontalAlignment="Right"/>
+        <StackPanel Grid.Row="2" Margin="3,0,19,0" Grid.Column="1">
+            <Image x:Name="UploadedImage" Width="284" Height="286" Margin="10"/>
+            <Button Content="Upload Image" Click="UploadImage_Click" Style="{StaticResource YellowButton}" Margin="10" FontSize="12" HorizontalAlignment="Right" Width="116" Height="26"/>
         </StackPanel>
 
         <Label Content="Rewards: "
            Grid.Row="3"
-           Grid.Column="0"/>
+           Grid.Column="0" Height="40" Margin="5,5,0,0" Width="100"/>
         <StackPanel Grid.Row="3" Grid.Column="1">
-            <ListView  x:Name="lsvShopItems" Margin="24,10,10,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinHeight="150">
+            <ListView  x:Name="lsvShopItems" Margin="24,10,10,0" HorizontalAlignment="Stretch" MinHeight="150" MaxHeight="150" ScrollViewer.CanContentScroll="True" Height="150">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Reward" Width="180" DisplayMemberBinding="{Binding Name}" />
@@ -59,10 +57,15 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Add Reward" Click="AddReward_Click" Style="{StaticResource BlueButton}"/>
         </StackPanel>
-        <Button Name="btnCreateGroup" Click="CreateNewGroup_Click" Content="Create Group" Style="{StaticResource YellowButton}" Grid.Column="1" Grid.Row="4"/>
-
+        <Button Name="btnCreateGroup" Click="CreateNewGroup_Click" Content="Create" Style="{StaticResource RedButton}" Grid.Column="1" Grid.Row="4" Margin="23,85,153,-126" />
+        <Button Content="Add Reward" Click="AddReward_Click" Style="{StaticResource BlueButton}" Width="NaN" Grid.Column="1" Margin="23,10,119,-42" Grid.Row="4"/>
+        <Button x:Name="GoBack"
+            Style="{StaticResource CloseButton}"
+            Click="GoToHome"
+            Margin="0,-19,-17,0"
+            Height="37"
+            Width="35" Grid.Column="1" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>

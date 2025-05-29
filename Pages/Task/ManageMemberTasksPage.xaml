@@ -24,7 +24,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Style="{StaticResource CloseButton}" Grid.Column="4" Click="GoBack_click" HorizontalAlignment="Left" />
+        <Button Style="{StaticResource CloseButton}" Grid.Column="3" Click="GoBack_click" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="49" Margin="532,0,0,0" VerticalAlignment="Center" Width="58" />
 
         <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
 
@@ -109,9 +109,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="4" Grid.Column="3" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Give Task" Style="{StaticResource BlueButton}"  HorizontalAlignment="Right" Click="GiveTask_Click"/>
+        <StackPanel Grid.Row="3" Grid.Column="2" VerticalAlignment="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Give Task" Style="{StaticResource BlueButton}" Click="GiveTask_Click"/>
         </StackPanel>
-        
+
     </Grid>
 </Page>

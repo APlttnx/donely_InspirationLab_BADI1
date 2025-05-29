@@ -23,8 +23,8 @@
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="20,0">
                 <!-- Guest -->
                 <StackPanel x:Name="GuestButtons" Orientation="Horizontal" Visibility="Visible" VerticalAlignment="Center">
-                    <Button Content="Login" Click="Login_Click" Style="{StaticResource BaseButtonStyle}" Height="36" Width="103"/>
-                    <Button Content="Sign Up" Click="Register_Click" Style="{StaticResource BaseButtonStyle}" Height="36" Width="106"/>
+                    <Button Content="Login" Click="Login_Click" Style="{StaticResource RedButton}" Height="40" Width="115"/>
+                    <Button Content="Sign Up" Click="Register_Click" Style="{StaticResource RedButton}" Height="40" Width="115"/>
                 </StackPanel>
 
                 <!-- Logged-in -->

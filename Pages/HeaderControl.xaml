@@ -8,23 +8,23 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="40,0">
             <!-- Not Logged In -->
             <StackPanel x:Name="GuestButtons" Orientation="Horizontal" Visibility="Collapsed">
-                <Button Content="Login" Click="Login_Click" Style="{StaticResource BaseButtonStyle}" Height="55"/>
-                <Button Content="Register" Click="Register_Click" Style="{StaticResource BaseButtonStyle}" Height="55"/>
+                <Button Content="Login" Click="Login_Click" Style="{StaticResource RedButton}" Height="55"/>
+                <Button Content="Register" Click="Register_Click" Style="{StaticResource RedButton}" Height="55"/>
             </StackPanel>
 
             <!-- Logged In -->
             <StackPanel x:Name="UserButtons" Orientation="Horizontal" Visibility="Visible">
-                <Button Content="Settings" Margin="5,0" Click="Settings_Click" Style="{StaticResource BaseButtonStyle}" Height="55"/>
-                <Button Content="Log out" Margin="5,0" Click="Logout_Click" Style="{StaticResource BaseButtonStyle}" Height="55"/>
+                <Button Content="Settings" Margin="5,0" Click="Settings_Click" Style="{StaticResource RedButton}" Height="55"/>
+                <Button Content="Log out" Margin="5,0" Click="Logout_Click" Style="{StaticResource RedButton}" Height="55"/>
                 <Grid Width="100" Height="100" Margin="20,0,0,0">
-                    <Ellipse Fill="Transparent"
-                             Stroke="DarkGray"
-                             StrokeThickness="3"/>
                     <Image Name="imgProfilePic"
-                            Source="/Assets/ProfilePictures/profilePicture.jpg"
-                           Stretch="UniformToFill">
+                           Source="/Assets/ProfilePictures/profilePicture.jpg"
+                           Stretch="UniformToFill"
+                           Width="54" Height="54"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           ClipToBounds="True">
                         <Image.Clip>
-                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                            <EllipseGeometry Center="27,27" RadiusX="27" RadiusY="27"/>
                         </Image.Clip>
                     </Image>
                 </Grid>

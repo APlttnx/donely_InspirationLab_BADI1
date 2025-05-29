@@ -203,6 +203,18 @@ namespace donely_Inspilab.Classes
             ExecuteNonQuery(qry, parameters, out _);
         }
 
+        public bool UpdateUserPassword(int userId, string newHashedPassword)
+        {
+            string qry = "UPDATE user_passwords SET password = @password WHERE userID = @userID";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@password"] = newHashedPassword,
+                ["@userID"] = userId
+            };
+            int rows = ExecuteNonQuery(qry, parameters, out _);
+            return rows == 1;
+        }
+
 
         #endregion
 
@@ -451,6 +463,18 @@ namespace donely_Inspilab.Classes
             }
         }
 
+        public bool LeaveGroup(int userId, int groupId)
+        {
+            string qry = "DELETE FROM group_users WHERE userID = @userId AND groupID = @groupId";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@userId"] = userId,
+                ["@groupId"] = groupId
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            return rowsAffected > 0;
+        }
+
         #endregion
 
         #region ADMIN
@@ -490,6 +514,116 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong, new item wasn't added");
             return rowsAffected;
         }
+
+        public List<ShopItem> GetShopItems(int groupId)
+        {
+            string qry = "SELECT * FROM shop_items WHERE groupID = @groupID";
+            var parameters = new Dictionary<string, object> { ["@groupID"] = groupId };
+            var results = ExecuteReader(qry, parameters);
+
+            List<ShopItem> shopItems = new List<ShopItem>();
+            foreach (var row in results)
+            {
+                var item = new ShopItem(
+                    _name: row["name"].ToString(),
+                    _description: row["description"].ToString(),
+                    _price: Convert.ToInt32(row["cost"]),
+                    _limit: Convert.ToInt32(row["limit"])
+                );
+                shopItems.Add(item);
+                item.Id = Convert.ToInt32(row["itemID"]);
+            }
+            return shopItems;
+        }
+
+        public int GetBoughtItemCount(int groupUserId, int itemId)
+        {
+            string qry = "SELECT COUNT(*) FROM bought_items WHERE groupUserID = @groupUserID AND itemID = @itemID";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@groupUserID"] = groupUserId,
+                ["@itemID"] = itemId
+            };
+            var results = ExecuteReader(qry, parameters);
+            return Convert.ToInt32(results[0].Values.First());
+        }
+
+
+        public void RegisterBoughtItem(int groupUserId, int itemId)
+        {
+            string qry = "INSERT INTO bought_items (itemID, groupUserID, time) VALUES (@itemID, @groupUserID, @time)";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@itemID"] = itemId,
+                ["@groupUserID"] = groupUserId,
+                ["@time"] = DateTime.Now // You can use DateTime.UtcNow if you prefer UTC
+            };
+            ExecuteNonQuery(qry, parameters, out _);
+        }
+
+        public void UpdateShopItem(ShopItem item)
+        {
+            string qry = "UPDATE shop_items SET name = @name, description = @description, cost = @price, `limit` = @limit WHERE itemID = @id";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@id"] = item.Id,
+                ["@name"] = item.Name,
+                ["@description"] = item.Description,
+                ["@price"] = item.Price,
+                ["@limit"] = item.Limit
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to update shop item.");
+        }
+
+        public void DeleteShopItem(int itemId)
+        {
+            string qry = "DELETE FROM shop_items WHERE itemID = @id";
+            var parameters = new Dictionary<string, object>
+            {
+                ["@id"] = itemId
+            };
+            int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
+            if (rowsAffected != 1)
+                throw new Exception("Failed to delete shop item.");
+        }
+
+        public List<BoughtItemOverview> GetBoughtItemsOverview(int groupId)
+        {
+            // Join bought_items with shop_items and group_users to get item name and user name
+            string qry = @"
+        SELECT bi.time, si.name AS ItemName, gu.userID, u.name AS UserName
+        FROM bought_items bi
+        JOIN shop_items si ON bi.itemID = si.itemID
+        JOIN group_users gu ON bi.groupUserID = gu.group_userID
+        JOIN users u ON gu.userID = u.userID
+        WHERE si.groupID = @groupId
+        ORDER BY bi.time DESC";
+            var parameters = new Dictionary<string, object> { ["@groupId"] = groupId };
+            var results = ExecuteReader(qry, parameters);
+
+            List<BoughtItemOverview> list = new();
+            foreach (var row in results)
+            {
+                list.Add(new BoughtItemOverview
+                {
+                    UserName = row["UserName"].ToString(),
+                    ItemName = row["ItemName"].ToString(),
+                    Time = Convert.ToDateTime(row["time"])
+                });
+            }
+            return list;
+        }
+
+        // Create this class in your project (somewhere accessible)
+        public class BoughtItemOverview
+        {
+            public string UserName { get; set; }
+            public string ItemName { get; set; }
+            public DateTime Time { get; set; }
+        }
+
         #endregion
 
         #region TASKS

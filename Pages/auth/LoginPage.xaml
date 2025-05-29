@@ -36,8 +36,8 @@
                            HorizontalAlignment="Center" Width="168"/>
 
                 <Button Style="{StaticResource CloseButton}"
-                Width="32"
-                Height="32"
+                Width="43"
+                Height="39"
                 Click="GoBack" Margin="0,-24,-22,0"/>
 
                 <TextBlock

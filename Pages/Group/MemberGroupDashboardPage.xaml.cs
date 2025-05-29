@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using donely_Inspilab.Classes;
 using donely_Inspilab.Enum;
+using donely_Inspilab.Pages.Shop;
 
 namespace donely_Inspilab.Pages.Group
 {
@@ -28,9 +29,18 @@ namespace donely_Inspilab.Pages.Group
         public MemberGroupDashboardPage()
         {
             InitializeComponent();
+            this.Loaded += MemberGroupDashboardPage_Loaded;
             LoadItems();
         }
 
+        private void MemberGroupDashboardPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Reload group members from the database
+            var db = new Database();
+            GroupState.LoadedGroup.Members = db.GetGroupMembers(GroupState.LoadedGroup.Id);
+
+            LoadItems();
+        }
 
         private void LoadItems()
         {
@@ -115,6 +125,35 @@ namespace donely_Inspilab.Pages.Group
                 MessageBox.Show(ex.Message, "Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
            
+        }
+        private void GoToShop(object sender, RoutedEventArgs e)
+        {
+            // Navigate to the ShopPage
+            this.NavigationService.Navigate(new MemberShopPage());
+        }
+
+        //leave group
+        private void LeaveGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to leave this group?", "Leave Group", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                int userId = SessionManager.GetCurrentUserID();
+                int groupId = GroupState.LoadedGroup.Id;
+
+                Database db = new Database();
+                bool success = db.LeaveGroup(userId, groupId);
+
+                if (success)
+                {
+                    MessageBox.Show("You have left the group.", "Left Group", MessageBoxButton.OK, MessageBoxImage.Information);
+                    NavService.ToHomePage();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
 
