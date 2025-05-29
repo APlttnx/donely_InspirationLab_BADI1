@@ -16,15 +16,14 @@
             <StackPanel x:Name="UserButtons" Orientation="Horizontal" Visibility="Visible">
                 <Button Content="Settings" Margin="5,0" Click="Settings_Click" Style="{StaticResource RedButton}" Height="55"/>
                 <Button Content="Log out" Margin="5,0" Click="Logout_Click" Style="{StaticResource RedButton}" Height="55"/>
-                <Grid Width="100" Height="100" Margin="20,0,0,0">
+                <Grid Width="50" Height="50" Margin="20,0,0,0">
                     <Image Name="imgProfilePic"
                            Source="/Assets/ProfilePictures/profilePicture.jpg"
                            Stretch="UniformToFill"
-                           Width="54" Height="54"
-                           VerticalAlignment="Center" HorizontalAlignment="Center"
-                           ClipToBounds="True">
-                        <Image.Clip>
-                            <EllipseGeometry Center="27,27" RadiusX="27" RadiusY="27"/>
+                           Width="50" Height="50"
+                           VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image.Clip>
+                            <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
                         </Image.Clip>
                     </Image>
                 </Grid>
