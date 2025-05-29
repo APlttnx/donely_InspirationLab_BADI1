@@ -302,7 +302,7 @@ namespace donely_Inspilab.Classes
             Dictionary<string, object> parameters = new() { ["@memberID"] = memberId };
             int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
             if (rowsAffected != 1)
-                throw new Exception("Failed to delete member.");
+                throw new Exception("Failed to remove member.");
         }
             
 
@@ -593,13 +593,13 @@ namespace donely_Inspilab.Classes
         {
             // Join bought_items with shop_items and group_users to get item name and user name
             string qry = @"
-        SELECT bi.time, si.name AS ItemName, gu.userID, u.name AS UserName
-        FROM bought_items bi
-        JOIN shop_items si ON bi.itemID = si.itemID
-        JOIN group_users gu ON bi.groupUserID = gu.group_userID
-        JOIN users u ON gu.userID = u.userID
-        WHERE si.groupID = @groupId
-        ORDER BY bi.time DESC";
+                    SELECT bi.time, si.name AS ItemName, gu.userID, u.name AS UserName
+                    FROM bought_items bi
+                    JOIN shop_items si ON bi.itemID = si.itemID
+                    JOIN group_users gu ON bi.groupUserID = gu.group_userID
+                    JOIN users u ON gu.userID = u.userID
+                    WHERE si.groupID = @groupId
+                    ORDER BY bi.time DESC";
             var parameters = new Dictionary<string, object> { ["@groupId"] = groupId };
             var results = ExecuteReader(qry, parameters);
 
