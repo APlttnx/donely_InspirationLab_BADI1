@@ -51,7 +51,7 @@ namespace donely_Inspilab.Pages.Group
             OtherMembers = GroupState.LoadedGroup.Members.Where(t => t.UserId != SessionManager.GetCurrentUserID()).ToList(); //Huidige user uit de memberlijst halen
 
             //taken laden
-            CurrentMember = TaskService.LoadTaskInstances(CurrentMember);
+            CurrentMember = TaskService.LoadAndAssignTaskInstances(CurrentMember);
 
             //Listviews en labels invullen
             lblGroupName.Content = GroupState.LoadedGroup.Name;

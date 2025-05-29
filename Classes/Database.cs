@@ -302,7 +302,7 @@ namespace donely_Inspilab.Classes
             Dictionary<string, object> parameters = new() { ["@memberID"] = memberId };
             int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
             if (rowsAffected != 1)
-                throw new Exception("Failed to delete member.");
+                throw new Exception("Failed to remove member.");
         }
             
 

@@ -33,7 +33,7 @@ namespace donely_Inspilab.Pages.Task
         }
         private void LoadTaskInstances()
         {
-            Member = TaskService.LoadTaskInstances(Member);
+            Member = TaskService.LoadAndAssignTaskInstances(Member);
             lsvActiveTasks.ItemsSource =  Member.ActiveTaskList;
             lsvPendingTasks.ItemsSource = Member.PendingTaskList;
             lsvCompletedTasks.ItemsSource = Member.CompletedTaskList;

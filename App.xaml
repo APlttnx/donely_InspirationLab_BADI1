@@ -162,5 +162,8 @@
         <Style TargetType="ListViewItem">
             <Setter Property="Height" Value="40"/>
         </Style>
+        <Style TargetType="ListView">
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        </Style>
     </Application.Resources>
 </Application>

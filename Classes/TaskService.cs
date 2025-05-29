@@ -62,6 +62,7 @@ namespace donely_Inspilab.Classes
         //CREATE INSTANCE
         public static TaskInstance CreateTaskInstance(Task task, DateTime deadline, int memberId)
         {
+            if (task == null) throw new ArgumentException("No task selected");
             if (deadline.Date < DateTime.Now.Date) throw new ArgumentException("Deadline must be in the future");
             TaskInstance newInstance = new(task, memberId, deadline);
             Database db = new();
@@ -70,7 +71,7 @@ namespace donely_Inspilab.Classes
         }
 
         //READ INSTANCES FROM MEMBER
-        public static GroupMember LoadTaskInstances(GroupMember member)
+        public static GroupMember LoadAndAssignTaskInstances(GroupMember member)
         {
             Database db = new();
             member.LoadTaskList(db.GetTaskInstancesMemberId(member.Id));
@@ -107,10 +108,10 @@ namespace donely_Inspilab.Classes
                         newDeadline = now.Date; //als geen actieve dailies --> nieuwe actieve deadline is vandaag
                         break;
                     case TaskFrequency.Weekly:
-                        newDeadline = now > prevDeadline ? prevDeadline.AddDays(7) : new();
+                        newDeadline = now > prevDeadline ? prevDeadline.AddDays(7) : DateTime.MinValue;
                         break;
                     case TaskFrequency.Monthly:
-                        newDeadline = now > prevDeadline ? prevDeadline.AddMonths(1) : new();
+                        newDeadline = now > prevDeadline ? prevDeadline.AddMonths(1) : DateTime.MinValue;
                         break;
                     default:
                         newDeadline = new();

@@ -42,6 +42,7 @@ namespace donely_Inspilab.Pages.Settings
                 {
                     imgProfilePicture.Source = result.Value.image;
                     _fileName = result.Value.fileName;
+                    
                 }
             }
             catch (Exception ex)
@@ -63,9 +64,9 @@ namespace donely_Inspilab.Pages.Settings
                 else
                 {
                     _user.ProfilePicture = _fileName;
-
                     UserService.UpdateUser(_user);
-                    SessionManager.UpdateUser(_user);
+                    SessionManager.CurrentUser.ProfilePicture = _fileName;
+                    SessionManager.RaiseProfileUpdated();
                     this.DialogResult = true;
                 }
             }

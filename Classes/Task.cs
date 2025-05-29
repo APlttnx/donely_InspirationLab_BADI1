@@ -45,14 +45,14 @@ namespace donely_Inspilab.Classes
             Id = _id;
         }
 
-        public void ActivateTask()
-        {
-            this.IsActive = true;
-        }
-        public void DeactivateTask()
-        {
-            this.IsActive = false;
-        }
+        //public void ActivateTask()
+        //{
+        //    this.IsActive = true;
+        //}
+        //public void DeactivateTask()
+        //{
+        //    this.IsActive = false;
+        //}
         
     }
 }

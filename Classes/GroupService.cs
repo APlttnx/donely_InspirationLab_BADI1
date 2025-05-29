@@ -30,11 +30,10 @@ namespace donely_Inspilab.Classes
             {
                 newGroup.InviteCode = CodeGenerator.Generate();
                 i++;
-            }while (!db.CheckInviteCode(newGroup.InviteCode) && i < 25 /*Exit fallback*/);;
+            }while (!db.CheckInviteCode(newGroup.InviteCode) && i < 100 /*Exit fallback*/);;
             if (i == 100)
                 throw new ArgumentException("Failed to create unique invite code");
             newGroup.Id = db.InsertGroup(newGroup);
-            
             return newGroup;
         }
 

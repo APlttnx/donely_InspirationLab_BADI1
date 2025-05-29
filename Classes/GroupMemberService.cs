@@ -17,12 +17,14 @@ namespace donely_Inspilab.Classes
         }
         public static void KickMember(GroupMember member)
         {
+            if (member == null) return;
             Database db = new();
             db.DeleteGroupMember(member.Id);
         }
 
         public static int AddCurrency(GroupMember member, int currency)
         {
+            if (member == null) return currency;
             member.Currency += currency;
             Database db = new();
             db.UpdateMemberCurrency(member.Id, member.Currency);

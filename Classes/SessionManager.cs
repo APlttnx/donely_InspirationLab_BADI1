@@ -41,9 +41,15 @@ namespace donely_Inspilab.Classes
             else
             {
                 NavService.ToLoginPage();
-                return 0;
+                return -1;
             }
             
+        }
+        public static event Action ProfileUpdated;
+
+        public static void RaiseProfileUpdated()
+        {
+            ProfileUpdated?.Invoke();
         }
     }
 }

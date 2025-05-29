@@ -14,7 +14,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto" MinHeight="80"/>
+            <RowDefinition Height="auto" MinHeight="80" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,7 +30,7 @@
 
         <Label Content="Active" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1"/>
 
-        <ListView  x:Name="lsvActiveTasks" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+        <ListView  x:Name="lsvActiveTasks" MinHeight="150"  Grid.Row="2" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" MaxHeight="600">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
@@ -41,7 +41,7 @@
             </ListView.View>
         </ListView>
 
-        <ListView  x:Name="lsvPendingTasks" MinHeight="150"  Grid.Row="2" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+        <ListView  x:Name="lsvPendingTasks" MinHeight="150"  Grid.Row="2" Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" MaxHeight="600">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Task" Width="200" DisplayMemberBinding="{Binding Task.NameDisplay}" />
@@ -85,7 +85,7 @@
 
         <Label Content="Completed" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="1"/>
 
-        <ListView  x:Name="lsvCompletedTasks" MinHeight="150"  Grid.Row="2" Grid.Column="3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0">
+        <ListView  x:Name="lsvCompletedTasks" MinHeight="150"  Grid.Row="2" Grid.Column="3" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,0,10,0" MaxHeight="600">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Height" Value="40"/>
