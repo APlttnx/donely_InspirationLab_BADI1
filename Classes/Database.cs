@@ -620,7 +620,7 @@ namespace donely_Inspilab.Classes
         #region TASKS
         public int InsertTaskDefinition(Task task)
         {
-            string qry = @"INSERT INTO tasks_definition(groupID, name, details, reward_currency, frequency, is_active, validation_required) 
+            string qry = @"INSERT INTO task_definitions(groupID, name, details, reward_currency, frequency, is_active, validation_required) 
                         VALUES(@groupID, @name, @details, @reward_currency, @frequency, @is_active, @validation_required)";
                 Dictionary<string, object> parameters = new() {
                     ["@groupID"] = task.GroupId,
@@ -638,7 +638,7 @@ namespace donely_Inspilab.Classes
         }
         public Task GetTaskById(int taskId)
         {
-            string qry = "SELECT * FROM tasks_definition WHERE taskID = @taskId;";
+            string qry = "SELECT * FROM task_definitions WHERE taskID = @taskId;";
             Dictionary<string, object> parameters = new() { ["@taskId"] = taskId };
             var result = ExecuteReader(qry, parameters)[0];
             Task task = new Task(
@@ -655,7 +655,7 @@ namespace donely_Inspilab.Classes
         }
         public int UpdateTaskDefinition(Task task)
         {
-            string qry = @"UPDATE tasks_definition
+            string qry = @"UPDATE task_definitions
                    SET name = @name,
                        details = @details,
                        reward_currency = @reward_currency,
@@ -680,7 +680,7 @@ namespace donely_Inspilab.Classes
         }
         public void UpdateTaskIsActive(int taskId, bool isActive)
         {
-            string qry = "UPDATE tasks_definition SET is_active = @is_active WHERE taskID = @taskID";
+            string qry = "UPDATE task_definitions SET is_active = @is_active WHERE taskID = @taskID";
             Dictionary<string, object> parameters = new()
             {
                 ["@is_active"] = isActive,
@@ -693,7 +693,7 @@ namespace donely_Inspilab.Classes
         //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage
         public List<Task> GetGroupTaskDefinitions(int groupId)
         {
-            string qry = "SELECT * FROM tasks_definition WHERE groupID = @groupID AND is_deleted = 0;";
+            string qry = "SELECT * FROM task_definitions WHERE groupID = @groupID AND is_deleted = 0;";
             Dictionary<string, object> parameters = new() { ["groupID"] = groupId };
             var results = ExecuteReader(qry, parameters);
 
@@ -721,7 +721,7 @@ namespace donely_Inspilab.Classes
         //Also: This means an admin can go into the database and restore the task... so that's nice
         public void SoftDeleteTask(int taskId)
         {
-            string qry = "UPDATE tasks_definition SET is_deleted = 1 WHERE taskID = @taskID";
+            string qry = "UPDATE task_definitions SET is_deleted = 1 WHERE taskID = @taskID";
             Dictionary<string, object> parameters = new() { ["@taskID"] = taskId };
             int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
             if (rowsAffected != 1)
@@ -749,7 +749,7 @@ namespace donely_Inspilab.Classes
         {
             string qry = @"
                 SELECT * FROM task_instances TI
-                JOIN tasks_definition TD ON TI. taskID = TD.taskID
+                JOIN task_definitions TD ON TI. taskID = TD.taskID
                 WHERE TI.GroupUserID = @groupUserID";
             Dictionary<string, object> parameters = new() { ["@groupUserID"] = groupUserId };
             var result = ExecuteReader(qry, parameters);
@@ -811,7 +811,7 @@ namespace donely_Inspilab.Classes
         {
             string qry = @"
                 UPDATE task_instances TI
-                JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                JOIN task_definitions TD ON TI.taskID = TD.taskID
                 SET TI.status = @failedStatus,
                     TI.completed_on = TI.deadline
                 WHERE TI.status = @activeStatus
@@ -850,7 +850,7 @@ namespace donely_Inspilab.Classes
                             AND TI.groupUserID = latest.groupUserID 
                             AND TI.completed_on = latest.latest_completion
 
-                    JOIN tasks_definition TD ON TI.taskID = TD.taskID
+                    JOIN task_definitions TD ON TI.taskID = TD.taskID
                     WHERE TD.Frequency <> 0
                       AND TD.is_deleted = 0
                       AND TD.is_active = 1
@@ -903,9 +903,10 @@ namespace donely_Inspilab.Classes
                         FROM task_instances ti
                         JOIN group_users gu ON ti.groupUserID = gu.group_UserID
                         JOIN groups_ g on g.GroupId = gu.GroupID
-                        JOIN tasks_definition td ON td.taskID = ti.taskID
+                        JOIN task_definitions td ON td.taskID = ti.taskID
                         WHERE gu.userID = @userID
-                            AND ti.status = 0;"; //status = 0 --> enkel actieve tasks
+                            AND ti.status = 0
+                        ORDER BY ti.deadline;"; //status = 0 --> enkel actieve tasks
             Dictionary<string, object> parameters = new() { ["@userID"] = userID } ;
             var results = ExecuteReader(qry, parameters);
             List<OngoingTasksView> views = [];
