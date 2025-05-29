@@ -11,12 +11,11 @@
     <Grid Margin="0">
 
         <Button Style="{StaticResource CloseButton}" Click="GoBack_Click"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="0,20,30,0" Width="35" Height="35"/>
+                Margin="0,7,7,0" Width="48" Height="49"/>
 
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="950" Height="789">
-       
+
             <TextBlock Text="Group Dashboard"
                        FontWeight="Bold"
                        FontSize="32"

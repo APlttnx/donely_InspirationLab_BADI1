@@ -17,38 +17,36 @@
                 Margin="10"/>
 
         <!-- Scrollable Content -->
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,40,0,0">
-            <StackPanel Margin="40" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <TextBlock Text="Create New User"
+        <StackPanel Margin="40" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Text="Create New User"
                            FontSize="32"
                            FontWeight="Bold"
                            FontFamily="QuickSand"
                            Margin="0,0,0,20"
                            HorizontalAlignment="Center"/>
 
-                <Label Content="Name"/>
-                <TextBox x:Name="TxtName"/>
+            <Label Content="Name"/>
+            <TextBox x:Name="TxtName"/>
 
-                <Label Content="Email"/>
-                <TextBox x:Name="TxtEmail"/>
+            <Label Content="Email"/>
+            <TextBox x:Name="TxtEmail"/>
 
-                <Label Content="Telephone Number"/>
-                <TextBox x:Name="TxtPhone"/>
+            <Label Content="Telephone Number"/>
+            <TextBox x:Name="TxtPhone"/>
 
-                <Label Content="Password"/>
-                <PasswordBox x:Name="TxtPassword"/>
+            <Label Content="Password"/>
+            <PasswordBox x:Name="TxtPassword"/>
 
-                <Label Content="Confirm Password"/>
-                <PasswordBox x:Name="TxtConfirmPassword"/>
+            <Label Content="Confirm Password"/>
+            <PasswordBox x:Name="TxtConfirmPassword"/>
 
-                <Label x:Name="LblError" Foreground="Red" FontSize="14" Visibility="Collapsed"/>
+            <Label x:Name="LblError" Foreground="Red" FontSize="14" Visibility="Collapsed"/>
 
-                <Button Content="Create User"
+            <Button Content="Create User"
                         Style="{StaticResource BlueButton}"
                         Click="CreateUser_Click"
                         Margin="0,20,0,0"
                         HorizontalAlignment="Center"/>
-            </StackPanel>
-        </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Page>

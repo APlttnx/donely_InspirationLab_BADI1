@@ -18,7 +18,11 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Create New Task" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Label Content="Create New Task" 
+               Grid.Column="1" 
+               Grid.Row="0" 
+               HorizontalAlignment="Center"
+               FontWeight="Bold" FontSize="24"/>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
             <!-- Name -->
             <StackPanel Orientation="Horizontal" Margin="0,2">
@@ -66,6 +70,12 @@
 
         </StackPanel>
         <Button Style="{StaticResource YellowButton}" Content="Create Task" Grid.Column="1" Grid.Row="2" Click="CreateTask_Click"/>
+        <Label Content="Assign New Task"
+            Grid.Column="2"
+            FontWeight="Bold" 
+            FontSize="24" 
+            Margin="55,0,0,0" 
+            VerticalAlignment="Center"/>
 
 
     </Grid>

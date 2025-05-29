@@ -9,7 +9,7 @@
         <!-- Close Button -->
         <Button Content="X"
                 Style="{StaticResource CloseButton}"
-                Click="Close_Click" Height="33" Width="40"/>
+                Click="Close_Click" Height="39" Width="52"/>
 
         <!-- Content -->
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" >
@@ -22,17 +22,17 @@
 
             <StackPanel Margin="0,0,0,10">
                 <Label Content="Name:"/>
-                <TextBox x:Name="TxtName" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtName" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <StackPanel Margin="0,0,0,10">
                 <Label Content="E-mail:"/>
-                <TextBox x:Name="TxtEmail" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtEmail" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <StackPanel Margin="0,0,0,20">
                 <Label Content="Phone:"/>
-                <TextBox x:Name="TxtPhone" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtPhone" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <Button Content="Change"

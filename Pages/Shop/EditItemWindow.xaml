@@ -22,22 +22,22 @@
 
             <StackPanel Margin="0,0,0,10">
                 <Label Content="Name:"/>
-                <TextBox x:Name="TxtName" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtName" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <StackPanel Margin="0,0,0,10">
                 <Label Content="Description:"/>
-                <TextBox x:Name="TxtDescription" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtDescription" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <StackPanel Margin="0,0,0,10">
                 <Label Content="Price:"/>
-                <TextBox x:Name="TxtPrice" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtPrice" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <StackPanel Margin="0,0,0,20">
                 <Label Content="Limit:"/>
-                <TextBox x:Name="TxtLimit" Background="#F2BAC9" BorderThickness="0" Padding="10" />
+                <TextBox x:Name="TxtLimit" Background="#F2BAC9" BorderThickness="0" Padding="10" Height="50" />
             </StackPanel>
 
             <Button Content="Save Changes"

@@ -20,7 +20,7 @@
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Style="{StaticResource CloseButton}" Click="GoBack_Click" Grid.Column="4" Grid.Row="0"/>
+        <Button Style="{StaticResource CloseButton}" Click="GoBack_Click" Grid.Column="4" Grid.Row="0" Height="44" Width="47"/>
 
         <!-- Title -->
         <Label Content="Assign New Task"

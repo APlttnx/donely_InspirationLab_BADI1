@@ -26,7 +26,7 @@
         </Grid.ColumnDefinitions>
         <Button Style="{StaticResource CloseButton}" Grid.Column="3" Click="GoBack_click" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="49" Margin="532,0,0,0" VerticalAlignment="Center" Width="58" />
 
-        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <Label Name="lblMemberName" Content="Tasks" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
 
         <Label Content="Active" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1"/>
 

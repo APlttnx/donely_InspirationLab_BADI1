@@ -18,7 +18,11 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Edit Task" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"/>
+        <Label Content="Edit Task" 
+               Grid.Column="1" 
+               Grid.Row="0" 
+               HorizontalAlignment="Center"
+               FontWeight="Bold" FontSize="24"/>
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="10">
             <!-- Name -->
             <StackPanel Orientation="Horizontal" Margin="0,2">

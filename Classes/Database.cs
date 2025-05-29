@@ -591,39 +591,30 @@ namespace donely_Inspilab.Classes
 
         public List<BoughtItemOverview> GetBoughtItemsOverview(int groupId)
         {
-            // Join bought_items with shop_items and group_users to get item name and user name
             string qry = @"
-        SELECT bi.time, si.name AS ItemName, gu.userID, u.name AS UserName
-        FROM bought_items bi
-        JOIN shop_items si ON bi.itemID = si.itemID
-        JOIN group_users gu ON bi.groupUserID = gu.group_userID
-        JOIN users u ON gu.userID = u.userID
-        WHERE si.groupID = @groupId
-        ORDER BY bi.time DESC";
+                SELECT bi.time, si.name AS ItemName, gu.userID, u.name AS UserName
+                FROM bought_items bi
+                JOIN shop_items si ON bi.itemID = si.itemID
+                JOIN group_users gu ON bi.groupUserID = gu.group_userID
+                JOIN users u ON gu.userID = u.userID
+                WHERE si.groupID = @groupId
+                ORDER BY bi.time DESC";
             var parameters = new Dictionary<string, object> { ["@groupId"] = groupId };
             var results = ExecuteReader(qry, parameters);
 
             List<BoughtItemOverview> list = new();
             foreach (var row in results)
             {
-                list.Add(new BoughtItemOverview
-                {
-                    UserName = row["UserName"].ToString(),
-                    ItemName = row["ItemName"].ToString(),
-                    Time = Convert.ToDateTime(row["time"])
-                });
+                BoughtItemOverview ItemOverview = new BoughtItemOverview
+                (
+                    row["UserName"].ToString(),
+                    row["ItemName"].ToString(),
+                    Convert.ToDateTime(row["time"])
+                );
+                list.Add(ItemOverview);
             }
             return list;
         }
-
-        // Create this class in your project (somewhere accessible)
-        public class BoughtItemOverview
-        {
-            public string UserName { get; set; }
-            public string ItemName { get; set; }
-            public DateTime Time { get; set; }
-        }
-
         #endregion
 
         #region TASKS

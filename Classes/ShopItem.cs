@@ -27,7 +27,7 @@ namespace donely_Inspilab.Classes
             Limit = _limit;
         }
 
-
+        public string LimitDisplay => Limit == 0 ? "∞" : Limit.ToString();
 
     }
 }

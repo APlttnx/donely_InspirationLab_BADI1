@@ -96,7 +96,7 @@
                 <GridView>
                     <GridViewColumn Header="User" Width="150" DisplayMemberBinding="{Binding UserName}" />
                     <GridViewColumn Header="Reward" Width="300" DisplayMemberBinding="{Binding ItemName}" />
-                    <GridViewColumn Header="Bought On" Width="150" DisplayMemberBinding="{Binding Time}" />
+                    <GridViewColumn Header="Bought On" Width="150" DisplayMemberBinding="{Binding Time, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}" />
                 </GridView>
             </ListView.View>
         </ListView>

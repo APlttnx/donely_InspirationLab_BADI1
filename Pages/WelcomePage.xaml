@@ -8,8 +8,8 @@
       d:DesignHeight="1950" d:DesignWidth="1600"
       Title="WelcomePage">
 
-        <Grid Background="#BAD7F2" Height="1950">
-            <Grid HorizontalAlignment="Center" MaxWidth="1600">
+    <Grid Background="#BAD7F2" Height="1950">
+        <Grid HorizontalAlignment="Center" MaxWidth="1600">
             <!-- Hero sectie -->
             <Grid Margin="0,60,0,0">
                 <Grid.RowDefinitions>
@@ -40,29 +40,162 @@
                         <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Height="226" Width="596" Grid.ColumnSpan="2" Margin="504,-29,300,239"/>
 
                         <!-- Rechts Tekst -->
-                        <TextBlock Text="Your day, done right." FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Grid.Column="1" Margin="3,137,-3,-137"/>
+                        <TextBlock Text="Your day, done right." FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Grid.Column="1" Margin="3,137,291,106"/>
                         <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="19" FontFamily="QuickSand"
                                    Text="Donely helps families, teams, and individuals stay organized and motivated. With rewards, clear overviews, and a playful design, getting things done becomes fun and satisfying — every single day." Grid.Column="1" Margin="3,197,273,79" />
-                        <Image Source="/Assets/Images/Calendar.jpg" Height="290" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="359,40,0,0" Grid.ColumnSpan="2" Width="486"/>
+                        <Image Source="/Assets/Images/Calendar.jpg" Height="290" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="303,40,0,0" Width="297"/>
                     </Grid>
                 </Grid>
-                <Image Source="/Assets/Images/Rewards.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,299,0,0" Width="324" Grid.Row="1"/>
-                <Image Source="/Assets/Images/Fun.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,532,0,0" Width="324" Grid.Row="1"/>
-                <Image Source="/Assets/Images/Collab.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="402,48,0,0" Width="324" Grid.Row="1"/>
-                <Image Source="/Assets/Images/Dashboard.png" Height="196" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1002,817,0,0" Width="324" Grid.Row="1"/>
-
-                <!-- USP sectie -->
-
             </Grid>
-            <TextBlock Text="Collaborative Task Management" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="614,559,286,1313"/>
-            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
-                                Margin="614,637,367,1088" ><Run Text="•   Create shared groups for families, teams, or projects&#xA;•   Assign tasks with custom deadlines and recurrence&#xA;•   Track everyone's progress from a central dashboard"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Join as many groups as you like"/></TextBlock>
-            <TextBlock Text="Motivation Through Rewards" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="412,811,488,1069"/>
-            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
-                    Margin="410,886,571,838" ><Run Text="•   Earn coins or one-time rewards for completed tasks&#xA;•   Add gamification to daily routines or chores&#xA;•   Set personal or group goals with incentives"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Spend coins in a customizable group reward shop"/></TextBlock>
-            <TextBlock FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="614,1045,286,831"><Run Text="Effortless to Use, "/><Run Text="Fun "/><Run Language="fr-fr" Text="T"/><Run Text="o D"/><Run Text="o"/></TextBlock>
-            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
-                    Margin="614,1124,367,600" ><Run Text="•   No complicated setup — get started in minutes&#xA;•   Designed for all ages and skill levels&#xA;•   Bright, playful visuals that make daily tasks less boring"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Works solo or in groups — adapt it to your style"/></TextBlock>
+
+            <!-- USP sectie -->
+
+            <!-- USP 1 -->
+            <Grid HorizontalAlignment="Left" Width="950" Height="230" Margin="385,547,0,1173">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" 
+                Source="/Assets/Images/Collab.png" 
+                Height="196" Width="200"
+                HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+                <TextBlock Grid.Row="0" Grid.Column="2"
+               Text="Collaborative Task Management"
+               FontFamily="QuickSand"
+               FontSize="36"
+               FontWeight="Bold"
+               Foreground="White"
+               Margin="0,0,0,5"
+               HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2"
+               TextWrapping="Wrap"
+               Foreground="White"
+               FontSize="22"
+               FontFamily="QuickSand"
+               Margin="0,5,0,0" Text="•   Create shared groups for families, teams, or projects&#xA;•   Assign tasks with custom deadlines and recurrence&#xA;•   Track everyone's progress from a central dashboard&#xA;•   Join as many groups as you like"/>
+            </Grid>
+
+            <!-- USP 2 -->
+
+            <Grid HorizontalAlignment="Left" Width="950" Height="230" Margin="385,782,0,938">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                        Source="/Assets/Images/Rewards.png"
+                        Height="196" Width="200"
+                         HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+                <TextBlock Grid.Row="0" Grid.Column="2"
+                            Text="Motivation Through Rewards"
+                            FontFamily="QuickSand"
+                            FontSize="36"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Margin="0,0,0,5"
+                            HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="2"
+               TextWrapping="Wrap"
+               Foreground="White"
+               FontSize="22"
+               FontFamily="QuickSand"
+               Margin="0,5,0,0" Text="•   Earn coins or one-time rewards for completed tasks&#xA;•   Add gamification to daily routines or chores&#xA;•   Set personal or group goals with incentives&#xA;•   Spend coins in a customizable group reward shop"/>
+            </Grid>
+
+            <!-- USP 3 -->
+
+            <Grid HorizontalAlignment="Left" Width="950" Height="230" Margin="385,1017,0,703">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                       Source="/Assets/Images/Fun.png"
+                       Height="196" Width="200"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+                <TextBlock Grid.Row="0" Grid.Column="2"
+                           FontFamily="QuickSand"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,5"
+                           HorizontalAlignment="Left">
+                    <Run Text="Effortless to Use, Fun To Do! "/>
+                </TextBlock>
+
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           TextWrapping="Wrap"
+                           Foreground="White"
+                           FontSize="22"
+                           FontFamily="QuickSand"
+                           Margin="0,5,0,0" Text="•   No complicated setup — get started in minutes&#xA;•   Designed for all ages and skill levels&#xA;•   Bright, playful visuals that make daily tasks less boring&#xA;•   Works solo or in groups — adapt it to your style"/>
+            </Grid>
+
+
+            <!-- USP 4 -->
+
+            <Grid HorizontalAlignment="Left" Width="950" Height="230" Margin="385,1252,0,468">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="210"/>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                       Source="/Assets/Images/Dashboard.png"
+                       Height="196" Width="200"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+                <TextBlock Grid.Row="0" Grid.Column="2"
+                           FontFamily="QuickSand"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           Margin="0,0,0,5"
+                           HorizontalAlignment="Left">
+                           <Run Text="Clear, Effortless Dashboards"/>
+                </TextBlock>
+
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           TextWrapping="Wrap"
+                           Foreground="White"
+                           FontSize="22"
+                           FontFamily="QuickSand"
+                           Margin="0,5,0,0" Text="•   See all your ongoing tasks in one beautiful view&#xA;•   Instantly jump between your groups with a single click&#xA;•   Track every group member at a glance&#xA;•   Easy to invite new members or join other groups"/>
+            </Grid>
+
+
+            <!-- CTA -->
+
             <Button Content="Sign Up"
                         Width="200"
                         Height="60"
@@ -71,10 +204,6 @@
                         HorizontalAlignment="Left"
                         Margin="720,1691,0,199"/>
 
-            <local:FooterControl Margin="0,1850,0,0" />
-            <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="QuickSand"
-                Margin="410,1400,571,324" ><Run Text="•   See all your ongoing tasks in one beautiful view&#xA;•   Instantly jump between your groups with a single click&#xA;•   Track every group member at a glance"/><LineBreak/><Run Text="•"/><Run Text=" "/><Run Text=" "/><Run Text=" Easy to invite new members or join other groups"/></TextBlock>
-            <TextBlock Text="Clear, Effortless Dashboards" FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Margin="412,1329,488,551"/>
             <TextBlock FontFamily="QuickSand" 
                        FontSize="36" 
                        FontWeight="Bold" 
@@ -83,7 +212,10 @@
                        Text="Sign Up Today For Free!"
                        HorizontalAlignment="Left">
             </TextBlock>
-                </Grid>
         </Grid>
+        
+        <!-- FOOTER -->
+        <local:FooterControl Margin="0,1850,0,0" />
+    </Grid>
 
 </Page>

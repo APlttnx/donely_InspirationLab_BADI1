@@ -19,7 +19,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="btnCancel" Style="{StaticResource CloseButton}" Grid.Row="0" Grid.Column="2" Click="btnCancel_Click"/>
+            <Button Name="btnCancel" Style="{StaticResource CloseButton}" Grid.Row="0" Grid.Column="2" Click="btnCancel_Click" Height="40" Width="37"/>
             <Label Content="Group invite Code:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
             <TextBox Name="txtGroupCode" IsReadOnly="True"  Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" MinWidth="60" Width="140"/>
             <Button Content="Copy Code"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Style="{StaticResource YellowButton}" HorizontalAlignment="Center" Click="CopyCode_click"/>

@@ -37,7 +37,7 @@
                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
                     <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Description}" />
                     <GridViewColumn Header="Price" Width="80" DisplayMemberBinding="{Binding Price}" />
-                    <GridViewColumn Header="Limit" Width="60" DisplayMemberBinding="{Binding Limit}" />
+                    <GridViewColumn Header="Limit" Width="60" DisplayMemberBinding="{Binding LimitDisplay}" /> 
                 </GridView>
             </ListView.View>
         </ListView>
