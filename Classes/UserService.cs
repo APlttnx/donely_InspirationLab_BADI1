@@ -15,6 +15,12 @@ namespace donely_Inspilab.Classes
         {
             try
             {
+                //zeker zijn dat er geen spaties inzitten, en caps to lower om zeker te zijn dat Duplicate Email check zeker werkt
+                name = name?.Trim();
+                email = email?.Trim().ToLowerInvariant();
+                telephoneNumber = telephoneNumber?.Trim();
+
+
                 if (!ValidateEmail(email))
                     throw new ArgumentException("Invalid email address.");
 
@@ -57,8 +63,15 @@ namespace donely_Inspilab.Classes
         }
         private static bool ValidateEmail(string email)
         {
-            string rgx = @"^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$";
-            return Regex.IsMatch(email, rgx);
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 
