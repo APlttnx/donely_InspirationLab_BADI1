@@ -24,6 +24,7 @@ namespace donely_Inspilab.Pages.Group
         public GroupOwnerPage()
         {
             InitializeComponent();
+            GroupState.GroupUpdated += LoadData; //event na edit group window
             LoadData();
         }
 

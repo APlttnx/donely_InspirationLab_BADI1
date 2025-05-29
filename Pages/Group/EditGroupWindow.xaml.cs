@@ -60,6 +60,7 @@ namespace donely_Inspilab.Pages.Group
                     GroupState.LoadedGroup.ImageLink = _fileName;
 
                     GroupService.UpdateGroup(GroupState.LoadedGroup);
+                    GroupState.RaiseGroupUpdated();
                     MessageBox.Show("Group edited successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.DialogResult = true;
                 }

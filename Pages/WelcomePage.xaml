@@ -40,7 +40,7 @@
                         <Image Source="/Assets/Images/Donely_Logo_Transparant.png" Height="226" Width="596" Grid.ColumnSpan="2" Margin="504,-29,300,239"/>
 
                         <!-- Rechts Tekst -->
-                        <TextBlock Text="Your day, done right." FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Grid.Column="1" Margin="3,137,291,106"/>
+                        <TextBlock Text="Your day, done right." FontFamily="QuickSand" FontSize="36" FontWeight="Bold" Foreground="White" Grid.Column="1" Margin="3,137,291,106" MinWidth="106"/>
                         <TextBlock TextWrapping="Wrap" Foreground="White" FontSize="19" FontFamily="QuickSand"
                                    Text="Donely helps families, teams, and individuals stay organized and motivated. With rewards, clear overviews, and a playful design, getting things done becomes fun and satisfying — every single day." Grid.Column="1" Margin="3,197,273,79" />
                         <Image Source="/Assets/Images/Calendar.jpg" Height="290" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="303,40,0,0" Width="297"/>

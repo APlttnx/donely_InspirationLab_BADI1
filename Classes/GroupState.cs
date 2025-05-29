@@ -29,5 +29,11 @@ namespace donely_Inspilab.Classes
             LoadedGroup.Members = GroupMemberService.GetListGroupMembers(LoadedGroup.Id);
         }
 
+        //event voor Group Edit
+        public static event Action GroupUpdated;
+        public static void RaiseGroupUpdated()
+        {
+            GroupUpdated?.Invoke();
+        }
     }
 }
