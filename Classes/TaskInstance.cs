@@ -21,7 +21,7 @@ namespace donely_Inspilab.Classes
         public DateTime IssueDate { get; set; }
         public DateTime? CompletionDate { get; set; }
 
-        public string TimeLeft => CalcTimeLeft();
+        public string TimeLeft => CalcTimeLeft(); //Berekent hoeveel uur er nog over is voor deze deadline (wel lettend dat de deadline momenteel enkel als Dag kan worden aangeduid)
         private string CalcTimeLeft()
         {
             DateTime corrDeadline = Deadline.AddDays(1).AddMinutes(-1);
@@ -51,10 +51,10 @@ namespace donely_Inspilab.Classes
         }
         public DateOnly DeadlineDateOnly => DateOnly.FromDateTime(Deadline);
 
-        //Voor gebruik bij Listviews
+        //Voor gebruik bij Listviews --> datums correct formatten
         public string DeadlineDisplay => DateFormatter.FormatDate(Deadline);
         public string IssueDateDisplay => DateFormatter.FormatDate(IssueDate);
-        public string CompletionDateDisplay => CompletionDate != null
+        public string CompletionDateDisplay => CompletionDate != null //Normaal wordt Completion Date aangemaakt bij het indienen van een taak, maar failsafe als dit toch misloopt
              ? DateFormatter.FormatDate(CompletionDate.Value)
              : string.Empty;
     }

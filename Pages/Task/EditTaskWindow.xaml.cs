@@ -56,7 +56,7 @@ namespace donely_Inspilab.Pages.Task {
         {
             try
             {
-                if (txtTaskName.Text == TaskToEdit.Name //Check of iets is veranderd
+                if (txtTaskName.Text == TaskToEdit.Name //Check of iets is veranderd. Indien niets veranderd --> rechtstreeks sluiten
                     && txtDescription.Text == TaskToEdit.Description
                     && Convert.ToInt32(txtReward.Text) == TaskToEdit.Reward
                     && (TaskFrequency)cmbFrequency.SelectedItem == TaskToEdit.Frequency
@@ -66,11 +66,11 @@ namespace donely_Inspilab.Pages.Task {
                     this.Close();
                     return;
                 }
-                if (string.IsNullOrEmpty(txtTaskName.Text))
+                if (string.IsNullOrEmpty(txtTaskName.Text)) //naam moet ingevuld zijn
                     throw new ArgumentException("Not all required fields are filled in.");
 
                 int reward = Convert.ToInt32(txtReward.Text);
-                if (reward < 0)
+                if (reward < 0) //back up check voor reward in Frontend
                     throw new ArgumentException("Reward cannot be a negative number.");
 
                 // Assuming EditedTask.Id holds the current task's ID
@@ -82,7 +82,7 @@ namespace donely_Inspilab.Pages.Task {
                     (TaskFrequency)cmbFrequency.SelectedItem,
                     (bool)cbValidation.IsChecked);
 
-                if (EditedTask != null)
+                if (EditedTask != null) //UpdateTask returnt een taak, dus als deze niet null is, is deze succesvol
                 {
                     MessageBox.Show("Task successfully updated", "Success", MessageBoxButton.OK);
                     this.DialogResult = true;

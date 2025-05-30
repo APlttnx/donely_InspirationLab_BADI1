@@ -9,6 +9,7 @@ namespace donely_Inspilab.Classes
 {
     public class ShopItemService
     {
+        //CREATE SHOPITEMS BATCH
         public static bool InsertShopItems(List<ShopItem> shopItems, int groupID)
         {
             Database db = new();

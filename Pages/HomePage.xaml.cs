@@ -31,11 +31,10 @@ namespace donely_Inspilab.Pages
         public HomePage()
         {
             InitializeComponent();
-            LoadGroups(); //Inladen groepen via database en in listviews plaatsen
-
+            LoadGroups(); 
         }
 
-        private void LoadGroups()
+        private void LoadGroups() //laadt een lijst op van alle groepen die je 1. bezit en 2. lid van bent en 3. alle taken die je momenteel hebt lopen in alle groepen.
         {
             try
             {

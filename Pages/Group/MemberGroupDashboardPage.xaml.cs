@@ -83,6 +83,14 @@ namespace donely_Inspilab.Pages.Group
             {
                 task.CompletionDate = DateTime.Now;
                 string message = "";
+                /* If flow:
+                 * 1. Check of task success? --> fails worden niet gecheckt, success heeft extra regels
+                 * 1.1 -> Check of deadline niet vervallen is op moment van indienen. Indien dit het geval is, wordt deze ook gefaald
+                   1.2 -> Check of dat de taak validatie nodig heeft via Task property --> Status wordt dan gezet op "Pending" of goed te keuren door de owner.
+                   else -> Als indiening aan alle regels voldoet --> taskstatus is Success
+                 * */
+
+
                 if (status == TaskProgress.Success)
                 {
                     if (task.DeadlineDateOnly < DateOnly.FromDateTime((DateTime)task.CompletionDate)) //AUTOFAIL DEADLINE (backup measure)
@@ -108,17 +116,19 @@ namespace donely_Inspilab.Pages.Group
                 }
                 ;
                 TaskService.UpdateTaskInstance(task); //update voor database
-                CurrentMember.UpdateTaskStatus(task); //update voor klasse
+                CurrentMember.UpdateTaskStatus(task); //update voor klasse/applicatie
 
+                //Containers frontend herladen
                 lblCurrency.Content = CurrentMember.Currency;
                 //reset listview
                 lsvMemberTasks.ItemsSource = CurrentMember.ActiveTaskList;
                 lsvMemberTasks.Items.Refresh();
 
+                //Message Boxes laten zien
                 if (task.Status != TaskProgress.Failure)
-                    MessageBox.Show(message, "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(message, "Result", MessageBoxButton.OK, MessageBoxImage.Information); //Custom messages voor status 1 en 2 PENDING/SUCCESS
                 else
-                    MessageBox.Show("Task Failed. You'll get 'em next time!", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Task Failed. You'll get 'em next time!", "Result", MessageBoxButton.OK, MessageBoxImage.Information); //message status 3 FAIL
             }
             catch (Exception ex)
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace donely_Inspilab.Classes
 {
+    //Specifieke klasse voor overzicht van gekochte items bij de owner --> wat hebben de users gekocht
     public class BoughtItemOverview
     {
             public string UserName { get; set; }

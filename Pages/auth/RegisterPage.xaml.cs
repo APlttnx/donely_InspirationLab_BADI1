@@ -36,16 +36,15 @@ namespace donely_Inspilab.Pages.auth
        
                 User newUser = UserService.Register(txtName.Text, txtEmail.Text, txtTelnr.Text, txtPassword.Password, txtConfirmPassword.Password);
 
-                //fail gaat een exception opleveren normaal gezien
                 MessageBox.Show($"{newUser.Name} has been added", "Registration Success", MessageBoxButton.OK);
 
                 //Als succesvol => momenteel rerouten naar login pagina, kan ook rechtstreeks naar Home/Dashboard of indien toegevoegd ConfirmEmailPage (bonus)
                 NavService.ToHomePage();
             }
             
-            catch ( ArgumentException argument)
+            catch ( ArgumentException argument) //ArgumentException heeft meestal een custom message 
             {
-                MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); //momenteel als MessageBox, kan later nog veranderen naar een label ofzo
+                MessageBox.Show(argument.Message, "Registration Failed", MessageBoxButton.OK); 
             }
             catch (Exception ex)
             {

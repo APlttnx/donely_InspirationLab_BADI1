@@ -35,7 +35,7 @@ namespace donely_Inspilab.Pages.auth
                     throw new ArgumentException("Please fill in the required fields");
 
                 User currentUser = UserService.Login(txtEmail.Text, txtPassword.Password);
-                if (currentUser != null)
+                if (currentUser != null) // dubbelchecken dat de login check succesvol was
                 {
                     SessionManager.Login(currentUser);
 
@@ -46,7 +46,7 @@ namespace donely_Inspilab.Pages.auth
 
                     System.Diagnostics.Debug.WriteLine("Admin? " + currentUser.IsAdmin);
 
-                    if (currentUser.IsAdmin)
+                    if (currentUser.IsAdmin) //Check of huidige gebruiker een admin is --> naar andere pagina navigeren
                         NavService.ToAdminDashboard();
                     else
                         NavService.ToHomePage();
@@ -57,7 +57,7 @@ namespace donely_Inspilab.Pages.auth
                     throw new ArgumentException("Wrong password or email");
                 }
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException ex) //Errormessage display
             {
                 lblError.Content = ex.Message;
             }

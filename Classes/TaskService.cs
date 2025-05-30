@@ -78,20 +78,24 @@ namespace donely_Inspilab.Classes
             return member;
         }
 
-        //UPDATE
+        //UPDATE Instance
         public static void UpdateTaskInstance(TaskInstance task)
         {
             Database db = new();
             db.UpdateTaskInstance(task);
         }
 
-        //BATCH AUTOFAILER Global
+        //BATCH AUTOFAILER Global --> Runt bij login om alle expired tasks te failen via een query
         public static int AutoFailExpiredTasksGlobal()
         {
             Database db = new();
             return db.AutoFailExpiredTasksGlobal();
         }
-        // AUTO REASSIGNER
+        // AUTO REASSIGNER --> Deze methode roept eerst alle Instances op die moeten herhaald worden, checkt de frequency van de task definition en maakt automatisch een nieuwe Instance met nieuwe deadline aan
+        // Dailies --> huidige dag zelf
+        // Weekly --> een week na de vorige deadline
+        // Monthly --> een maand na de vorige deadline
+        // roept dat CreateInstance op (Potentieel ToDo voor later --> Batch Inserter query aanmaken)
         public static void AutoReassignRecurringTasks()
         {
             Database db = new();

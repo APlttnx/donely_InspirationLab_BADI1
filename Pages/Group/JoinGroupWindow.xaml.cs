@@ -33,8 +33,8 @@ namespace donely_Inspilab.Pages.Group
             try
             {
                 Code = txtGroupCode.Text;
-                if (Code.Length != 8) throw new ArgumentException("Invalid input");
-                if (GroupService.JoinGroupViaCode(Code, SessionManager.GetCurrentUserID()) == -1)
+                if (Code.Length != 8) throw new ArgumentException("Invalid input"); //check of code juiste lengte
+                if (GroupService.JoinGroupViaCode(Code, SessionManager.GetCurrentUserID()) == -1) //als resultaat = -1 ==> Niet toegevoegd aan groep, wat betekent dat er iets onverwachts is misgelopen
                     throw new Exception();
                 NavService.ToHomePage();
                 this.DialogResult = true;

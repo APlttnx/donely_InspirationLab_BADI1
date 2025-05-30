@@ -45,11 +45,11 @@ namespace donely_Inspilab.Pages.Task
         {
             try
             {
-                if (GroupState.LoadedGroup.TaskDefinitions.Count == 0)
+                if (GroupState.LoadedGroup.TaskDefinitions.Count == 0) //Als task definitions nog ongeladen --> opladen via GetGroupDefinitions
                 {
                     GroupState.LoadedGroup.TaskDefinitions = TaskService.GetGroupDefinitions(GroupState.LoadedGroup.Id);
                 }
-                TaskList = GroupState.LoadedGroup.TaskDefinitions.Where(t => t.IsActive).ToList() ; //filtert inactieve taken eruit
+                TaskList = GroupState.LoadedGroup.TaskDefinitions.Where(t => t.IsActive).ToList() ; //filtert inactieve taken eruit --> verschijnen niet in library
 
                 lsvTaskLibrary.ItemsSource = TaskList;
             }
@@ -67,7 +67,7 @@ namespace donely_Inspilab.Pages.Task
                 //Check req fields filled in
                 if (string.IsNullOrWhiteSpace(txtTaskName.Text) || dpDeadlineNew.SelectedDate == null) throw new ArgumentException("Not all required fields are filled in!");
                 Classes.Task newTask = TaskService.CreateTask(txtTaskName.Text, txtDescription.Text, Convert.ToInt32(txtReward.Text), (TaskFrequency)cmbFrequency.SelectedItem, (bool)cbValidation.IsChecked, GroupState.LoadedGroup.Id);
-                if (newTask != null)
+                if (newTask != null) //zeker zijn dat er een taak is aangemaakt, daarna instance van aanmaken
                 {
                     NewAssignedTask = TaskService.CreateTaskInstance(newTask, dpDeadlineNew.SelectedDate.Value, Member.Id);
                     MessageBox.Show("Task successfully assigned!", "Success", MessageBoxButton.OK);
@@ -94,7 +94,7 @@ namespace donely_Inspilab.Pages.Task
             
         }
 
-        private void AssignTask_Click(object sender, RoutedEventArgs e) //voor reeds bestaande taak te hergebruiken
+        private void AssignTask_Click(object sender, RoutedEventArgs e) //voor reeds bestaande taak te hergebruiken vanuit de library
         {
             try
             {
@@ -119,6 +119,7 @@ namespace donely_Inspilab.Pages.Task
         }
 
 
+        //Methodes specifiek om geen tekens/letters in te geven bij de numerieke velden
 
         private static readonly Regex _regex = new("^[0-9]+$");
         private void NumberOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -126,6 +127,7 @@ namespace donely_Inspilab.Pages.Task
             e.Handled = !_regex.IsMatch(e.Text);
         }
 
+        //deze specifiek voor ctrl c + ctrl v
         private void NumberOnly_Pasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(DataFormats.Text))

@@ -27,13 +27,13 @@ namespace donely_Inspilab.Pages.Group
     
     public partial class GroupCreationPage : Page
     {
-        private ObservableCollection<ShopItem> ShopList { get; set; } = new(); //dient voor dynamische upload ListView
-        private string _fileName = "default.png";
+        private ObservableCollection<ShopItem> ShopList { get; set; } = new(); //ObservableCollection is dynamisch updatebaar, dus een nieuw item wordt hieraan automatisch toegevoegd zonder een autonome refresh.
+        private string _fileName = "default.png"; //default group picture
         public GroupCreationPage()
         {
             InitializeComponent();
             PrepareShopList();
-            UploadedImage.Source = new BitmapImage(new Uri($"/Assets/GroupImages/{_fileName}", UriKind.Relative));
+            UploadedImage.Source = new BitmapImage(new Uri($"/Assets/GroupImages/{_fileName}", UriKind.Relative)); //standaard afbeelding zit bij Assets/GroupImages --> relatieve link aanleggen
         }
 
 
@@ -45,9 +45,9 @@ namespace donely_Inspilab.Pages.Group
         private void AddReward_Click(object sender, RoutedEventArgs e)
         {
             AddRewardWindow rewardWindow = new();
-            var dialogResult = rewardWindow.ShowDialog();
+            var dialogResult = rewardWindow.ShowDialog(); //Opent rewardWindow
 
-            if (dialogResult == true && rewardWindow.NewShopItem != null)
+            if (dialogResult == true && rewardWindow.NewShopItem != null) //Als resultaat in rewardWindow = juist EN er is een item gevonden --> item toevoegen aan ShopList
             {
                 ShopList.Add(rewardWindow.NewShopItem);
             }

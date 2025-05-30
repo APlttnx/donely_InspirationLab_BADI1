@@ -21,7 +21,7 @@ namespace donely_Inspilab.Classes
         public bool IsActive { get; set; }
         public int GroupId { get; private set; }
 
-        
+        // voor herhalende taken --> [FREQUENCY] ervoor zetten, zoals in een RPG
         public string NameDisplay => Frequency != TaskFrequency.Once ? $"[{Frequency.ToString().ToUpper()}] {Name}" : Name; //Dient voor Task Listviews --> [DAILY] [WEEKLY] [MONTHLY]
         public string ActiveDisplay => Frequency == TaskFrequency.Once ? "" : (IsActive ? "Active" : "Inactive"); //Dient voor formatting in kolom TaskLibrary --> onetime tasks hebben geen (in)active nodig
         
@@ -44,15 +44,5 @@ namespace donely_Inspilab.Classes
         {
             Id = _id;
         }
-
-        //public void ActivateTask()
-        //{
-        //    this.IsActive = true;
-        //}
-        //public void DeactivateTask()
-        //{
-        //    this.IsActive = false;
-        //}
-        
     }
 }

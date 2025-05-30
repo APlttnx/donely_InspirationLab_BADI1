@@ -15,6 +15,7 @@ using donely_Inspilab.Pages.Shop;
 namespace donely_Inspilab.Classes
 {
     public static class NavService
+        //Klasse voor het faciliteren van navigatie tussen de verschillende pagina's, plus aantal voorwaarden indien nodig (bv voor HomePage checken of ingelogd als backup)
     {
         public static void ToHomePage()
         {
@@ -68,6 +69,8 @@ namespace donely_Inspilab.Classes
         {
             App.MainFrame.Navigate(new TaskLibraryPage());
         }
+
+        // Geen MemberState, dus voor deze wordt de member als parameter meegegeven zodat deze kan geladen worden in de respectievelijke pagina
         public static void ToManageMemberTasksPage(GroupMember member)
         {
             App.MainFrame.Navigate(new ManageMemberTasksPage(member));

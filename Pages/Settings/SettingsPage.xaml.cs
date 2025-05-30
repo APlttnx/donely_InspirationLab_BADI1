@@ -49,13 +49,13 @@ namespace donely_Inspilab.Pages.Settings
 
         private void GoToDeleteAccount(object sender, RoutedEventArgs e)
         {
-            if (!SessionManager.IsLoggedIn)
+            if (!SessionManager.IsLoggedIn) //check of er een gebruiker is ingelogd om te deleten
             {
                 MessageBox.Show("Please log in first:", "User not logged in", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 NavService.ToLoginPage();
                 return;
             }
-
+            //waarschuwing
             MessageBoxResult answer = MessageBox.Show("Are you certain? this decision is permanent!", "Are you certain?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (answer == MessageBoxResult.Yes)
             {

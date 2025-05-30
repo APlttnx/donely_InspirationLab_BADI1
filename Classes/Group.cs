@@ -21,12 +21,12 @@ namespace donely_Inspilab.Classes
 
         //Lists worden manueel gevuld via aparte methodes in de service wanneer ze nodig zijn (zoals op Group Owner dashboard of Member dashboard)
         public List<ShopItem> ShopItems { get; set; } = new();
-        public bool ShopActive => ShopItems.Count > 0;
 
         public List<GroupMember> Members { get; set; } = new();
 
         public List<Task> TaskDefinitions { get; set; } = new();
-
+        
+        //Dient voor profile picture in listviews toe te voegen.
         public ImageSource ImageSource
         {
             get

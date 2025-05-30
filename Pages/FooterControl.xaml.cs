@@ -13,7 +13,7 @@ namespace donely_Inspilab.Pages
             UpdateUI(); // Set initial state
         }
 
-        private void UpdateUI()
+        private void UpdateUI() //Wisselt welke knoppen zichtbaar zijn naargelang er een gebruiker is ingelogd of niet
         {
             GuestButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Collapsed : Visibility.Visible;
             UserButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;

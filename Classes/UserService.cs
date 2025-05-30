@@ -10,7 +10,7 @@ namespace donely_Inspilab.Classes
 {
     class UserService
     {
-        //Registreren nieuwe user
+        //CREATE USER + Register regels
         public static User Register(string name, string email, string telephoneNumber, string password, string confirmPassword, string profilePicture = "", bool isF2A = false)
         {
             try
@@ -53,14 +53,17 @@ namespace donely_Inspilab.Classes
 
         }
 
+        //Interne methode - Check of wachtwoorden wel overeenkomen
         private static bool PasswordsMatch(string password, string confirmPassword)
         {
             return password == confirmPassword;
         }
+        //Interne methode - hashing password via BCrypt
         private static string HashPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
+        //Interne methode - Valideren via .NET methode of email wel valide is
         private static bool ValidateEmail(string email)
         {
             try
@@ -75,7 +78,7 @@ namespace donely_Inspilab.Classes
         }
 
 
-
+        //READ user --> via Credentials klasse controleren of ingevuld emailadres en wachtwoord overeenkomen voor een vd users
         public static User Login(string email, string password)
         {
             Database db = new();
@@ -89,12 +92,13 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Wrong password or email");
         }
 
+        //Interne methode - check via BCrypt verify of wachtwoord juist is
         private static bool AuthenticatePassword(string password, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
 
-
+        // DELETE USER
         public static bool DeleteUser(int id)
         {
             Database db = new();
@@ -103,6 +107,7 @@ namespace donely_Inspilab.Classes
             return false;
         }
 
+        // UPDATE USER
         public static void UpdateUser(User user)
         {
             Database db = new();

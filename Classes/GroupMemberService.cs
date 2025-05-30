@@ -8,13 +8,14 @@ namespace donely_Inspilab.Classes
 {
     public static class GroupMemberService
     {
-
+        //READ GROUPMEMBERS
         public static List<GroupMember> GetListGroupMembers(int groupID)
         {
             //Haalt lijst op van alle groupMembers van opgegeven groupID
             Database db = new();
             return(db.GetGroupMembers(groupID));
         }
+        //DELETE MEMBER
         public static void KickMember(GroupMember member)
         {
             if (member == null) return;
@@ -22,6 +23,7 @@ namespace donely_Inspilab.Classes
             db.DeleteGroupMember(member.Id);
         }
 
+        //UPDATE CURRENCY MEMBER
         public static int AddCurrency(GroupMember member, int currency)
         {
             if (member == null) return currency;

@@ -30,7 +30,15 @@ namespace donely_Inspilab.Classes
         private string connectionString = App.Configuration.GetConnectionString("DefaultConnection");
 
         #region EXECUTORS
-        private int ExecuteNonQuery(string qry, Dictionary<string, object> parameters, out int insertedId) // INSERT, DELETE, UPDATE
+
+        //Executors zijn onze algemene centrale queries.
+        // Parameters: qry = query string
+        //             parameters = dient voor SQL injection tegen te gaan. Een dictionary met de specifieke waarden (bv INSERT INTO table userID VALUES @userID --> parameter @userID = id_variable) 
+       
+
+        // INSERT, DELETE, UPDATE (C U D) -> Returned het aantal aangepaste rijen, met een optionele out voor de InsertedId voor Inserts)
+
+        private int ExecuteNonQuery(string qry, Dictionary<string, object> parameters, out int insertedId) 
         {
             insertedId = -1;
             using MySqlConnection connection = new MySqlConnection(connectionString);
@@ -59,6 +67,7 @@ namespace donely_Inspilab.Classes
             }
         }
 
+        //SELECT (R) --> 
         private List<Dictionary<string, object>> ExecuteReader(string qry, Dictionary<string, object> parameters = null) // SELECT (multiple)
         {
             List<Dictionary<string, object>> results = new();
@@ -89,6 +98,7 @@ namespace donely_Inspilab.Classes
         #endregion
 
         #region USERS
+        //INSERT USER
         public int InsertUser(User newUser)
         {
             Dictionary<string, object> parameters = [];
@@ -102,6 +112,8 @@ namespace donely_Inspilab.Classes
             if (rowsAffected == -1)
                 throw new ArgumentException("Something went wrong, new user wasn't added");
 
+
+            //Aparte tabel voor wachtwoorden in op te slagen. Als er ooit een leak zou zijn van de User table, dan zijn de gehashte wachtwoorden nog apart)
             qry = "INSERT INTO user_passwords (userID, password, has_mfa) VALUES (@userID, @password, @mfa)";
             parameters.Clear();
             parameters.Add("@userID", newUserID);
@@ -112,6 +124,7 @@ namespace donely_Inspilab.Classes
             return rowsAffected;
         }
 
+        //READ CRED
         public Credentials GetUserCredentialsByEmail(string email)
         {
             string qry = @"
@@ -130,6 +143,8 @@ namespace donely_Inspilab.Classes
             bool is2FA = (bool)result["has_mfa"];
             return new Credentials(userID, hashedPassword, is2FA);
         }
+
+        //READ USER
         public User GetUserByID(object userID)
         {
             string qry = @"
@@ -150,6 +165,7 @@ namespace donely_Inspilab.Classes
             return new User(_name, _email, _tel, _profilePicture, _id, _created, _lastLogin, _isAdmin);
         }
 
+        //UPDATE USER login
         public void UpdateLogin(int id)
         {
             string sql = "UPDATE users SET last_login = @lastLogin WHERE userID = @userID";
@@ -159,6 +175,7 @@ namespace donely_Inspilab.Classes
             ExecuteNonQuery(sql, parameters, out _);
         }
 
+        //DELETE USER
         public int DeleteUser(int id)
         {
             string qry = "DELETE  FROM users WHERE userID = @userID";
@@ -166,6 +183,8 @@ namespace donely_Inspilab.Classes
             parameters.Add("@userID", id);
             return ExecuteNonQuery(qry, parameters, out _);
         }
+
+        //READ ALL USER
         public List<User> GetAllUsers()
         {
             string qry = "SELECT * FROM users";
@@ -188,6 +207,8 @@ namespace donely_Inspilab.Classes
 
             return users;
         }
+
+        //UPDATE USER
         public void UpdateUser(User user)
         {
             string qry = "UPDATE users SET name = @name, email = @mail, profile_picture = @profilePicture, telephone_nr = @phone WHERE userID = @id";
@@ -203,6 +224,7 @@ namespace donely_Inspilab.Classes
             ExecuteNonQuery(qry, parameters, out _);
         }
 
+        //UPDATE PASSWORD 
         public bool UpdateUserPassword(int userId, string newHashedPassword)
         {
             string qry = "UPDATE user_passwords SET password = @password WHERE userID = @userID";
@@ -219,6 +241,7 @@ namespace donely_Inspilab.Classes
         #endregion
 
         #region GROUPS
+        //CREATE GROUP
         public int InsertGroup(Group newGroup)
         {
             Dictionary<string, object> parameters = [];
@@ -233,14 +256,15 @@ namespace donely_Inspilab.Classes
             return newGroupID;
         }
 
-
+        //READ --> Check of randomly generated code al bestaat, want moet uniek zijn
         public bool CheckInviteCode(string code)
         {
             string qry = "SELECT invite_code FROM Groups_ WHERE invite_code = @code";
             Dictionary<string, object> parameters = new Dictionary<string, object>{ ["@code"] = code };
             return (ExecuteReader(qry, parameters).Count!=1);
         }
-
+        
+        //READ group --> specifieke fields nodig voor nieuwe Group Member aan te maken
         public (int groupID, string name, int ownerID) GetGroupIdByInviteCode(string code)
         {
             string qry = "SELECT groupID, name, owner FROM Groups_ WHERE invite_code = @code";
@@ -253,6 +277,7 @@ namespace donely_Inspilab.Classes
             return (groupID, groupName, ownerID);
         }
 
+        //UPDATE GROUP
         public void UpdateGroup(Group group)
         {
             string qry = "UPDATE groups_ SET name = @name, image = @image WHERE groupid = @id";
@@ -268,6 +293,7 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong, group wasn't updated.");
         }
 
+        //READ GROUPMEMBER --> Check of member al bestaat in group, returnt True als member al bestaat
         public bool MemberPresentInGroup(int groupID, int userID)
         {
             string qry = "SELECT groupID, userID FROM group_users WHERE groupID = @groupID AND userID = @userID";
@@ -279,6 +305,7 @@ namespace donely_Inspilab.Classes
             return (ExecuteReader(qry, parameters).Count != 0);
         }
 
+        //CREATE GROUP MEMBER
         public int InsertNewGroupMember(GroupMember member)
         {
             if (MemberPresentInGroup(member.GroupId, member.UserId))
@@ -296,6 +323,7 @@ namespace donely_Inspilab.Classes
             return groupUserId;
         }
 
+        //DELETE GROUP MEMBER
         public void DeleteGroupMember(int memberId)
         {
             string qry = "DELETE FROM group_users WHERE group_userID = @memberID;";
@@ -305,7 +333,7 @@ namespace donely_Inspilab.Classes
                 throw new Exception("Failed to remove member.");
         }
             
-
+        //READ GROUP OVERVIEW --> Group, group member en user. Usergegevens dienen voor Owner property binnen Group 
         public List<Group> GetGroupOverview(int userId)
         {
             string qry = @"
@@ -350,6 +378,7 @@ namespace donely_Inspilab.Classes
             return groups;
         }
 
+        //READ GROUPS (waar currentUser owner van is). Geen aparte User table fields nodig aangezien owner al gekend is in het geladen systeem
         public List<Group> GetOwnGroups(User currentUser)
         {
             string qry = @"
@@ -375,6 +404,10 @@ namespace donely_Inspilab.Classes
             return ownedGroups;
         }
 
+        //READ GROUPMEMBERS of selected group
+
+        //Coalesce --> Als geen geldige waarde gevonden --> waarde is 0
+        //Sum dient voor counters in te vullen voor de GroupMember, zo heeft de owner een overzicht van hoeveel active/pending/completed tasks er zijn per member
         public List<GroupMember> GetGroupMembers(int groupID)
         {
             string qry = @"
@@ -438,6 +471,7 @@ namespace donely_Inspilab.Classes
             return groupMembers;
         }
 
+        //UPDATE specifiek currency
         public void UpdateMemberCurrency(int memberId, int currency)
         {
             string qry = "UPDATE group_users SET currency = @currency WHERE group_userID = @memberId;";
@@ -450,6 +484,7 @@ namespace donely_Inspilab.Classes
                 throw new Exception();
         }
 
+        //DELETE group
         public void DeleteGroup(int groupID)
         {
             string qry = "DELETE FROM GROUPS_ WHERE groupID = @groupID;";
@@ -462,7 +497,7 @@ namespace donely_Inspilab.Classes
                 Console.Write($"ROWS CHANGED: {rowsAffected}");
             }
         }
-
+        //DELETE groupmember
         public bool LeaveGroup(int userId, int groupId)
         {
             string qry = "DELETE FROM group_users WHERE userID = @userId AND groupID = @groupId";
@@ -478,13 +513,14 @@ namespace donely_Inspilab.Classes
         #endregion
 
         #region ADMIN
+        //READ GLOBAL USER COUNT
         public int GetTotalUserCount()
         {
             string qry = "SELECT COUNT(*) FROM users";
             var res = ExecuteReader(qry);
             return Convert.ToInt32(res[0].Values.First());
         }
-
+        //READ GLOBAL GROUP COUNT 
         public int GetTotalGroupCount()
         {
             string qry = "SELECT COUNT(*) FROM groups_";
@@ -618,6 +654,7 @@ namespace donely_Inspilab.Classes
         #endregion
 
         #region TASKS
+        //CREATE TASK DEFINITION
         public int InsertTaskDefinition(Task task)
         {
             string qry = @"INSERT INTO task_definitions(groupID, name, details, reward_currency, frequency, is_active, validation_required) 
@@ -636,6 +673,7 @@ namespace donely_Inspilab.Classes
                 throw new ArgumentException("Something went wrong with the database");
             return taskId;
         }
+        //READ SINGLE TASK DEF
         public Task GetTaskById(int taskId)
         {
             string qry = "SELECT * FROM task_definitions WHERE taskID = @taskId;";
@@ -653,6 +691,7 @@ namespace donely_Inspilab.Classes
                );
             return task;
         }
+        //UPDATE TASK DEF
         public int UpdateTaskDefinition(Task task)
         {
             string qry = @"UPDATE task_definitions
@@ -678,6 +717,7 @@ namespace donely_Inspilab.Classes
             int rowsAffected = ExecuteNonQuery(qry, parameters, out _);
             return rowsAffected;
         }
+        //UPDATE TASK IsActive status
         public void UpdateTaskIsActive(int taskId, bool isActive)
         {
             string qry = "UPDATE task_definitions SET is_active = @is_active WHERE taskID = @taskID";
@@ -690,7 +730,7 @@ namespace donely_Inspilab.Classes
             if (rowsAffected != 1)
                 throw new Exception("Failed to update task status.");
         }
-        //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage
+        //Gets all group task definitions, loaded and user for the Task Library for the Group Owner (TaskLibraryPage)
         public List<Task> GetGroupTaskDefinitions(int groupId)
         {
             string qry = "SELECT * FROM task_definitions WHERE groupID = @groupID AND is_deleted = 0;";
@@ -728,6 +768,8 @@ namespace donely_Inspilab.Classes
                 throw new Exception("Failed to delete task.");
         }
 
+
+        //CREATE TASK INSTANCE
         public int InsertTaskInstance(TaskInstance task)
         {
             string qry = @"INSERT INTO task_instances(taskID, groupUserID, status, deadline) 
@@ -745,6 +787,7 @@ namespace donely_Inspilab.Classes
             return taskId;
         }
 
+        //READ TASKINSTANCE of member
         public List<TaskInstance> GetTaskInstancesMemberId(int groupUserId)
         {
             string qry = @"
@@ -830,13 +873,13 @@ namespace donely_Inspilab.Classes
         //voor auto-reassigner
         public List<TaskInstance> GetAllCompletedRecurringTasks()
         {
-            /*Query filtert alle laatste versies (dus laatste combo GroupUserID en TaskID) van Task Instances waar: 
-              - Task Definition is Actief (is_active = 1)
-              - Task Definition is Not (soft) Deleted (is_deleted = 0)
+            /*Query filtert alle laatste versies (op basis van combinatie GroupUserID en TaskID) van Task Instances waar: 
+              - Task Definition is Actief (is_active = 1), inactieve taken worden niet opnieuw toegewezen
+              - Task Definition is Not (soft) Deleted (is_deleted = 0), deleted tasks worden niet opnieuw toegewezen
               - Task Definition is Recurring (dus Frequency != 0, want 0 is One Time) (Frequency <> 0)
               - Task Instance Completion Date is in het verleden (want als vandaag completed --> sowieso niet herhalen) (DATE(completed_on) < CURDATE();)
               - Laatste Task Instance is ingediend --> dus geen actieve instance op dit moment (status <> 0 )
-              - En tenslotte check of dat er geen actieve instances van dezelfde combinatie bestaand
+              - En tenslotte check of dat er geen actieve instances van dezelfde combinatie bestaan
             */
             string qry = @"
                     SELECT TI.*, TD.*

@@ -26,7 +26,7 @@ namespace donely_Inspilab.Pages.Group
             txtGroupCode.Text = GroupState.LoadedGroup.InviteCode;
         }
 
-        private void CopyCode_click(object sender, RoutedEventArgs e)
+        private void CopyCode_click(object sender, RoutedEventArgs e) //Kopieer invite code to clipboard
         {
             Clipboard.SetText(txtGroupCode.Text);
             MessageBox.Show("Code Copied", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace donely_Inspilab.Methods
 {
-    public static class DateFormatter
+    public static class DateFormatter //formats dates for display in listviews
     {
         public static string FormatDate(DateTime dateTime)
         {

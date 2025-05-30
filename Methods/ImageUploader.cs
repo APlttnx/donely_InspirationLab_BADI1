@@ -22,11 +22,11 @@ namespace donely_Inspilab.Methods
 
             string sourcePath = dialog.FileName;
             string fileName = Path.GetFileName(sourcePath);
-            string imagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, targetFolder);
+            string imagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, targetFolder); //opslagen in BaseDirectory, zo kan het lokaal opgeslagen en geladen worden. In een meer finaal product zouden we hiervoor een fileserver hebben proberen opzetten.
 
             try
             {
-                if (!Directory.Exists(imagesFolder))
+                if (!Directory.Exists(imagesFolder)) //checken of folder al bestaat
                     Directory.CreateDirectory(imagesFolder);
 
                 string destinationPath = Path.Combine(imagesFolder, fileName);
@@ -40,9 +40,9 @@ namespace donely_Inspilab.Methods
 
                 return (bitmap, fileName);
             }
-            catch
-            {
-                throw;
+            catch (Exception ex) { 
+                Console.WriteLine("afbeelding opladen mislukt");
+                return null;
             }
         }
     }

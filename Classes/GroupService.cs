@@ -13,6 +13,7 @@ namespace donely_Inspilab.Classes
 {
     class GroupService
     {
+        //CREATE GROUP
         public static Group CreateGroup(string name, string imageLink, List<ShopItem> shopItems)
         {
             Database db = new();
@@ -37,6 +38,7 @@ namespace donely_Inspilab.Classes
             return newGroup;
         }
 
+        //CREATE GROUPMEMBER via Invite Code
         public static int JoinGroupViaCode(string code, int userID)
         {
             Database db = new();
@@ -53,18 +55,20 @@ namespace donely_Inspilab.Classes
             return groupMemberID;
         }
 
+        //READ GROUP (member of)
         public static List<Group> GetOverviewGroups(int userID)
         {
             Database db = new();
             return(db.GetGroupOverview(userID));
 
         }
+        //READ GROUP (owner of)
         public static List<Group> GetOverviewOwnGroups(User user)
         {
             Database db = new();
             return(db.GetOwnGroups(user));
         }
-
+        //UPDATE GROUP
         public static void UpdateGroup(Group group)
         {
             if (group == null) throw new ArgumentNullException(nameof(group));
@@ -73,7 +77,7 @@ namespace donely_Inspilab.Classes
             Database db = new();
             db.UpdateGroup(group);
         }
-
+        //DELETE GROUP
         public static void DeleteGroup(int groupID)
         {
             Database db = new();

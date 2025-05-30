@@ -27,9 +27,9 @@ namespace donely_Inspilab.Pages
             UpdateUI();
         }
 
-        public void UpdateUI()
+        public void UpdateUI() //Dit wisselt de knoppen bovenaan naargelang de gebruiker is ingelogd of niet. En wordt geactiveerd door o.a. de LoginStatusChanged en ProfileUpdated events.
         {
-            imgProfilePic.Source = SessionManager.IsLoggedIn ? SessionManager.CurrentUser.ImageSource : null;
+            imgProfilePic.Source = SessionManager.IsLoggedIn ? SessionManager.CurrentUser.ImageSource : null; //profielfoto bovenaan
             GuestButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Collapsed : Visibility.Visible; 
             UserButtons.Visibility = SessionManager.IsLoggedIn ? Visibility.Visible : Visibility.Collapsed;
         }

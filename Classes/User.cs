@@ -17,7 +17,7 @@ namespace donely_Inspilab.Classes
         public string Email { get; set; }
         public string TelephoneNumber { get; set; }
         public string? HashedPassword { get; private set; } // Gebruikt bij Registratie/aanmaken
-        public bool? Is2FA { get; private set; }  // enkel gebruikt bij Login/Registratie
+        public bool? Is2FA { get; private set; }  // Was klaargezet in het begin van het project, Dit zou gediend hebben voor de 2FA proces te starten, maar zijn we nooit aan geraakt.
         public string ProfilePicture { get; set; }
         public int? Id { get; private set; } 
         public DateTime? AccountCreated { get; private set; } 
@@ -45,6 +45,7 @@ namespace donely_Inspilab.Classes
             Is2FA = is2FA;
         }
 
+        //Specifiek om profielfoto van gebruiker correct te displayen in listviews rechtstreeks. Zou in productie waarschijnlijk veranderen met een fileserver
         public ImageSource ImageSource
         {
             get

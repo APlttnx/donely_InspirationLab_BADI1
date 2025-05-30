@@ -26,7 +26,7 @@ namespace donely_Inspilab.Pages.Group
             InitializeComponent();
         }
 
-        public ShopItem NewShopItem { get; private set; }
+        public ShopItem NewShopItem { get; private set; } //Dit is het item dat de GroupCreationPage toevoegd aan de lijst, daarom public
 
         private void AddShopItem_Click(object sender, RoutedEventArgs e)
         {

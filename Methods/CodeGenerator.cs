@@ -8,6 +8,7 @@ namespace donely_Inspilab.Methods
 {
     public static class CodeGenerator
     {
+        //Genereert een willekeurige code van standaard 8 tekens --> Invite Code
         public static string Generate(int length = 8)
         {
             Char[] charArr  = "AZERTYUIOPLKJHGFDSQWXCVBN1234567890".ToCharArray();

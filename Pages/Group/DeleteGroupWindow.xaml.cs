@@ -26,11 +26,13 @@ namespace donely_Inspilab.Pages.Group
             lblDeleteCode.Content = GroupState.LoadedGroup.InviteCode;
         }
 
+        // Check: Gebruiker moet exacte code ingeven, anders is de knop niet enabled voor te deleten 
         private void txtConfirmDelete_TextChanged(object sender, TextChangedEventArgs e)
         {
             btnDelete.IsEnabled = txtConfirmDelete.Text.Trim().Equals(GroupState.LoadedGroup.InviteCode, StringComparison.OrdinalIgnoreCase);
         }
 
+        //Als knop klikbaar --> Dubbel checken of echt wel hetzelfde, daarna verwijderen
         private void DeleteGroup_Click(object sender, RoutedEventArgs e)
         {
             if (txtConfirmDelete.Text.Trim().Equals(GroupState.LoadedGroup.InviteCode, StringComparison.OrdinalIgnoreCase)){

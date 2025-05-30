@@ -24,15 +24,14 @@ namespace donely_Inspilab.Pages.Group
         public GroupOwnerPage()
         {
             InitializeComponent();
-            GroupState.GroupUpdated += LoadData; //event na edit group window
+            GroupState.GroupUpdated += LoadData; //event na edit group window --> Profielfoto en naam updaten via LoadData()
             LoadData();
         }
 
         private void LoadData()
         {
-            if (!GroupState.IsGroupLoaded)
+            if (!GroupState.IsGroupLoaded) //Check of werkelijk groep geselecteerd
             {
-                //failsafe
                 MessageBox.Show("No group selected");
                 NavService.ToHomePage();
                 return;
@@ -79,7 +78,7 @@ namespace donely_Inspilab.Pages.Group
                 if (answer == MessageBoxResult.Yes)
                 {
                     GroupMemberService.KickMember(selectedMember);
-                    GroupState.LoadedGroup.Members.Remove(selectedMember); //reloading full list, just to be sure
+                    GroupState.LoadedGroup.Members.Remove(selectedMember); //removing member from the list
                     lsvMembersOverview.Items.Refresh();
                 }
             }
