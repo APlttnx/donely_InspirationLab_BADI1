@@ -38,7 +38,7 @@ namespace donely_Inspilab.Pages.Shop
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(TxtName.Text) ||
-                string.IsNullOrWhiteSpace(TxtDescription.Text) ||
+                //string.IsNullOrWhiteSpace(TxtDescription.Text) ||
                 !int.TryParse(TxtPrice.Text, out int price) ||
                 !int.TryParse(TxtLimit.Text, out int limit))
             {
