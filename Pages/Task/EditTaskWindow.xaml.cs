@@ -62,7 +62,9 @@ namespace donely_Inspilab.Pages.Task {
                     && (TaskFrequency)cmbFrequency.SelectedItem == TaskToEdit.Frequency
                     && (bool)cbValidation.IsChecked == TaskToEdit.RequiresValidation)
                 {
-                    throw new ArgumentException("No changes detected, update not required.");
+                    this.DialogResult = false;
+                    this.Close();
+                    return;
                 }
                 if (string.IsNullOrEmpty(txtTaskName.Text))
                     throw new ArgumentException("Not all required fields are filled in.");
