@@ -54,6 +54,8 @@ namespace donely_Inspilab.Classes
         //Voor gebruik bij Listviews
         public string DeadlineDisplay => DateFormatter.FormatDate(Deadline);
         public string IssueDateDisplay => DateFormatter.FormatDate(IssueDate);
-        public string CompletionDateDisplay => DateFormatter.FormatDate((DateTime)CompletionDate);
+        public string CompletionDateDisplay => CompletionDate != null
+             ? DateFormatter.FormatDate(CompletionDate.Value)
+             : string.Empty;
     }
 }
